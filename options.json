@@ -1,0 +1,37 @@
+[
+    {
+        "name": "#OFFSET",
+        "scope": "LLSIF",
+        "type": "slider",
+        "def": 0,
+        "min": -500,
+        "max": 500,
+        "step": 1,
+        "display": "number"
+    },
+    {
+        "name": "#SPEED",
+        "type": "slider",
+        "def": 1,
+        "min": 0.5,
+        "max": 1.5,
+        "step": 0.05,
+        "display": "percentage"
+    },
+    {
+        "name": "#NOTE_SPEED",
+        "scope": "LLSIF",
+        "type": "slider",
+        "def": 9,
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "display": "number"
+    },
+    {
+        "name": "#EFFECT",
+        "scope": "LLSIF",
+        "type": "toggle",
+        "def": 1
+    }
+]

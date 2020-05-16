@@ -1,0 +1,815 @@
+//
+// LLSIF Engine
+// For Sonolus 0.3.1.0
+//
+// A recreation of Love Live! School Idol Festival engine
+// By Burrito
+//
+
+
+
+// Note Class
+
+IsNoteHeadOnScreen:LessOr(Subtract(NoteHeadTime Time) NoteScreenTime)
+IsNoteTailOnScreen:LessOr(Subtract(NoteTailTime Time) NoteScreenTime)
+
+InitNoteHead:Execute(
+    Set(EntityMemory *NoteHeadX Multiply(Get(LevelMemory Add(*NoteMultiplierX NoteHeadLane)) StageRadius))
+    Set(EntityMemory *NoteHeadY Multiply(Get(LevelMemory Add(*NoteMultiplierY NoteHeadLane)) StageRadius))
+    Set(EntityMemory *NoteHeadX1 Add(
+        NoteHeadX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteHeadLane)))
+    ))
+    Set(EntityMemory *NoteHeadX2 Add(
+        NoteHeadX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteHeadLane)) -1)
+    ))
+    Set(EntityMemory *NoteHeadY1 Add(
+        NoteHeadY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteHeadLane)) -1)
+    ))
+    Set(EntityMemory *NoteHeadY2 Add(
+        NoteHeadY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteHeadLane)))
+    ))
+)
+InitNoteTail:Execute(
+    Set(EntityMemory *NoteTailX Multiply(Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)) StageRadius))
+    Set(EntityMemory *NoteTailY Multiply(Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)) StageRadius))
+    Set(EntityMemory *NoteTailX1 Add(
+        NoteTailX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)))
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)))
+    ))
+    Set(EntityMemory *NoteTailX2 Add(
+        NoteTailX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)))
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)) -1)
+    ))
+    Set(EntityMemory *NoteTailX3 Add(
+        NoteTailX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)) -1)
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)) -1)
+    ))
+    Set(EntityMemory *NoteTailX4 Add(
+        NoteTailX
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)) -1)
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)))
+    ))
+    Set(EntityMemory *NoteTailY1 Add(
+        NoteTailY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)) -1)
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)))
+    ))
+    Set(EntityMemory *NoteTailY2 Add(
+        NoteTailY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)) -1)
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)) -1)
+    ))
+    Set(EntityMemory *NoteTailY3 Add(
+        NoteTailY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)))
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)) -1)
+    ))
+    Set(EntityMemory *NoteTailY4 Add(
+        NoteTailY
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierX NoteTailLane)))
+        Multiply(NoteRadius Get(LevelMemory Add(*NoteMultiplierY NoteTailLane)))
+    ))
+
+    And(
+        NoteMarkerTexture
+        Execute(
+            If(
+                Not(NoteMarkerDirection)
+                Execute(
+                    Set(EntityMemory *NoteMarkerX1 Subtract(NoteTailX NoteRadius))
+                    Set(EntityMemory *NoteMarkerX2 Subtract(NoteTailX NoteRadius))
+                    Set(EntityMemory *NoteMarkerX3 Add(NoteTailX NoteRadius))
+                    Set(EntityMemory *NoteMarkerX4 Add(NoteTailX NoteRadius))
+                    Set(EntityMemory *NoteMarkerY1 Subtract(NoteTailY NoteRadius))
+                    Set(EntityMemory *NoteMarkerY2 Add(NoteTailY NoteRadius))
+                    Set(EntityMemory *NoteMarkerY3 Add(NoteTailY NoteRadius))
+                    Set(EntityMemory *NoteMarkerY4 Subtract(NoteTailY NoteRadius))
+                )
+                If(
+                    Equal(NoteMarkerDirection MarkerLeft)
+                    Execute(
+                        Set(EntityMemory *NoteMarkerX1 NoteTailX4)
+                        Set(EntityMemory *NoteMarkerX2 NoteTailX1)
+                        Set(EntityMemory *NoteMarkerX3 NoteTailX2)
+                        Set(EntityMemory *NoteMarkerX4 NoteTailX3)
+                        Set(EntityMemory *NoteMarkerY1 NoteTailY4)
+                        Set(EntityMemory *NoteMarkerY2 NoteTailY1)
+                        Set(EntityMemory *NoteMarkerY3 NoteTailY2)
+                        Set(EntityMemory *NoteMarkerY4 NoteTailY3)
+                    )
+                    Execute(
+                        Set(EntityMemory *NoteMarkerX1 NoteTailX2)
+                        Set(EntityMemory *NoteMarkerX2 NoteTailX3)
+                        Set(EntityMemory *NoteMarkerX3 NoteTailX4)
+                        Set(EntityMemory *NoteMarkerX4 NoteTailX1)
+                        Set(EntityMemory *NoteMarkerY1 NoteTailY2)
+                        Set(EntityMemory *NoteMarkerY2 NoteTailY3)
+                        Set(EntityMemory *NoteMarkerY3 NoteTailY4)
+                        Set(EntityMemory *NoteMarkerY4 NoteTailY1)
+                    )
+                )
+            )
+        )
+    )
+)
+
+IsNoteTailInGoodWindow:LessOr(Subtract(NoteTailTime Subtract(Time InputOffset)) GoodWindow)
+
+IsTouchInHitArea:And(
+    TempTouchInLane
+    Equal(TempTouchLane NoteTailLane)
+)
+
+UpdateNoteHeadTimeDistance:Set(EntityMemory *NoteHeadTimeDistance Subtract(Time NoteHeadTime))
+UpdateNoteTailTimeDistance:Set(EntityMemory *NoteTailTimeDistance Subtract(Time NoteTailTime))
+
+UpdateNoteTailScale:Set(EntityMemory *NoteTailScale Add(Divide(NoteTailTimeDistance NoteScreenTime) 1))
+
+DrawNoteTail:Execute(
+    Draw(
+        NoteTailTexture
+        Multiply(NoteTailX1 NoteTailScale) Add(Multiply(NoteTailY1 NoteTailScale) StageYCenter)
+        Multiply(NoteTailX2 NoteTailScale) Add(Multiply(NoteTailY2 NoteTailScale) StageYCenter)
+        Multiply(NoteTailX3 NoteTailScale) Add(Multiply(NoteTailY3 NoteTailScale) StageYCenter)
+        Multiply(NoteTailX4 NoteTailScale) Add(Multiply(NoteTailY4 NoteTailScale) StageYCenter)
+        LayerNoteBody
+        1
+    )
+
+    And(
+        NoteMarkerTexture
+        Draw(
+            NoteMarkerTexture
+            Multiply(NoteMarkerX1 NoteTailScale) Add(Multiply(NoteMarkerY1 NoteTailScale) StageYCenter)
+            Multiply(NoteMarkerX2 NoteTailScale) Add(Multiply(NoteMarkerY2 NoteTailScale) StageYCenter)
+            Multiply(NoteMarkerX3 NoteTailScale) Add(Multiply(NoteMarkerY3 NoteTailScale) StageYCenter)
+            Multiply(NoteMarkerX4 NoteTailScale) Add(Multiply(NoteMarkerY4 NoteTailScale) StageYCenter)
+            LayerNoteMarker
+            1
+        )
+    )
+)
+
+PlayTapEffect:Spawn(
+    5
+    Time
+    NoteTailLane
+)
+
+PlayJudgmentSound:And(
+    SoundEffect
+    Play(Judgment MinEffectTime)
+)
+
+
+
+// #0: Initialization
+
+#0.updateSequential:Execute(
+    Set(
+        LevelMemory
+        *StageHeight
+        If(
+            GreaterOr(AspectRatio TargetAspectRatio)
+            2
+            Divide(AspectRatio TargetAspectRatio 0.5)
+        )
+    )
+    Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
+    Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
+    Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1))
+
+    Set(EntityMemory *Looper -4)
+    While(
+        LessOr(Looper 4)
+        Set(LevelMemory Add(*NoteMultiplierX Looper) Sin(Multiply(PI 0.125 Looper)))
+        Set(LevelMemory Add(*NoteMultiplierY Looper) Multiply(-1 Cos(Multiply(PI 0.125 Looper))))
+        Set(EntityMemory *Looper Add(Looper 1))
+    )
+
+    Set(
+        LevelMemory
+        *NoteScreenTime
+        If(
+            GreaterOr(NoteSpeed 6)
+            Subtract(1.6 Multiply(0.1 NoteSpeed))
+            If(
+                GreaterOr(NoteSpeed 2)
+                Subtract(1.9 Multiply(0.15 NoteSpeed))
+                1.8
+            )
+        )
+    )
+
+    true
+)
+
+
+
+// #1: Stage
+
+#1.shouldSpawn:Equal(Get(EntityInfoArray *State) Despawned)
+
+#1.initialize:Execute(
+    Set(EntityMemory *MinTouchRadius Subtract(StageRadius Multiply(NoteRadius 2)))
+    Set(EntityMemory *MaxTouchRadius Add(StageRadius Multiply(NoteRadius 2)))
+)
+
+#1.touch:Execute(
+    Set(
+        TemporaryMemory
+        *TempTouchRadius
+        Power(Add(Multiply(TempTouchX TempTouchX) Multiply(Subtract(TempTouchY StageYCenter) Subtract(TempTouchY StageYCenter))) 0.5)
+    )
+    And(
+        GreaterOr(TempTouchRadius MinTouchRadius)
+        LessOr(TempTouchRadius MaxTouchRadius)
+        Set(TemporaryMemory *TempTouchInLane true)
+    )
+    Set(TemporaryMemory *TempTouchLane Add(Round(Divide(Arctan2(Subtract(TempTouchY StageYCenter) TempTouchX) PI 0.125)) 4))
+    And(
+        Greater(TempTouchLane 8)
+        Set(TemporaryMemory *TempTouchLane Subtract(TempTouchLane 16))
+    )
+)
+
+#1.updateParallel:Execute(
+    Set(EntityMemory *Looper -4)
+    While(
+        LessOr(Looper 4)
+        Set(EntityMemory *SlotX Multiply(Get(LevelMemory Add(*NoteMultiplierX Looper)) StageRadius))
+        Set(EntityMemory *SlotY Add(StageYCenter Multiply(Get(LevelMemory Add(*NoteMultiplierY Looper)) StageRadius)))
+        Draw(
+            TextureNoteSlot
+            Subtract(SlotX NoteRadius) Subtract(SlotY NoteRadius)
+            Subtract(SlotX NoteRadius) Add(SlotY NoteRadius)
+            Add(SlotX NoteRadius) Add(SlotY NoteRadius)
+            Add(SlotX NoteRadius) Subtract(SlotY NoteRadius)
+            LayerSlot
+            1
+        )
+        Set(EntityMemory *Looper Add(Looper 1))
+    )
+)
+
+
+
+// #2: Tap Note
+
+#2.shouldSpawn:IsNoteTailOnScreen
+
+#2.initialize:InitNoteTail
+
+#2.touch:And(
+    Not(InputState)
+    IsNoteTailInGoodWindow
+    TempTouchStarted
+    Not(TempTouchOccupied)
+    IsTouchInHitArea
+    Execute(
+        Set(TemporaryMemory *TempTouchOccupied true)
+        Set(EntityMemory *InputState Terminated)
+        Set(EntitySharedMemory *InputSuccess true)
+        Set(EntitySharedMemory *InputTouchID TempTouchID)
+        Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchST InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+        PlayTapEffect
+        PlayJudgmentSound
+    )
+)
+
+#2.updateParallel:Execute(
+    UpdateNoteTailTimeDistance
+    Or(
+        Equal(InputState Terminated)
+        Greater(Subtract(NoteTailTimeDistance InputOffset) GoodWindow)
+        Execute(
+            UpdateNoteTailScale
+            DrawNoteTail
+        )
+    )
+)
+
+
+
+// #3: Hold Release Note
+
+#3.shouldSpawn:IsNoteHeadOnScreen
+
+#3.initialize:Execute(
+    InitNoteHead
+    InitNoteTail
+)
+
+#3.touch:Execute(
+    And(
+        Not(InputState)
+        NoteHeadInputSuccess
+        Equal(TempTouchID NoteHeadInputTouchID)
+        Not(TempTouchEnded)
+        Execute(
+            Set(TemporaryMemory *TempTouchOccupied true)
+            Set(EntityMemory *InputState Activated)
+            Set(EntitySharedMemory *InputTouchID TempTouchID)
+        )
+    )
+    And(
+        InputState
+        NotEqual(InputState Terminated)
+        Equal(TempTouchID InputTouchID)
+        Execute(
+            Set(TemporaryMemory *TempTouchOccupied true)
+            Or(
+                And(
+                    IsNoteTailInGoodWindow
+                    TempTouchEnded
+                    IsTouchInHitArea
+                    Execute(
+                        Set(EntityMemory *InputState Terminated)
+                        Set(EntitySharedMemory *InputSuccess true)
+                        Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchT InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+                        PlayTapEffect
+                        PlayJudgmentSound
+                        true
+                    )
+                )
+                And(
+                    Or(
+                        TempTouchEnded
+                        Greater(Subtract(Time InputOffset NoteTailTime) GoodWindow)
+                    )
+                    Set(EntityMemory *InputState Terminated)
+                )
+            )
+        )
+    )
+)
+
+#3.updateParallel:Execute(
+    UpdateNoteHeadTimeDistance
+    UpdateNoteTailTimeDistance
+    Or(
+        And(
+            Not(InputState)
+            Greater(Subtract(NoteHeadTimeDistance InputOffset) GoodWindow)
+        )
+        Equal(InputState Terminated)
+        Execute(
+            UpdateNoteTailScale
+
+            And(
+                Greater(NoteTailTime Time)
+                Execute(
+                    If(
+                        InputState
+                        Execute(
+                            Set(EntityMemory *NoteHeadScale 1)
+
+                            Draw(
+                                NoteHeadTexture
+                                NoteTailX1 Add(NoteTailY1 StageYCenter)
+                                NoteTailX2 Add(NoteTailY2 StageYCenter)
+                                NoteTailX3 Add(NoteTailY3 StageYCenter)
+                                NoteTailX4 Add(NoteTailY4 StageYCenter)
+                                LayerNoteBody
+                                1
+                            )
+                        )
+                        Set(EntityMemory *NoteHeadScale Add(Divide(NoteHeadTimeDistance NoteScreenTime) 1))
+                    )
+
+                    Set(EntityMemory *NoteTailScale Max(0 NoteTailScale))
+
+                    Draw(
+                        NoteSlideTexture
+                        Multiply(NoteHeadX1 NoteHeadScale) Add(Multiply(NoteHeadY1 NoteHeadScale) StageYCenter)
+                        Multiply(NoteHeadX1 NoteTailScale) Add(Multiply(NoteHeadY1 NoteTailScale) StageYCenter)
+                        Multiply(NoteHeadX2 NoteTailScale) Add(Multiply(NoteHeadY2 NoteTailScale) StageYCenter)
+                        Multiply(NoteHeadX2 NoteHeadScale) Add(Multiply(NoteHeadY2 NoteHeadScale) StageYCenter)
+                        LayerNoteSlide
+                        1
+                    )
+                )
+            )
+
+            And(
+                IsNoteTailOnScreen
+                DrawNoteTail
+            )
+        )
+    )
+)
+
+
+
+// #4: Swing Note
+
+#4.shouldSpawn:IsNoteTailOnScreen
+
+#4.initialize:InitNoteTail
+
+#4.touch:And(
+    Not(InputState)
+    IsNoteTailInGoodWindow
+    IsTouchInHitArea
+    Execute(
+        Set(EntityMemory *InputState Terminated)
+        Set(EntitySharedMemory *InputSuccess true)
+        Set(EntitySharedMemory *InputTouchID TempTouchID)
+        Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+        PlayTapEffect
+        PlayJudgmentSound
+    )
+)
+
+#4.updateParallel:Execute(
+    UpdateNoteTailTimeDistance
+    Or(
+        Equal(InputState Terminated)
+        Greater(Subtract(NoteTailTimeDistance InputOffset) GoodWindow)
+        Execute(
+            UpdateNoteTailScale
+            DrawNoteTail
+        )
+    )
+)
+
+
+
+// #5: Tap Effect
+
+#5.initialize:Execute(
+    Set(EntityMemory *EffectX Multiply(Get(LevelMemory Add(*NoteMultiplierX EffectLane)) StageRadius))
+    Set(EntityMemory *EffectY Add(Multiply(Get(LevelMemory Add(*NoteMultiplierY EffectLane)) StageRadius) StageYCenter))
+)
+
+#5.updateParallel:Execute(
+    Set(EntityMemory *EffectTimeDistance Subtract(Time EffectTime))
+    Or(
+        GreaterOr(EffectTimeDistance 0.5)
+        Execute(
+            Set(EntityMemory *EffectScale Divide(EffectTimeDistance 0.5))
+            Set(EntityMemory *EffectRadius Multiply(NoteRadius Add(1 EffectScale)))
+            Draw(
+                TextureEffectCB
+                Subtract(EffectX EffectRadius) Subtract(EffectY EffectRadius)
+                Subtract(EffectX EffectRadius) Add(EffectY EffectRadius)
+                Add(EffectX EffectRadius) Add(EffectY EffectRadius)
+                Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
+                LayerEffectCB
+                Subtract(1 EffectScale)
+            )
+            Draw(
+                TextureEffectCF
+                Subtract(EffectX EffectRadius) Subtract(EffectY EffectRadius)
+                Subtract(EffectX EffectRadius) Add(EffectY EffectRadius)
+                Add(EffectX EffectRadius) Add(EffectY EffectRadius)
+                Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
+                LayerEffectCF
+                Subtract(1 EffectScale)
+            )
+        )
+    )
+)
+
+
+
+// Constant
+
+true:1
+false:0
+
+PI:3.14159265
+
+Waiting:0
+Spawned:1
+Despawned:2
+
+Waiting:0
+Activated:1
+Terminated:2
+
+PhaseBegan:1
+PhaseStationary:2
+PhaseMoved:3
+PhaseEnded:4
+
+MarkerLeft:1
+MarkerRight:2
+
+PerfectWindow:0.05
+GreatWindow:0.1
+GoodWindow:0.15
+
+TargetAspectRatio:1.5
+
+MinEffectTime:0.02
+
+LayerNoteMarker:101
+LayerNoteBody:100
+LayerNoteSlide:99
+LayerEffectCF:51
+LayerEffectCB:50
+LayerSlot:0
+
+
+
+// Texture identifiers
+
+TextureNoteSlot:41001
+TextureEffectCB:31000
+TextureEffectCF:32000
+
+
+
+// Block identifiers
+
+LevelMemory:0
+LevelData:1
+LevelOption:2
+LevelTransform:3
+LevelBackground:4
+
+EntityInfoArray:10
+EntityDataArray:11
+EntitySharedMemoryArray:12
+
+EntityInfo:20
+EntityMemory:21
+EntityData:22
+EntityInput:23
+EntitySharedMemory:24
+
+TemporaryMemory:100
+TemporaryData:101
+
+
+
+// Level Memory Layout
+
+*StageHeight:0
+*StageRadius:1
+*StageYCenter:2
+*NoteRadius:3
+*NoteScreenTime:4
+*NoteMultiplierX:110
+*NoteMultiplierY:120
+
+StageHeight:Get(LevelMemory *StageHeight)
+StageRadius:Get(LevelMemory *StageRadius)
+StageYCenter:Get(LevelMemory *StageYCenter)
+NoteRadius:Get(LevelMemory *NoteRadius)
+NoteScreenTime:Get(LevelMemory *NoteScreenTime)
+
+
+
+// Level Data Layout
+
+*Time:0
+*DeltaTime:1
+*AspectRatio:2
+*AudioOffset:3
+*InputOffset:4
+
+Time:Get(LevelData *Time)
+DeltaTime:Get(LevelData *DeltaTime)
+AspectRatio:Get(LevelData *AspectRatio)
+AudioOffset:Get(LevelData *AudioOffset)
+InputOffset:Get(LevelData *InputOffset)
+
+
+
+// Level Option Layout
+
+*Offset:0
+*Speed:1
+*NoteSpeed:2
+*SoundEffect:3
+
+Offset:Get(LevelOption *Offset)
+Speed:Get(LevelOption *Speed)
+NoteSpeed:Get(LevelOption *NoteSpeed)
+SoundEffect:Get(LevelOption *SoundEffect)
+
+
+
+// Entity Info Layout
+
+*Index:0
+*Archetype:1
+*State:2
+
+Index:Get(EntityInfo *Index)
+Archetype:Get(EntityInfo *Archetype)
+State:Get(EntityInfo *State)
+
+
+
+// Entity Input Layout
+
+*Judgment:0
+
+Judgment:Get(EntityInput *Judgment)
+
+
+
+// Touch Temporary Memory Layout
+
+*TempTouchOccupied:0
+*TempTouchRadius:1
+*TempTouchInLane:2
+*TempTouchLane:3
+
+TempTouchOccupied:Get(TemporaryMemory *TempTouchOccupied)
+TempTouchRadius:Get(TemporaryMemory *TempTouchRadius)
+TempTouchInLane:Get(TemporaryMemory *TempTouchInLane)
+TempTouchLane:Get(TemporaryMemory *TempTouchLane)
+
+
+// Touch Temporary Data Layout
+
+*TempTouchID:0
+*TempTouchStarted:1
+*TempTouchEnded:2
+*TempTouchT:3
+*TempTouchST:4
+*TempTouchX:5
+*TempTouchY:6
+*TempTouchSX:7
+*TempTouchSY:8
+*TempTouchDX:9
+*TempTouchDY:10
+*TempTouchVX:11
+*TempTouchVY:12
+*TempTouchVR:13
+*TempTouchVW:14
+
+TempTouchID:Get(TemporaryData *TempTouchID)
+TempTouchStarted:Get(TemporaryData *TempTouchStarted)
+TempTouchEnded:Get(TemporaryData *TempTouchEnded)
+TempTouchT:Get(TemporaryData *TempTouchT)
+TempTouchST:Get(TemporaryData *TempTouchST)
+TempTouchX:Get(TemporaryData *TempTouchX)
+TempTouchY:Get(TemporaryData *TempTouchY)
+TempTouchSX:Get(TemporaryData *TempTouchSX)
+TempTouchSY:Get(TemporaryData *TempTouchSY)
+TempTouchDX:Get(TemporaryData *TempTouchDX)
+TempTouchDY:Get(TemporaryData *TempTouchDY)
+TempTouchVX:Get(TemporaryData *TempTouchVX)
+TempTouchVY:Get(TemporaryData *TempTouchVY)
+TempTouchVR:Get(TemporaryData *TempTouchVR)
+TempTouchVW:Get(TemporaryData *TempTouchVW)
+
+
+
+// Entity Memory Layout
+
+*Looper:63
+
+Looper:Get(EntityMemory *Looper)
+
+
+
+// #1 Memory Layout
+
+*SlotX:0
+*SlotY:1
+*MinTouchRadius:2
+*MaxTouchRadius:3
+
+SlotX:Get(EntityMemory *SlotX)
+SlotY:Get(EntityMemory *SlotY)
+MinTouchRadius:Get(EntityMemory *MinTouchRadius)
+MaxTouchRadius:Get(EntityMemory *MaxTouchRadius)
+
+
+
+// Note Class Memory Layout
+
+*InputState:32
+*NoteHeadTimeDistance:33
+*NoteHeadScale:34
+*NoteHeadX:35
+*NoteHeadX1:36
+*NoteHeadX2:37
+*NoteHeadY:38
+*NoteHeadY1:39
+*NoteHeadY2:40
+*NoteTailTimeDistance:41
+*NoteTailScale:42
+*NoteTailX:43
+*NoteTailX1:44
+*NoteTailX2:45
+*NoteTailX3:46
+*NoteTailX4:47
+*NoteTailY:48
+*NoteTailY1:49
+*NoteTailY2:50
+*NoteTailY3:51
+*NoteTailY4:52
+*NoteMarkerX1:53
+*NoteMarkerX2:54
+*NoteMarkerX3:55
+*NoteMarkerX4:56
+*NoteMarkerY1:57
+*NoteMarkerY2:58
+*NoteMarkerY3:59
+*NoteMarkerY4:60
+
+InputState:Get(EntityMemory *InputState)
+NoteHeadTimeDistance:Get(EntityMemory *NoteHeadTimeDistance)
+NoteHeadScale:Get(EntityMemory *NoteHeadScale)
+NoteHeadX:Get(EntityMemory *NoteHeadX)
+NoteHeadX1:Get(EntityMemory *NoteHeadX1)
+NoteHeadX2:Get(EntityMemory *NoteHeadX2)
+NoteHeadY:Get(EntityMemory *NoteHeadY)
+NoteHeadY1:Get(EntityMemory *NoteHeadY1)
+NoteHeadY2:Get(EntityMemory *NoteHeadY2)
+NoteTailTimeDistance:Get(EntityMemory *NoteTailTimeDistance)
+NoteTailScale:Get(EntityMemory *NoteTailScale)
+NoteTailX:Get(EntityMemory *NoteTailX)
+NoteTailX1:Get(EntityMemory *NoteTailX1)
+NoteTailX2:Get(EntityMemory *NoteTailX2)
+NoteTailX3:Get(EntityMemory *NoteTailX3)
+NoteTailX4:Get(EntityMemory *NoteTailX4)
+NoteTailY:Get(EntityMemory *NoteTailY)
+NoteTailY1:Get(EntityMemory *NoteTailY1)
+NoteTailY2:Get(EntityMemory *NoteTailY2)
+NoteTailY3:Get(EntityMemory *NoteTailY3)
+NoteTailY4:Get(EntityMemory *NoteTailY4)
+NoteMarkerX1:Get(EntityMemory *NoteMarkerX1)
+NoteMarkerX2:Get(EntityMemory *NoteMarkerX2)
+NoteMarkerX3:Get(EntityMemory *NoteMarkerX3)
+NoteMarkerX4:Get(EntityMemory *NoteMarkerX4)
+NoteMarkerY1:Get(EntityMemory *NoteMarkerY1)
+NoteMarkerY2:Get(EntityMemory *NoteMarkerY2)
+NoteMarkerY3:Get(EntityMemory *NoteMarkerY3)
+NoteMarkerY4:Get(EntityMemory *NoteMarkerY4)
+
+
+
+// Note Class Shared Memory Layout
+
+*InputSuccess:0
+*InputTouchID:1
+
+InputSuccess:Get(EntitySharedMemory *InputSuccess)
+InputTouchID:Get(EntitySharedMemory *InputTouchID)
+
+NoteHeadInputSuccess:Get(EntitySharedMemoryArray Add(NoteHeadSharedMemoryOffset *InputSuccess))
+NoteHeadInputTouchID:Get(EntitySharedMemoryArray Add(NoteHeadSharedMemoryOffset *InputTouchID))
+
+
+
+// Note Class Data Layout
+
+*NoteHeadIndex:0
+*NoteTailTime:1
+*NoteTailLane:2
+*NoteMarkerDirection:3
+*NoteMarkerTexture:4
+*NoteHeadTexture:5
+*NoteSlideTexture:6
+*NoteTailTexture:7
+
+NoteHeadIndex:Get(EntityData *NoteHeadIndex)
+NoteTailTime:Divide(Get(EntityData *NoteTailTime) Speed)
+NoteTailLane:Get(EntityData *NoteTailLane)
+NoteMarkerDirection:Get(EntityData *NoteMarkerDirection)
+NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
+NoteHeadTexture:Get(EntityData *NoteHeadTexture)
+NoteSlideTexture:Get(EntityData *NoteSlideTexture)
+NoteTailTexture:Get(EntityData *NoteTailTexture)
+
+NoteHeadInfoOffset:Multiply(NoteHeadIndex 3)
+NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
+NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
+
+NoteHeadTime:Divide(Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailTime)) Speed)
+NoteHeadLane:Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailLane))
+
+
+
+// #5 Memory Layout
+
+*EffectTime:0
+*EffectLane:1
+*EffectX:2
+*EffectY:3
+*EffectTimeDistance:4
+*EffectScale:5
+*EffectRadius:6
+
+EffectTime:Get(EntityMemory *EffectTime)
+EffectLane:Get(EntityMemory *EffectLane)
+EffectX:Get(EntityMemory *EffectX)
+EffectY:Get(EntityMemory *EffectY)
+EffectTimeDistance:Get(EntityMemory *EffectTimeDistance)
+EffectScale:Get(EntityMemory *EffectScale)
+EffectRadius:Get(EntityMemory *EffectRadius)
