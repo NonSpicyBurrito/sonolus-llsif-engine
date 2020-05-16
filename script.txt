@@ -503,9 +503,9 @@ PhaseEnded:4
 MarkerLeft:1
 MarkerRight:2
 
-PerfectWindow:0.05
-GreatWindow:0.1
-GoodWindow:0.15
+PerfectWindow:0.032
+GreatWindow:0.08
+GoodWindow:0.128
 
 TargetAspectRatio:1.5
 
