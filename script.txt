@@ -233,11 +233,7 @@ PlayJudgmentSound:And(
         LessOr(TempTouchRadius MaxTouchRadius)
         Set(TemporaryMemory *TempTouchInLane true)
     )
-    Set(TemporaryMemory *TempTouchLane Add(Round(Divide(Arctan2(Subtract(TempTouchY StageYCenter) TempTouchX) PI 0.125)) 4))
-    And(
-        Greater(TempTouchLane 8)
-        Set(TemporaryMemory *TempTouchLane Subtract(TempTouchLane 16))
-    )
+    Set(TemporaryMemory *TempTouchLane Round(Divide(Degree(Arctan2(TempTouchX Subtract(StageYCenter TempTouchY))) 22.5)))
 )
 
 #1.updateParallel:Execute(
