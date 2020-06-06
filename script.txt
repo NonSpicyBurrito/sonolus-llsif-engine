@@ -122,11 +122,6 @@ InitNoteTail:Execute(
 
 IsNoteTailInGoodWindow:LessOr(Subtract(NoteTailTime Subtract(Time InputOffset)) GoodWindow)
 
-IsTouchInHitArea:And(
-    TempTouchInLane
-    Equal(TempTouchLane NoteTailLane)
-)
-
 UpdateNoteHeadTimeDistance:Set(EntityMemory *NoteHeadTimeDistance Subtract(Time NoteHeadTime))
 UpdateNoteTailTimeDistance:Set(EntityMemory *NoteTailTimeDistance Subtract(Time NoteTailTime))
 
@@ -234,6 +229,19 @@ PlayJudgmentSound:And(
         Set(TemporaryMemory *TempTouchInLane true)
     )
     Set(TemporaryMemory *TempTouchLane Round(Divide(Degree(Arctan2(TempTouchX Subtract(StageYCenter TempTouchY))) 22.5)))
+    Set(TemporaryMemory *TempTouchCrossLane Round(Divide(Degree(Arctan2(Subtract(TempTouchX TempTouchDX) Subtract(StageYCenter Subtract(TempTouchY TempTouchDY)))) 22.5)))
+    Set(
+        TemporaryMemory
+        *TempTouchCrossLane
+        If(
+            Or(
+                TempTouchStarted
+                NotEqual(TempTouchLane TempTouchCrossLane)
+            )
+            TempTouchLane
+            100
+        )
+    )
 )
 
 #1.updateParallel:Execute(
@@ -268,7 +276,8 @@ PlayJudgmentSound:And(
     IsNoteTailInGoodWindow
     TempTouchStarted
     Not(TempTouchOccupied)
-    IsTouchInHitArea
+    TempTouchInLane
+    Equal(TempTouchLane NoteTailLane)
     Execute(
         Set(TemporaryMemory *TempTouchOccupied true)
         Set(EntityMemory *InputState Terminated)
@@ -412,12 +421,14 @@ PlayJudgmentSound:And(
 #4.touch:And(
     Not(InputState)
     IsNoteTailInGoodWindow
-    IsTouchInHitArea
+    Not(TempTouchOccupied)
+    TempTouchInLane
+    Equal(TempTouchCrossLane NoteTailLane)
     Execute(
         Set(EntityMemory *InputState Terminated)
         Set(EntitySharedMemory *InputSuccess true)
         Set(EntitySharedMemory *InputTouchID TempTouchID)
-        Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+        Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime GreatWindow GoodWindow BadWindow))
         PlayTapEffect
         PlayJudgmentSound
     )
@@ -501,6 +512,7 @@ MarkerRight:2
 PerfectWindow:0.0512
 GreatWindow:0.128
 GoodWindow:0.2048
+BadWindow:0.3584
 
 TargetAspectRatio:1.5
 
@@ -620,11 +632,13 @@ Judgment:Get(EntityInput *Judgment)
 *TempTouchRadius:1
 *TempTouchInLane:2
 *TempTouchLane:3
+*TempTouchCrossLane:4
 
 TempTouchOccupied:Get(TemporaryMemory *TempTouchOccupied)
 TempTouchRadius:Get(TemporaryMemory *TempTouchRadius)
 TempTouchInLane:Get(TemporaryMemory *TempTouchInLane)
 TempTouchLane:Get(TemporaryMemory *TempTouchLane)
+TempTouchCrossLane:Get(TemporaryMemory *TempTouchCrossLane)
 
 
 // Touch Temporary Data Layout
