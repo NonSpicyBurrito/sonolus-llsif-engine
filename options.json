@@ -11,6 +11,7 @@
     },
     {
         "name": "#SPEED",
+        "standard": true,
         "type": "slider",
         "def": 1,
         "min": 0.5,
