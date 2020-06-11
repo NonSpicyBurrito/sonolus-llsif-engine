@@ -330,7 +330,7 @@ PlayJudgmentSound:And(
         Equal(TempTouchID InputTouchID)
         Execute(
             Set(TemporaryMemory *TempTouchOccupied true)
-            Or(
+            Execute(
                 And(
                     IsNoteTailInGoodWindow
                     TempTouchEnded
@@ -344,10 +344,7 @@ PlayJudgmentSound:And(
                     )
                 )
                 And(
-                    Or(
-                        TempTouchEnded
-                        Greater(Subtract(Time InputOffset NoteTailTime) GoodWindow)
-                    )
+                    TempTouchEnded
                     Set(EntityMemory *InputState Terminated)
                 )
             )
@@ -364,6 +361,7 @@ PlayJudgmentSound:And(
             Greater(Subtract(NoteHeadTimeDistance InputOffset) GoodWindow)
         )
         Equal(InputState Terminated)
+        Greater(Subtract(NoteTailTimeDistance InputOffset) GoodWindow)
         Execute(
             UpdateNoteTailScale
 
