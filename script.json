@@ -1,4 +1,134 @@
 {
+    "buckets": [
+        {
+            "sprites": [
+                {
+                    "id": 1001,
+                    "x": 0,
+                    "y": 0,
+                    "w": 2,
+                    "h": 2,
+                    "rotation": 0
+                }
+            ],
+            "windows": [
+                {
+                    "min": -51.2,
+                    "max": 51.2
+                },
+                {
+                    "min": -128,
+                    "max": 128
+                },
+                {
+                    "min": -204.8,
+                    "max": 204.8
+                }
+            ]
+        },
+        {
+            "sprites": [
+                {
+                    "id": 1001,
+                    "x": 0,
+                    "y": 0,
+                    "w": 2,
+                    "h": 2,
+                    "rotation": 0
+                },
+                {
+                    "id": 21001,
+                    "x": 0,
+                    "y": 0,
+                    "w": 2,
+                    "h": 2,
+                    "rotation": -90
+                }
+            ],
+            "windows": [
+                {
+                    "min": -128,
+                    "max": 128
+                },
+                {
+                    "min": -204.8,
+                    "max": 204.8
+                },
+                {
+                    "min": -358.4,
+                    "max": 358.4
+                }
+            ]
+        },
+        {
+            "sprites": [
+                {
+                    "id": 11001,
+                    "x": 0.5,
+                    "y": 0,
+                    "w": 2,
+                    "h": 5,
+                    "rotation": -90
+                },
+                {
+                    "id": 1001,
+                    "x": -2,
+                    "y": 0,
+                    "w": 2,
+                    "h": 2,
+                    "rotation": 0
+                }
+            ],
+            "windows": [
+                {
+                    "min": -51.2,
+                    "max": 51.2
+                },
+                {
+                    "min": -128,
+                    "max": 128
+                },
+                {
+                    "min": -204.8,
+                    "max": 204.8
+                }
+            ]
+        },
+        {
+            "sprites": [
+                {
+                    "id": 11001,
+                    "x": -0.5,
+                    "y": 0,
+                    "w": 2,
+                    "h": 5,
+                    "rotation": -90
+                },
+                {
+                    "id": 3001,
+                    "x": 2,
+                    "y": 0,
+                    "w": 2,
+                    "h": 2,
+                    "rotation": 0
+                }
+            ],
+            "windows": [
+                {
+                    "min": -51.2,
+                    "max": 51.2
+                },
+                {
+                    "min": -128,
+                    "max": 128
+                },
+                {
+                    "min": -204.8,
+                    "max": 204.8
+                }
+            ]
+        }
+    ],
     "entities": [
         {
             "archetype": 0
@@ -16,15 +146,35 @@
         },
         {
             "script": 2,
-            "input": true
+            "input": true,
+            "data": {
+                "index": 8,
+                "values": [1]
+            }
+        },
+        {
+            "script": 2,
+            "input": true,
+            "data": {
+                "index": 8,
+                "values": [3]
+            }
         },
         {
             "script": 3,
-            "input": true
+            "input": true,
+            "data": {
+                "index": 8,
+                "values": [4]
+            }
         },
         {
             "script": 4,
-            "input": true
+            "input": true,
+            "data": {
+                "index": 8,
+                "values": [2]
+            }
         }
     ]
 }

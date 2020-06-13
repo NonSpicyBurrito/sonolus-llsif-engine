@@ -339,6 +339,8 @@ PlayJudgmentSound:And(
         Set(EntitySharedMemory *InputSuccess true)
         Set(EntitySharedMemory *InputTouchID TempTouchID)
         Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchST InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+        Set(EntityInput *Bucket NoteBucket)
+        Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchST InputOffset NoteTailTime)))
         PlayTapEffect
         PlayJudgmentSound
     )
@@ -393,6 +395,8 @@ PlayJudgmentSound:And(
                         Set(EntityMemory *InputState Terminated)
                         Set(EntitySharedMemory *InputSuccess true)
                         Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchT InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+                        Set(EntityInput *Bucket NoteBucket)
+                        Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchT InputOffset NoteTailTime)))
                         PlayTapEffect
                         PlayJudgmentSound
                         true
@@ -482,6 +486,8 @@ PlayJudgmentSound:And(
         Set(EntitySharedMemory *InputSuccess true)
         Set(EntitySharedMemory *InputTouchID TempTouchID)
         Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime GreatWindow GoodWindow BadWindow))
+        Set(EntityInput *Bucket NoteBucket)
+        Set(EntityInput *BucketValue Multiply(1000 Subtract(Time InputOffset NoteTailTime)))
         PlayTapEffect
         PlayJudgmentSound
     )
@@ -700,8 +706,12 @@ State:Get(EntityInfo *State)
 // Entity Input Layout
 
 *Judgment:0
+*Bucket:1
+*BucketValue:2
 
 Judgment:Get(EntityInput *Judgment)
+Bucket:Get(EntityInput *Bucket)
+BucketValue:Get(EntityInput *BucketValue)
 
 
 
@@ -865,6 +875,7 @@ NoteHeadInputTouchID:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffs
 *NoteHeadTexture:5
 *NoteSlideTexture:6
 *NoteTailTexture:7
+*NoteBucket:8
 
 NoteHeadIndex:Get(EntityData *NoteHeadIndex)
 NoteTailTime:Divide(Add(Get(EntityData *NoteTailTime) NoteTimeOffset) Speed)
@@ -874,6 +885,7 @@ NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
 NoteHeadTexture:Get(EntityData *NoteHeadTexture)
 NoteSlideTexture:Get(EntityData *NoteSlideTexture)
 NoteTailTexture:Get(EntityData *NoteTailTexture)
+NoteBucket:Get(EntityData *NoteBucket)
 
 NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
 NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
