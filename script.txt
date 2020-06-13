@@ -1,6 +1,6 @@
 //
 // LLSIF Engine
-// For Sonolus 0.3.1.0
+// For Sonolus 0.3.5
 //
 // A recreation of Love Live! School Idol Festival engine
 // By Burrito
@@ -202,6 +202,60 @@ PlayJudgmentSound:And(
             )
         )
     )
+
+    SetShifted(LevelUI *UIMenu *UIAnchorX Subtract(AspectRatio 0.05))
+    SetShifted(LevelUI *UIMenu *UIAnchorY 0.95)
+    SetShifted(LevelUI *UIMenu *UIPivotX 1)
+    SetShifted(LevelUI *UIMenu *UIPivotY 1)
+    SetShifted(LevelUI *UIMenu *UIWidth 0.15)
+    SetShifted(LevelUI *UIMenu *UIHeight 0.15)
+    SetShifted(LevelUI *UIMenu *UIAlpha 1)
+    SetShifted(LevelUI *UIMenu *UIBackground true)
+
+    SetShifted(LevelUI *UIJudgment *UIAnchorX 0)
+    SetShifted(LevelUI *UIJudgment *UIAnchorY Multiply(StageHeight -0.1))
+    SetShifted(LevelUI *UIJudgment *UIPivotX 0.5)
+    SetShifted(LevelUI *UIJudgment *UIPivotY 0.5)
+    SetShifted(LevelUI *UIJudgment *UIWidth 0.8)
+    SetShifted(LevelUI *UIJudgment *UIHeight 0.2)
+    SetShifted(LevelUI *UIJudgment *UIAlpha 1)
+    SetShifted(LevelUI *UIJudgment *UIVerticalAlign -1)
+
+    SetShifted(LevelUI *UIComboValue *UIAnchorX 0)
+    SetShifted(LevelUI *UIComboValue *UIAnchorY Multiply(StageHeight 0.25))
+    SetShifted(LevelUI *UIComboValue *UIPivotX 0.5)
+    SetShifted(LevelUI *UIComboValue *UIPivotY 0.5)
+    SetShifted(LevelUI *UIComboValue *UIWidth 0.5)
+    SetShifted(LevelUI *UIComboValue *UIHeight 0.25)
+    SetShifted(LevelUI *UIComboValue *UIAlpha 1)
+    SetShifted(LevelUI *UIComboValue *UIVerticalAlign -1)
+
+    SetShifted(LevelUI *UIComboText *UIAnchorX 0)
+    SetShifted(LevelUI *UIComboText *UIAnchorY Multiply(StageHeight 0.25))
+    SetShifted(LevelUI *UIComboText *UIPivotX 0.5)
+    SetShifted(LevelUI *UIComboText *UIPivotY 1.5)
+    SetShifted(LevelUI *UIComboText *UIWidth 0.5)
+    SetShifted(LevelUI *UIComboText *UIHeight 0.25)
+    SetShifted(LevelUI *UIComboText *UIAlpha 1)
+    SetShifted(LevelUI *UIComboText *UIVerticalAlign 1)
+
+    SetShifted(LevelUI *UIScoreBar *UIAnchorX Subtract(0.05 AspectRatio))
+    SetShifted(LevelUI *UIScoreBar *UIAnchorY 0.95)
+    SetShifted(LevelUI *UIScoreBar *UIPivotX 0)
+    SetShifted(LevelUI *UIScoreBar *UIPivotY 1)
+    SetShifted(LevelUI *UIScoreBar *UIWidth Subtract(Multiply(AspectRatio 2) 0.3))
+    SetShifted(LevelUI *UIScoreBar *UIHeight 0.15)
+    SetShifted(LevelUI *UIScoreBar *UIAlpha 1)
+    SetShifted(LevelUI *UIScoreBar *UIHorizontalAlign -1)
+    SetShifted(LevelUI *UIScoreBar *UIBackground true)
+
+    SetShifted(LevelUI *UIScoreValue *UIAnchorX 0)
+    SetShifted(LevelUI *UIScoreValue *UIAnchorY 0.95)
+    SetShifted(LevelUI *UIScoreValue *UIPivotX 0.5)
+    SetShifted(LevelUI *UIScoreValue *UIPivotY 1)
+    SetShifted(LevelUI *UIScoreValue *UIWidth 0.6)
+    SetShifted(LevelUI *UIScoreValue *UIHeight 0.15)
+    SetShifted(LevelUI *UIScoreValue *UIAlpha 1)
 
     true
 )
@@ -540,6 +594,7 @@ LevelData:1
 LevelOption:2
 LevelTransform:3
 LevelBackground:4
+LevelUI:5
 
 EntityInfoArray:10
 EntityDataArray:11
@@ -601,6 +656,29 @@ Offset:Get(LevelOption *Offset)
 Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
 SoundEffect:Get(LevelOption *SoundEffect)
+
+
+
+// Level UI Layout
+
+*UIMenu:0
+*UIJudgment:11
+*UIComboValue:22
+*UIComboText:33
+*UIScoreBar:44
+*UIScoreValue:55
+
+*UIAnchorX:0
+*UIAnchorY:1
+*UIPivotX:2
+*UIPivotY:3
+*UIWidth:4
+*UIHeight:5
+*UIRotation:6
+*UIAlpha:7
+*UIHorizontalAlign:8
+*UIVerticalAlign:9
+*UIBackground:10
 
 
 
