@@ -180,6 +180,7 @@ PlayJudgmentSound:And(
     Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
     Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
     Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1))
+    Set(LevelMemory *NoteTimeOffset Divide(Offset 1000))
 
     Set(EntityMemory *Looper -4)
     While(
@@ -618,6 +619,7 @@ TemporaryData:101
 *StageYCenter:2
 *NoteRadius:3
 *NoteScreenTime:4
+*NoteTimeOffset:5
 *NoteMultiplierX:110
 *NoteMultiplierY:120
 
@@ -626,6 +628,7 @@ StageRadius:Get(LevelMemory *StageRadius)
 StageYCenter:Get(LevelMemory *StageYCenter)
 NoteRadius:Get(LevelMemory *NoteRadius)
 NoteScreenTime:Get(LevelMemory *NoteScreenTime)
+NoteTimeOffset:Get(LevelMemory *NoteTimeOffset)
 
 
 
@@ -864,7 +867,7 @@ NoteHeadInputTouchID:Get(EntitySharedMemoryArray Add(NoteHeadSharedMemoryOffset 
 *NoteTailTexture:7
 
 NoteHeadIndex:Get(EntityData *NoteHeadIndex)
-NoteTailTime:Divide(Get(EntityData *NoteTailTime) Speed)
+NoteTailTime:Divide(Add(Get(EntityData *NoteTailTime) NoteTimeOffset) Speed)
 NoteTailLane:Get(EntityData *NoteTailLane)
 NoteMarkerDirection:Get(EntityData *NoteMarkerDirection)
 NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
@@ -876,7 +879,7 @@ NoteHeadInfoOffset:Multiply(NoteHeadIndex 3)
 NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
 NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
 
-NoteHeadTime:Divide(Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailTime)) Speed)
+NoteHeadTime:Divide(Add(Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailTime)) NoteTimeOffset) Speed)
 NoteHeadLane:Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailLane))
 
 

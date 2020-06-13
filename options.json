@@ -1,7 +1,6 @@
 [
     {
         "name": "#OFFSET",
-        "scope": "LLSIF",
         "type": "slider",
         "def": 0,
         "min": -500,
