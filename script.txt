@@ -850,8 +850,8 @@ NoteMarkerY4:Get(EntityMemory *NoteMarkerY4)
 InputSuccess:Get(EntitySharedMemory *InputSuccess)
 InputTouchID:Get(EntitySharedMemory *InputTouchID)
 
-NoteHeadInputSuccess:Get(EntitySharedMemoryArray Add(NoteHeadSharedMemoryOffset *InputSuccess))
-NoteHeadInputTouchID:Get(EntitySharedMemoryArray Add(NoteHeadSharedMemoryOffset *InputTouchID))
+NoteHeadInputSuccess:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffset *InputSuccess)
+NoteHeadInputTouchID:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffset *InputTouchID)
 
 
 
@@ -875,12 +875,11 @@ NoteHeadTexture:Get(EntityData *NoteHeadTexture)
 NoteSlideTexture:Get(EntityData *NoteSlideTexture)
 NoteTailTexture:Get(EntityData *NoteTailTexture)
 
-NoteHeadInfoOffset:Multiply(NoteHeadIndex 3)
 NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
 NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
 
-NoteHeadTime:Divide(Add(Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailTime)) NoteTimeOffset) Speed)
-NoteHeadLane:Get(EntityDataArray Add(NoteHeadDataOffset *NoteTailLane))
+NoteHeadTime:Divide(Add(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailTime) NoteTimeOffset) Speed)
+NoteHeadLane:GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLane)
 
 
 
