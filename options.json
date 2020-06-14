@@ -55,6 +55,12 @@
         "display": "percentage"
     },
     {
+        "name": "#MIRROR",
+        "standard": true,
+        "type": "toggle",
+        "def": 0
+    },
+    {
         "name": "#EFFECT",
         "scope": "LLSIF",
         "type": "toggle",

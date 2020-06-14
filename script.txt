@@ -195,6 +195,7 @@ PlayJudgmentSound:And(
     Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
     Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1 NoteSize))
     Set(LevelMemory *NoteTimeOffset Divide(Offset 1000))
+    Set(LevelMemory *MirrorMultiplier If(Mirror -1 1))
 
     Set(EntityMemory *Looper -4)
     While(
@@ -626,8 +627,8 @@ PhaseStationary:2
 PhaseMoved:3
 PhaseEnded:4
 
-MarkerLeft:1
-MarkerRight:2
+MarkerLeft:-1
+MarkerRight:1
 
 PerfectWindow:0.0512
 GreatWindow:0.128
@@ -703,6 +704,7 @@ TemporaryData:101
 *NoteRadius:3
 *NoteScreenTime:4
 *NoteTimeOffset:5
+*MirrorMultiplier:6
 *NoteMultiplierX:110
 *NoteMultiplierY:120
 
@@ -712,6 +714,7 @@ StageYCenter:Get(LevelMemory *StageYCenter)
 NoteRadius:Get(LevelMemory *NoteRadius)
 NoteScreenTime:Get(LevelMemory *NoteScreenTime)
 NoteTimeOffset:Get(LevelMemory *NoteTimeOffset)
+MirrorMultiplier:Get(LevelMemory *MirrorMultiplier)
 
 
 
@@ -739,7 +742,8 @@ InputOffset:Get(LevelData *InputOffset)
 *NoteSpeed:3
 *NoteSize:4
 *ConnectorAlpha:5
-*SoundEffect:6
+*Mirror:6
+*SoundEffect:7
 
 Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
@@ -747,6 +751,7 @@ Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
 NoteSize:Get(LevelOption *NoteSize)
 ConnectorAlpha:Get(LevelOption *ConnectorAlpha)
+Mirror:Get(LevelOption *Mirror)
 SoundEffect:Get(LevelOption *SoundEffect)
 
 
@@ -962,8 +967,8 @@ NoteHeadInputTouchID:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffs
 
 NoteHeadIndex:Get(EntityData *NoteHeadIndex)
 NoteTailTime:Divide(Add(Get(EntityData *NoteTailTime) NoteTimeOffset) Speed)
-NoteTailLane:Get(EntityData *NoteTailLane)
-NoteMarkerDirection:Get(EntityData *NoteMarkerDirection)
+NoteTailLane:Multiply(Get(EntityData *NoteTailLane) MirrorMultiplier)
+NoteMarkerDirection:Multiply(Get(EntityData *NoteMarkerDirection) MirrorMultiplier)
 NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
 NoteHeadTexture:Get(EntityData *NoteHeadTexture)
 NoteSlideTexture:Get(EntityData *NoteSlideTexture)
@@ -974,7 +979,7 @@ NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
 NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
 
 NoteHeadTime:Divide(Add(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailTime) NoteTimeOffset) Speed)
-NoteHeadLane:GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLane)
+NoteHeadLane:Multiply(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLane) MirrorMultiplier)
 
 
 
