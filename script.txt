@@ -238,27 +238,27 @@ PlayJudgmentSound:And(
     SetShifted(LevelUI *UIJudgment *UIAnchorY Multiply(StageHeight -0.1))
     SetShifted(LevelUI *UIJudgment *UIPivotX 0.5)
     SetShifted(LevelUI *UIJudgment *UIPivotY 0.5)
-    SetShifted(LevelUI *UIJudgment *UIWidth 0.8)
-    SetShifted(LevelUI *UIJudgment *UIHeight 0.2)
-    SetShifted(LevelUI *UIJudgment *UIAlpha 1)
+    SetShifted(LevelUI *UIJudgment *UIWidth Multiply(0.8 UIJudgmentSize))
+    SetShifted(LevelUI *UIJudgment *UIHeight Multiply(0.2 UIJudgmentSize))
+    SetShifted(LevelUI *UIJudgment *UIAlpha UIJudgmentAlpha)
     SetShifted(LevelUI *UIJudgment *UIVerticalAlign -1)
 
     SetShifted(LevelUI *UIComboValue *UIAnchorX 0)
     SetShifted(LevelUI *UIComboValue *UIAnchorY Multiply(StageHeight 0.25))
     SetShifted(LevelUI *UIComboValue *UIPivotX 0.5)
     SetShifted(LevelUI *UIComboValue *UIPivotY 0.5)
-    SetShifted(LevelUI *UIComboValue *UIWidth 0.5)
-    SetShifted(LevelUI *UIComboValue *UIHeight 0.25)
-    SetShifted(LevelUI *UIComboValue *UIAlpha 1)
+    SetShifted(LevelUI *UIComboValue *UIWidth Multiply(0.5 UIComboSize))
+    SetShifted(LevelUI *UIComboValue *UIHeight Multiply(0.25 UIComboSize))
+    SetShifted(LevelUI *UIComboValue *UIAlpha UIComboAlpha)
     SetShifted(LevelUI *UIComboValue *UIVerticalAlign -1)
 
     SetShifted(LevelUI *UIComboText *UIAnchorX 0)
     SetShifted(LevelUI *UIComboText *UIAnchorY Multiply(StageHeight 0.25))
     SetShifted(LevelUI *UIComboText *UIPivotX 0.5)
     SetShifted(LevelUI *UIComboText *UIPivotY 1.5)
-    SetShifted(LevelUI *UIComboText *UIWidth 0.5)
-    SetShifted(LevelUI *UIComboText *UIHeight 0.25)
-    SetShifted(LevelUI *UIComboText *UIAlpha 1)
+    SetShifted(LevelUI *UIComboText *UIWidth Multiply(0.5 UIComboSize))
+    SetShifted(LevelUI *UIComboText *UIHeight Multiply(0.25 UIComboSize))
+    SetShifted(LevelUI *UIComboText *UIAlpha UIComboAlpha)
     SetShifted(LevelUI *UIComboText *UIVerticalAlign 1)
 
     SetShifted(LevelUI *UIScoreBar *UIAnchorX Subtract(0.05 AspectRatio))
@@ -751,6 +751,10 @@ InputOffset:Get(LevelData *InputOffset)
 *Mirror:6
 *SoundEffect:7
 *NoteEffect:8
+*UIJudgmentSize:9
+*UIJudgmentAlpha:10
+*UIComboSize:11
+*UIComboAlpha:12
 
 Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
@@ -761,6 +765,10 @@ ConnectorAlpha:Get(LevelOption *ConnectorAlpha)
 Mirror:Get(LevelOption *Mirror)
 SoundEffect:Get(LevelOption *SoundEffect)
 NoteEffect:Get(LevelOption *NoteEffect)
+UIJudgmentSize:Get(LevelOption *UIJudgmentSize)
+UIJudgmentAlpha:Get(LevelOption *UIJudgmentAlpha)
+UIComboSize:Get(LevelOption *UIComboSize)
+UIComboAlpha:Get(LevelOption *UIComboAlpha)
 
 
 
