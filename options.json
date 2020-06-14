@@ -65,5 +65,11 @@
         "scope": "LLSIF",
         "type": "toggle",
         "def": 1
+    },
+    {
+        "name": "#NOTE_EFFECT",
+        "scope": "LLSIF",
+        "type": "toggle",
+        "def": 1
     }
 ]

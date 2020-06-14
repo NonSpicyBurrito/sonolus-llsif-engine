@@ -161,15 +161,21 @@ DrawNoteTail:Execute(
     )
 )
 
-PlayTapEffect:Spawn(
-    5
-    Time
-    NoteTailLane
+PlayTapEffect:And(
+    NoteEffect
+    Spawn(
+        5
+        Time
+        NoteTailLane
+    )
 )
-PlayAutoTapEffect:Spawn(
-    5
-    Time
-    NoteTailLane
+PlayAutoTapEffect:And(
+    NoteEffect
+    Spawn(
+        5
+        Time
+        NoteTailLane
+    )
 )
 
 PlayJudgmentSound:And(
@@ -744,6 +750,7 @@ InputOffset:Get(LevelData *InputOffset)
 *ConnectorAlpha:5
 *Mirror:6
 *SoundEffect:7
+*NoteEffect:8
 
 Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
@@ -753,6 +760,7 @@ NoteSize:Get(LevelOption *NoteSize)
 ConnectorAlpha:Get(LevelOption *ConnectorAlpha)
 Mirror:Get(LevelOption *Mirror)
 SoundEffect:Get(LevelOption *SoundEffect)
+NoteEffect:Get(LevelOption *NoteEffect)
 
 
 
