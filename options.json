@@ -1,5 +1,11 @@
 [
     {
+        "name": "#AUTO",
+        "standard": true,
+        "type": "toggle",
+        "def": 0
+    },
+    {
         "name": "#OFFSET",
         "type": "slider",
         "def": 0,

@@ -120,6 +120,15 @@ InitNoteTail:Execute(
     )
 )
 
+InitAuto:And(
+    Auto
+    Execute(
+        PlayScheduled(EffectPerfect NoteTailTime MinEffectTime)
+        Set(EntityInput *Judgment JudgmentPerfect)
+        Set(EntityInput *Bucket NoteBucket)
+    )
+)
+
 IsNoteTailInGoodWindow:LessOr(Subtract(NoteTailTime Subtract(Time InputOffset)) GoodWindow)
 
 UpdateNoteHeadTimeDistance:Set(EntityMemory *NoteHeadTimeDistance Subtract(Time NoteHeadTime))
@@ -153,6 +162,11 @@ DrawNoteTail:Execute(
 )
 
 PlayTapEffect:Spawn(
+    5
+    Time
+    NoteTailLane
+)
+PlayAutoTapEffect:Spawn(
     5
     Time
     NoteTailLane
@@ -324,31 +338,45 @@ PlayJudgmentSound:And(
 
 #2.shouldSpawn:IsNoteTailOnScreen
 
-#2.initialize:InitNoteTail
+#2.initialize:Execute(
+    InitNoteTail
+    InitAuto
+)
 
-#2.touch:And(
-    Not(InputState)
-    IsNoteTailInGoodWindow
-    TempTouchStarted
-    Not(TempTouchOccupied)
-    TempTouchInLane
-    Equal(TempTouchLane NoteTailLane)
-    Execute(
-        Set(TemporaryMemory *TempTouchOccupied true)
-        Set(EntityMemory *InputState Terminated)
-        Set(EntitySharedMemory *InputSuccess true)
-        Set(EntitySharedMemory *InputTouchID TempTouchID)
-        Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchST InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
-        Set(EntityInput *Bucket NoteBucket)
-        Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchST InputOffset NoteTailTime)))
-        PlayTapEffect
-        PlayJudgmentSound
+#2.touch:Or(
+    Auto
+    And(
+        Not(InputState)
+        IsNoteTailInGoodWindow
+        TempTouchStarted
+        Not(TempTouchOccupied)
+        TempTouchInLane
+        Equal(TempTouchLane NoteTailLane)
+        Execute(
+            Set(TemporaryMemory *TempTouchOccupied true)
+            Set(EntityMemory *InputState Terminated)
+            Set(EntitySharedMemory *InputSuccess true)
+            Set(EntitySharedMemory *InputTouchID TempTouchID)
+            Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchST InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+            Set(EntityInput *Bucket NoteBucket)
+            Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchST InputOffset NoteTailTime)))
+            PlayTapEffect
+            PlayJudgmentSound
+        )
     )
 )
 
 #2.updateParallel:Execute(
     UpdateNoteTailTimeDistance
     Or(
+        And(
+            Auto
+            GreaterOr(Time NoteTailTime)
+            Execute(
+                PlayAutoTapEffect
+                true
+            )
+        )
         Equal(InputState Terminated)
         Greater(Subtract(NoteTailTimeDistance InputOffset) GoodWindow)
         Execute(
@@ -367,44 +395,48 @@ PlayJudgmentSound:And(
 #3.initialize:Execute(
     InitNoteHead
     InitNoteTail
+    InitAuto
 )
 
-#3.touch:Execute(
-    And(
-        Not(InputState)
-        NoteHeadInputSuccess
-        Equal(TempTouchID NoteHeadInputTouchID)
-        Not(TempTouchEnded)
-        Execute(
-            Set(TemporaryMemory *TempTouchOccupied true)
-            Set(EntityMemory *InputState Activated)
-            Set(EntitySharedMemory *InputTouchID TempTouchID)
-        )
-    )
-    And(
-        InputState
-        NotEqual(InputState Terminated)
-        Equal(TempTouchID InputTouchID)
-        Execute(
-            Set(TemporaryMemory *TempTouchOccupied true)
+#3.touch:Or(
+    Auto
+    Execute(
+        And(
+            Not(InputState)
+            NoteHeadInputSuccess
+            Equal(TempTouchID NoteHeadInputTouchID)
+            Not(TempTouchEnded)
             Execute(
-                And(
-                    IsNoteTailInGoodWindow
-                    TempTouchEnded
-                    Execute(
-                        Set(EntityMemory *InputState Terminated)
-                        Set(EntitySharedMemory *InputSuccess true)
-                        Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchT InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
-                        Set(EntityInput *Bucket NoteBucket)
-                        Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchT InputOffset NoteTailTime)))
-                        PlayTapEffect
-                        PlayJudgmentSound
-                        true
+                Set(TemporaryMemory *TempTouchOccupied true)
+                Set(EntityMemory *InputState Activated)
+                Set(EntitySharedMemory *InputTouchID TempTouchID)
+            )
+        )
+        And(
+            InputState
+            NotEqual(InputState Terminated)
+            Equal(TempTouchID InputTouchID)
+            Execute(
+                Set(TemporaryMemory *TempTouchOccupied true)
+                Execute(
+                    And(
+                        IsNoteTailInGoodWindow
+                        TempTouchEnded
+                        Execute(
+                            Set(EntityMemory *InputState Terminated)
+                            Set(EntitySharedMemory *InputSuccess true)
+                            Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchT InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+                            Set(EntityInput *Bucket NoteBucket)
+                            Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchT InputOffset NoteTailTime)))
+                            PlayTapEffect
+                            PlayJudgmentSound
+                            true
+                        )
                     )
-                )
-                And(
-                    TempTouchEnded
-                    Set(EntityMemory *InputState Terminated)
+                    And(
+                        TempTouchEnded
+                        Set(EntityMemory *InputState Terminated)
+                    )
                 )
             )
         )
@@ -416,6 +448,15 @@ PlayJudgmentSound:And(
     UpdateNoteTailTimeDistance
     Or(
         And(
+            Auto
+            GreaterOr(Time NoteTailTime)
+            Execute(
+                PlayAutoTapEffect
+                true
+            )
+        )
+        And(
+            Not(Auto)
             Not(InputState)
             Greater(Subtract(NoteHeadTimeDistance InputOffset) GoodWindow)
         )
@@ -428,7 +469,13 @@ PlayJudgmentSound:And(
                 Greater(NoteTailTime Time)
                 Execute(
                     If(
-                        InputState
+                        Or(
+                            InputState
+                            And(
+                                Auto
+                                GreaterOr(Time NoteHeadTime)
+                            )
+                        )
                         Execute(
                             Set(EntityMemory *NoteHeadScale 1)
 
@@ -473,29 +520,43 @@ PlayJudgmentSound:And(
 
 #4.shouldSpawn:IsNoteTailOnScreen
 
-#4.initialize:InitNoteTail
+#4.initialize:Execute(
+    InitNoteTail
+    InitAuto
+)
 
-#4.touch:And(
-    Not(InputState)
-    IsNoteTailInGoodWindow
-    Not(TempTouchOccupied)
-    TempTouchInLane
-    Equal(TempTouchCrossLane NoteTailLane)
-    Execute(
-        Set(EntityMemory *InputState Terminated)
-        Set(EntitySharedMemory *InputSuccess true)
-        Set(EntitySharedMemory *InputTouchID TempTouchID)
-        Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime GreatWindow GoodWindow BadWindow))
-        Set(EntityInput *Bucket NoteBucket)
-        Set(EntityInput *BucketValue Multiply(1000 Subtract(Time InputOffset NoteTailTime)))
-        PlayTapEffect
-        PlayJudgmentSound
+#4.touch:Or(
+    Auto
+    And(
+        Not(InputState)
+        IsNoteTailInGoodWindow
+        Not(TempTouchOccupied)
+        TempTouchInLane
+        Equal(TempTouchCrossLane NoteTailLane)
+        Execute(
+            Set(EntityMemory *InputState Terminated)
+            Set(EntitySharedMemory *InputSuccess true)
+            Set(EntitySharedMemory *InputTouchID TempTouchID)
+            Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime GreatWindow GoodWindow BadWindow))
+            Set(EntityInput *Bucket NoteBucket)
+            Set(EntityInput *BucketValue Multiply(1000 Subtract(Time InputOffset NoteTailTime)))
+            PlayTapEffect
+            PlayJudgmentSound
+        )
     )
 )
 
 #4.updateParallel:Execute(
     UpdateNoteTailTimeDistance
     Or(
+        And(
+            Auto
+            GreaterOr(Time NoteTailTime)
+            Execute(
+                PlayAutoTapEffect
+                true
+            )
+        )
         Equal(InputState Terminated)
         Greater(Subtract(NoteTailTimeDistance InputOffset) GoodWindow)
         Execute(
@@ -584,6 +645,11 @@ LayerEffectCF:51
 LayerEffectCB:50
 LayerSlot:0
 
+JudgmentMiss:0
+JudgmentPerfect:1
+JudgmentGreat:2
+JudgmentGood:3
+
 
 
 // Texture identifiers
@@ -591,6 +657,17 @@ LayerSlot:0
 TextureNoteSlot:41001
 TextureEffectCB:31000
 TextureEffectCF:32000
+
+
+
+// Effect identifiers
+
+EffectMiss:0
+EffectPerfect:1
+EffectGreat:2
+EffectGood:3
+EffectFlick:4
+EffectEmpty:5
 
 
 
@@ -656,11 +733,13 @@ InputOffset:Get(LevelData *InputOffset)
 
 // Level Option Layout
 
-*Offset:0
-*Speed:1
-*NoteSpeed:2
-*SoundEffect:3
+*Auto:0
+*Offset:1
+*Speed:2
+*NoteSpeed:3
+*SoundEffect:4
 
+Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
 Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
