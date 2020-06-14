@@ -193,7 +193,7 @@ PlayJudgmentSound:And(
     )
     Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
     Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
-    Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1))
+    Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1 NoteSize))
     Set(LevelMemory *NoteTimeOffset Divide(Offset 1000))
 
     Set(EntityMemory *Looper -4)
@@ -282,8 +282,8 @@ PlayJudgmentSound:And(
 #1.shouldSpawn:Equal(Get(EntityInfoArray *State) Despawned)
 
 #1.initialize:Execute(
-    Set(EntityMemory *MinTouchRadius Subtract(StageRadius Multiply(NoteRadius 2)))
-    Set(EntityMemory *MaxTouchRadius Add(StageRadius Multiply(NoteRadius 2)))
+    Set(EntityMemory *MinTouchRadius Multiply(StageRadius 0.68))
+    Set(EntityMemory *MaxTouchRadius Multiply(StageRadius 1.32))
 )
 
 #1.touch:Execute(
@@ -737,12 +737,14 @@ InputOffset:Get(LevelData *InputOffset)
 *Offset:1
 *Speed:2
 *NoteSpeed:3
-*SoundEffect:4
+*NoteSize:4
+*SoundEffect:5
 
 Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
 Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
+NoteSize:Get(LevelOption *NoteSize)
 SoundEffect:Get(LevelOption *SoundEffect)
 
 
