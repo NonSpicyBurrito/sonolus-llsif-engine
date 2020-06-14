@@ -501,7 +501,7 @@ PlayJudgmentSound:And(
                         Multiply(NoteHeadX2 NoteTailScale) Add(Multiply(NoteHeadY2 NoteTailScale) StageYCenter)
                         Multiply(NoteHeadX2 NoteHeadScale) Add(Multiply(NoteHeadY2 NoteHeadScale) StageYCenter)
                         LayerNoteSlide
-                        1
+                        ConnectorAlpha
                     )
                 )
             )
@@ -738,13 +738,15 @@ InputOffset:Get(LevelData *InputOffset)
 *Speed:2
 *NoteSpeed:3
 *NoteSize:4
-*SoundEffect:5
+*ConnectorAlpha:5
+*SoundEffect:6
 
 Auto:Get(LevelOption *Auto)
 Offset:Get(LevelOption *Offset)
 Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
 NoteSize:Get(LevelOption *NoteSize)
+ConnectorAlpha:Get(LevelOption *ConnectorAlpha)
 SoundEffect:Get(LevelOption *SoundEffect)
 
 
