@@ -250,7 +250,6 @@ PlayJudgmentSound:And(
     SetShifted(LevelUI *UIComboValue *UIWidth Multiply(0.5 UIComboSize))
     SetShifted(LevelUI *UIComboValue *UIHeight Multiply(0.25 UIComboSize))
     SetShifted(LevelUI *UIComboValue *UIAlpha UIComboAlpha)
-    SetShifted(LevelUI *UIComboValue *UIVerticalAlign -1)
 
     SetShifted(LevelUI *UIComboText *UIAnchorX 0)
     SetShifted(LevelUI *UIComboText *UIAnchorY Multiply(StageHeight 0.25))
