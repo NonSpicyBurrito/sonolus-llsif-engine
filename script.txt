@@ -586,7 +586,8 @@ PlayJudgmentSound:And(
         GreaterOr(EffectTimeDistance 0.5)
         Execute(
             Set(EntityMemory *EffectScale Divide(EffectTimeDistance 0.5))
-            Set(EntityMemory *EffectRadius Multiply(NoteRadius Add(1 EffectScale)))
+            Set(EntityMemory *EffectRadius Multiply(NoteRadius Add(1.1 EaseOutCubic(EffectScale))))
+            Set(EntityMemory *EffectAlpha Subtract(1 EaseInCubic(EffectScale)))
             Draw(
                 TextureEffectCB
                 Subtract(EffectX EffectRadius) Subtract(EffectY EffectRadius)
@@ -594,7 +595,7 @@ PlayJudgmentSound:And(
                 Add(EffectX EffectRadius) Add(EffectY EffectRadius)
                 Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
                 LayerEffectCB
-                Subtract(1 EffectScale)
+                EffectAlpha
             )
             Draw(
                 TextureEffectCF
@@ -603,7 +604,7 @@ PlayJudgmentSound:And(
                 Add(EffectX EffectRadius) Add(EffectY EffectRadius)
                 Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
                 LayerEffectCF
-                Subtract(1 EffectScale)
+                EffectAlpha
             )
         )
     )
@@ -1010,6 +1011,7 @@ NoteHeadLane:Multiply(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLan
 *EffectTimeDistance:4
 *EffectScale:5
 *EffectRadius:6
+*EffectAlpha:7
 
 EffectTime:Get(EntityMemory *EffectTime)
 EffectLane:Get(EntityMemory *EffectLane)
@@ -1018,3 +1020,4 @@ EffectY:Get(EntityMemory *EffectY)
 EffectTimeDistance:Get(EntityMemory *EffectTimeDistance)
 EffectScale:Get(EntityMemory *EffectScale)
 EffectRadius:Get(EntityMemory *EffectRadius)
+EffectAlpha:Get(EntityMemory *EffectAlpha)
