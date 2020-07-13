@@ -123,7 +123,10 @@ InitNoteTail:Execute(
 InitAuto:And(
     Auto
     Execute(
-        PlayScheduled(EffectPerfect NoteTailTime MinEffectTime)
+        And(
+            SoundEffect
+            PlayScheduled(EffectPerfect NoteTailTime MinEffectTime)
+        )
         Set(EntityInput *Judgment JudgmentPerfect)
         Set(EntityInput *Bucket NoteBucket)
     )
