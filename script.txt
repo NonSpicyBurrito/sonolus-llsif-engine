@@ -221,11 +221,7 @@ PlayJudgmentSound:And(
         If(
             GreaterOr(NoteSpeed 6)
             Subtract(1.6 Multiply(0.1 NoteSpeed))
-            If(
-                GreaterOr(NoteSpeed 2)
-                Subtract(1.9 Multiply(0.15 NoteSpeed))
-                1.8
-            )
+            Subtract(1.9 Multiply(0.15 NoteSpeed))
         )
     )
 
