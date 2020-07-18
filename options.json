@@ -1,6 +1,7 @@
 [
     {
         "name": "#AUTO",
+        "scope": "LLSIF",
         "standard": true,
         "type": "toggle",
         "def": 0
