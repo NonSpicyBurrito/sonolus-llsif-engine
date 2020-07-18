@@ -634,10 +634,10 @@ PhaseEnded:4
 MarkerLeft:-1
 MarkerRight:1
 
-PerfectWindow:0.0512
-GreatWindow:0.128
-GoodWindow:0.2048
-BadWindow:0.3584
+PerfectWindow:0.032
+GreatWindow:0.08
+GoodWindow:0.128
+BadWindow:0.224
 
 TargetAspectRatio:1.5
 
