@@ -1,6 +1,6 @@
 //
 // LLSIF Engine
-// For Sonolus 0.3.6
+// For Sonolus 0.4.1
 //
 // A recreation of Love Live! School Idol Festival engine
 // By Burrito
@@ -166,18 +166,14 @@ DrawNoteTail:Execute(
 
 PlayTapEffect:And(
     NoteEffect
-    Spawn(
-        5
-        Time
-        NoteTailLane
-    )
-)
-PlayAutoTapEffect:And(
-    NoteEffect
-    Spawn(
-        5
-        Time
-        NoteTailLane
+    SpawnParticleEffect(
+        NoteTapEffect
+        Add(NoteTailX Multiply(NoteRadius -2)) Add(StageYCenter NoteTailY Multiply(NoteRadius -2))
+        Add(NoteTailX Multiply(NoteRadius -2)) Add(StageYCenter NoteTailY Multiply(NoteRadius 2))
+        Add(NoteTailX Multiply(NoteRadius 2)) Add(StageYCenter NoteTailY Multiply(NoteRadius 2))
+        Add(NoteTailX Multiply(NoteRadius 2)) Add(StageYCenter NoteTailY Multiply(NoteRadius -2))
+        0.5
+        0
     )
 )
 
@@ -377,7 +373,7 @@ PlayJudgmentSound:And(
             Auto
             GreaterOr(Time NoteTailTime)
             Execute(
-                PlayAutoTapEffect
+                PlayTapEffect
                 true
             )
         )
@@ -455,7 +451,7 @@ PlayJudgmentSound:And(
             Auto
             GreaterOr(Time NoteTailTime)
             Execute(
-                PlayAutoTapEffect
+                PlayTapEffect
                 true
             )
         )
@@ -557,7 +553,7 @@ PlayJudgmentSound:And(
             Auto
             GreaterOr(Time NoteTailTime)
             Execute(
-                PlayAutoTapEffect
+                PlayTapEffect
                 true
             )
         )
@@ -566,45 +562,6 @@ PlayJudgmentSound:And(
         Execute(
             UpdateNoteTailScale
             DrawNoteTail
-        )
-    )
-)
-
-
-
-// #5: Tap Effect
-
-#5.initialize:Execute(
-    Set(EntityMemory *EffectX Multiply(Get(LevelMemory Add(*NoteMultiplierX EffectLane)) StageRadius))
-    Set(EntityMemory *EffectY Add(Multiply(Get(LevelMemory Add(*NoteMultiplierY EffectLane)) StageRadius) StageYCenter))
-)
-
-#5.updateParallel:Execute(
-    Set(EntityMemory *EffectTimeDistance Subtract(Time EffectTime))
-    Or(
-        GreaterOr(EffectTimeDistance 0.5)
-        Execute(
-            Set(EntityMemory *EffectScale Divide(EffectTimeDistance 0.5))
-            Set(EntityMemory *EffectRadius Multiply(NoteRadius Add(1.1 EaseOutCubic(EffectScale))))
-            Set(EntityMemory *EffectAlpha Subtract(1 EaseInCubic(EffectScale)))
-            Draw(
-                TextureEffectCB
-                Subtract(EffectX EffectRadius) Subtract(EffectY EffectRadius)
-                Subtract(EffectX EffectRadius) Add(EffectY EffectRadius)
-                Add(EffectX EffectRadius) Add(EffectY EffectRadius)
-                Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
-                LayerEffectCB
-                EffectAlpha
-            )
-            Draw(
-                TextureEffectCF
-                Subtract(EffectX EffectRadius) Subtract(EffectY EffectRadius)
-                Subtract(EffectX EffectRadius) Add(EffectY EffectRadius)
-                Add(EffectX EffectRadius) Add(EffectY EffectRadius)
-                Add(EffectX EffectRadius) Subtract(EffectY EffectRadius)
-                LayerEffectCF
-                EffectAlpha
-            )
         )
     )
 )
@@ -646,8 +603,6 @@ MinEffectTime:0.02
 LayerNoteMarker:101
 LayerNoteBody:100
 LayerNoteSlide:99
-LayerEffectCF:51
-LayerEffectCB:50
 LayerSlot:0
 
 JudgmentMiss:0
@@ -660,8 +615,6 @@ JudgmentGood:3
 // Texture identifiers
 
 TextureNoteSlot:41001
-TextureEffectCB:31000
-TextureEffectCF:32000
 
 
 
@@ -981,7 +934,8 @@ NoteHeadInputTouchID:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffs
 *NoteHeadTexture:5
 *NoteSlideTexture:6
 *NoteTailTexture:7
-*NoteBucket:8
+*NoteTapEffect:8
+*NoteBucket:9
 
 NoteHeadIndex:Get(EntityData *NoteHeadIndex)
 NoteTailTime:Divide(Add(Get(EntityData *NoteTailTime) NoteTimeOffset) Speed)
@@ -991,6 +945,7 @@ NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
 NoteHeadTexture:Get(EntityData *NoteHeadTexture)
 NoteSlideTexture:Get(EntityData *NoteSlideTexture)
 NoteTailTexture:Get(EntityData *NoteTailTexture)
+NoteTapEffect:Get(EntityData *NoteTapEffect)
 NoteBucket:Get(EntityData *NoteBucket)
 
 NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
@@ -998,25 +953,3 @@ NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
 
 NoteHeadTime:Divide(Add(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailTime) NoteTimeOffset) Speed)
 NoteHeadLane:Multiply(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLane) MirrorMultiplier)
-
-
-
-// #5 Memory Layout
-
-*EffectTime:0
-*EffectLane:1
-*EffectX:2
-*EffectY:3
-*EffectTimeDistance:4
-*EffectScale:5
-*EffectRadius:6
-*EffectAlpha:7
-
-EffectTime:Get(EntityMemory *EffectTime)
-EffectLane:Get(EntityMemory *EffectLane)
-EffectX:Get(EntityMemory *EffectX)
-EffectY:Get(EntityMemory *EffectY)
-EffectTimeDistance:Get(EntityMemory *EffectTimeDistance)
-EffectScale:Get(EntityMemory *EffectScale)
-EffectRadius:Get(EntityMemory *EffectRadius)
-EffectAlpha:Get(EntityMemory *EffectAlpha)
