@@ -1,6 +1,6 @@
 //
 // LLSIF Engine
-// For Sonolus 0.4.1
+// For Sonolus 0.4.4
 //
 // A recreation of Love Live! School Idol Festival engine
 // By Burrito
@@ -186,41 +186,13 @@ PlayJudgmentSound:And(
 
 // #0: Initialization
 
-#0.updateSequential:Execute(
-    Set(
-        LevelMemory
-        *StageHeight
-        If(
-            GreaterOr(AspectRatio TargetAspectRatio)
-            2
-            Divide(AspectRatio TargetAspectRatio 0.5)
-        )
-    )
-    Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
-    Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
-    Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1 NoteSize))
-    Set(LevelMemory *NoteTimeOffset Divide(LevelAudioOffset 1000))
-    Set(LevelMemory *MirrorMultiplier If(Mirror -1 1))
-    Set(LevelMemory *InputOffset Add(DeviceInputOffset Divide(LevelInputOffset 1000)))
+StageHeight:If(
+    GreaterOr(AspectRatio TargetAspectRatio)
+    2
+    Divide(AspectRatio TargetAspectRatio 0.5)
+)
 
-    Set(EntityMemory *Looper -4)
-    While(
-        LessOr(Looper 4)
-        Set(LevelMemory Add(*NoteMultiplierX Looper) Sin(Multiply(PI 0.125 Looper)))
-        Set(LevelMemory Add(*NoteMultiplierY Looper) Multiply(-1 Cos(Multiply(PI 0.125 Looper))))
-        Set(EntityMemory *Looper Add(Looper 1))
-    )
-
-    Set(
-        LevelMemory
-        *NoteScreenTime
-        If(
-            GreaterOr(NoteSpeed 6)
-            Subtract(1.6 Multiply(0.1 NoteSpeed))
-            Subtract(1.9 Multiply(0.15 NoteSpeed))
-        )
-    )
-
+#0.preprocess:Execute(
     SetShifted(LevelUI *UIMenu *UIAnchorX Subtract(AspectRatio 0.05))
     SetShifted(LevelUI *UIMenu *UIAnchorY 0.95)
     SetShifted(LevelUI *UIMenu *UIPivotX 1)
@@ -271,6 +243,33 @@ PlayJudgmentSound:And(
     SetShifted(LevelUI *UIScoreValue *UIWidth 0.6)
     SetShifted(LevelUI *UIScoreValue *UIHeight 0.15)
     SetShifted(LevelUI *UIScoreValue *UIAlpha 1)
+)
+
+#0.updateSequential:Execute(
+    Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
+    Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
+    Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1 NoteSize))
+    Set(LevelMemory *NoteTimeOffset Divide(LevelAudioOffset 1000))
+    Set(LevelMemory *MirrorMultiplier If(Mirror -1 1))
+    Set(LevelMemory *InputOffset Add(DeviceInputOffset Divide(LevelInputOffset 1000)))
+
+    Set(EntityMemory *Looper -4)
+    While(
+        LessOr(Looper 4)
+        Set(LevelMemory Add(*NoteMultiplierX Looper) Sin(Multiply(PI 0.125 Looper)))
+        Set(LevelMemory Add(*NoteMultiplierY Looper) Multiply(-1 Cos(Multiply(PI 0.125 Looper))))
+        Set(EntityMemory *Looper Add(Looper 1))
+    )
+
+    Set(
+        LevelMemory
+        *NoteScreenTime
+        If(
+            GreaterOr(NoteSpeed 6)
+            Subtract(1.6 Multiply(0.1 NoteSpeed))
+            Subtract(1.9 Multiply(0.15 NoteSpeed))
+        )
+    )
 
     true
 )
@@ -655,7 +654,6 @@ TemporaryData:101
 
 // Level Memory Layout
 
-*StageHeight:0
 *StageRadius:1
 *StageYCenter:2
 *NoteRadius:3
@@ -666,7 +664,6 @@ TemporaryData:101
 *NoteMultiplierX:110
 *NoteMultiplierY:120
 
-StageHeight:Get(LevelMemory *StageHeight)
 StageRadius:Get(LevelMemory *StageRadius)
 StageYCenter:Get(LevelMemory *StageYCenter)
 NoteRadius:Get(LevelMemory *NoteRadius)
