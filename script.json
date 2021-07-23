@@ -73,14 +73,6 @@
             ]
         }
     ],
-    "entities": [
-        {
-            "archetype": 0
-        },
-        {
-            "archetype": 1
-        }
-    ],
     "archetypes": [
         {
             "script": 0
@@ -93,7 +85,7 @@
             "input": true,
             "data": {
                 "index": 9,
-                "values": [1]
+                "values": [0]
             }
         },
         {
@@ -101,7 +93,7 @@
             "input": true,
             "data": {
                 "index": 9,
-                "values": [3]
+                "values": [2]
             }
         },
         {
@@ -109,7 +101,7 @@
             "input": true,
             "data": {
                 "index": 9,
-                "values": [4]
+                "values": [3]
             }
         },
         {
@@ -117,7 +109,7 @@
             "input": true,
             "data": {
                 "index": 9,
-                "values": [2]
+                "values": [1]
             }
         }
     ]

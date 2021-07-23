@@ -285,9 +285,7 @@ StageHeight:If(
     Set(LevelMemory *StageRadius Multiply(StageHeight 0.625))
     Set(LevelMemory *StageYCenter Multiply(StageHeight 0.25))
     Set(LevelMemory *NoteRadius Multiply(StageHeight 0.1 NoteSize))
-    Set(LevelMemory *NoteTimeOffset Divide(LevelAudioOffset 1000))
     Set(LevelMemory *MirrorMultiplier If(Mirror -1 1))
-    Set(LevelMemory *InputOffset Add(DeviceInputOffset Divide(LevelInputOffset 1000)))
 
     Set(EntityMemory *Looper -4)
     While(
@@ -699,9 +697,7 @@ TemporaryData:101
 *StageYCenter:2
 *NoteRadius:3
 *NoteScreenTime:4
-*NoteTimeOffset:5
-*MirrorMultiplier:6
-*InputOffset:7
+*MirrorMultiplier:5
 *NoteMultiplierX:110
 *NoteMultiplierY:120
 
@@ -709,9 +705,7 @@ StageRadius:Get(LevelMemory *StageRadius)
 StageYCenter:Get(LevelMemory *StageYCenter)
 NoteRadius:Get(LevelMemory *NoteRadius)
 NoteScreenTime:Get(LevelMemory *NoteScreenTime)
-NoteTimeOffset:Get(LevelMemory *NoteTimeOffset)
 MirrorMultiplier:Get(LevelMemory *MirrorMultiplier)
-InputOffset:Get(LevelMemory *InputOffset)
 
 
 
@@ -720,37 +714,33 @@ InputOffset:Get(LevelMemory *InputOffset)
 *Time:0
 *DeltaTime:1
 *AspectRatio:2
-*DeviceAudioOffset:3
-*DeviceInputOffset:4
+*AudioOffset:3
+*InputOffset:4
 
 Time:Get(LevelData *Time)
 DeltaTime:Get(LevelData *DeltaTime)
 AspectRatio:Get(LevelData *AspectRatio)
-DeviceAudioOffset:Get(LevelData *DeviceAudioOffset)
-DeviceInputOffset:Get(LevelData *DeviceInputOffset)
+AudioOffset:Get(LevelData *AudioOffset)
+InputOffset:Get(LevelData *InputOffset)
 
 
 
 // Level Option Layout
 
 *Auto:0
-*LevelAudioOffset:1
-*LevelInputOffset:2
-*Speed:3
-*NoteSpeed:4
-*NoteSize:5
-*ConnectorAlpha:6
-*Mirror:7
-*SoundEffect:8
-*NoteEffect:9
-*UIJudgmentSize:10
-*UIJudgmentAlpha:11
-*UIComboSize:12
-*UIComboAlpha:13
+*Speed:1
+*NoteSpeed:2
+*NoteSize:3
+*ConnectorAlpha:4
+*Mirror:5
+*SoundEffect:6
+*NoteEffect:7
+*UIJudgmentSize:8
+*UIJudgmentAlpha:9
+*UIComboSize:10
+*UIComboAlpha:11
 
 Auto:Get(LevelOption *Auto)
-LevelAudioOffset:Get(LevelOption *LevelAudioOffset)
-LevelInputOffset:Get(LevelOption *LevelInputOffset)
 Speed:Get(LevelOption *Speed)
 NoteSpeed:Get(LevelOption *NoteSpeed)
 NoteSize:Get(LevelOption *NoteSize)
@@ -768,13 +758,13 @@ UIComboAlpha:Get(LevelOption *UIComboAlpha)
 // Level UI Layout
 
 *UIMenu:0
-*UIJudgment:11
-*UIComboValue:22
-*UIComboText:33
-*UIScoreBar:44
-*UIScoreValue:55
-*UILifeBar:66
-*UILifeValue:77
+*UIJudgment:10
+*UIComboValue:20
+*UIComboText:30
+*UIScoreBar:40
+*UIScoreValue:50
+*UILifeBar:60
+*UILifeValue:70
 
 *UIAnchorX:0
 *UIAnchorY:1
@@ -785,8 +775,7 @@ UIComboAlpha:Get(LevelOption *UIComboAlpha)
 *UIRotation:6
 *UIAlpha:7
 *UIHorizontalAlign:8
-*UIVerticalAlign:9
-*UIBackground:10
+*UIBackground:9
 
 
 
@@ -1014,7 +1003,7 @@ NoteHeadInputTouchID:GetShifted(EntitySharedMemoryArray NoteHeadSharedMemoryOffs
 *NoteBucket:9
 
 NoteHeadIndex:Get(EntityData *NoteHeadIndex)
-NoteTailTime:Divide(Add(Get(EntityData *NoteTailTime) NoteTimeOffset) Speed)
+NoteTailTime:Divide(Get(EntityData *NoteTailTime) Speed)
 NoteTailLane:Multiply(Get(EntityData *NoteTailLane) MirrorMultiplier)
 NoteMarkerDirection:Multiply(Get(EntityData *NoteMarkerDirection) MirrorMultiplier)
 NoteMarkerTexture:Get(EntityData *NoteMarkerTexture)
@@ -1027,5 +1016,5 @@ NoteBucket:Get(EntityData *NoteBucket)
 NoteHeadDataOffset:Multiply(NoteHeadIndex 32)
 NoteHeadSharedMemoryOffset:Multiply(NoteHeadIndex 32)
 
-NoteHeadTime:Divide(Add(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailTime) NoteTimeOffset) Speed)
+NoteHeadTime:Divide(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailTime) Speed)
 NoteHeadLane:Multiply(GetShifted(EntityDataArray NoteHeadDataOffset *NoteTailLane) MirrorMultiplier)
