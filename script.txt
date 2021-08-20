@@ -369,6 +369,11 @@ StageHeight:If(
 
 // #2: Tap Note
 
+#2.preprocess:Or(
+    Auto
+    Set(EntityInput *Accuracy GoodWindow)
+)
+
 #2.shouldSpawn:IsNoteTailOnScreen
 
 #2.initialize:Execute(
@@ -391,8 +396,9 @@ StageHeight:If(
             Set(EntitySharedMemory *InputSuccess true)
             Set(EntitySharedMemory *InputTouchID TempTouchID)
             Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchST InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+            Set(EntityInput *Accuracy Subtract(TempTouchST InputOffset NoteTailTime))
             Set(EntityInput *Bucket NoteBucket)
-            Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchST InputOffset NoteTailTime)))
+            Set(EntityInput *BucketValue Multiply(1000 Accuracy))
             PlayTapEffect
             PlayJudgmentSound
         )
@@ -422,6 +428,11 @@ StageHeight:If(
 
 
 // #3: Hold Release Note
+
+#3.preprocess:Or(
+    Auto
+    Set(EntityInput *Accuracy GoodWindow)
+)
 
 #3.shouldSpawn:IsNoteHeadOnScreen
 
@@ -459,8 +470,9 @@ StageHeight:If(
                             Set(EntityMemory *InputState Terminated)
                             Set(EntitySharedMemory *InputSuccess true)
                             Set(EntityInput *Judgment JudgeSimple(Subtract(TempTouchT InputOffset) NoteTailTime PerfectWindow GreatWindow GoodWindow))
+                            Set(EntityInput *Accuracy Subtract(TempTouchT InputOffset NoteTailTime))
                             Set(EntityInput *Bucket NoteBucket)
-                            Set(EntityInput *BucketValue Multiply(1000 Subtract(TempTouchT InputOffset NoteTailTime)))
+                            Set(EntityInput *BucketValue Multiply(1000 Accuracy))
                             PlayTapEffect
                             PlayJudgmentSound
                             true
@@ -551,6 +563,11 @@ StageHeight:If(
 
 // #4: Swing Note
 
+#4.preprocess:Or(
+    Auto
+    Set(EntityInput *Accuracy BadWindow)
+)
+
 #4.shouldSpawn:IsNoteTailOnScreen
 
 #4.initialize:Execute(
@@ -571,8 +588,9 @@ StageHeight:If(
             Set(EntitySharedMemory *InputSuccess true)
             Set(EntitySharedMemory *InputTouchID TempTouchID)
             Set(EntityInput *Judgment JudgeSimple(Subtract(Time InputOffset) NoteTailTime GreatWindow GoodWindow BadWindow))
+            Set(EntityInput *Accuracy Subtract(Time InputOffset NoteTailTime))
             Set(EntityInput *Bucket NoteBucket)
-            Set(EntityInput *BucketValue Multiply(1000 Subtract(Time InputOffset NoteTailTime)))
+            Set(EntityInput *BucketValue Multiply(1000 Accuracy))
             PlayTapEffect
             PlayJudgmentSound
         )
@@ -830,10 +848,12 @@ State:Get(EntityInfo *State)
 // Entity Input Layout
 
 *Judgment:0
-*Bucket:1
-*BucketValue:2
+*Accuracy:1
+*Bucket:2
+*BucketValue:3
 
 Judgment:Get(EntityInput *Judgment)
+Accuracy:Get(EntityInput *Accuracy)
 Bucket:Get(EntityInput *Bucket)
 BucketValue:Get(EntityInput *BucketValue)
 
