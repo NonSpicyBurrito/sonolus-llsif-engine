@@ -177,9 +177,9 @@ PlayTapEffect:And(
     )
 )
 
-PlayJudgmentSound:And(
+PlayTapJudgmentSound:And(
     SoundEffect
-    Play(Judgment MinEffectTime)
+    Play(Add(EffectMiss Judgment) MinEffectTime)
 )
 
 
@@ -400,7 +400,7 @@ StageHeight:If(
             Set(EntityInput *Bucket NoteBucket)
             Set(EntityInput *BucketValue Multiply(1000 Accuracy))
             PlayTapEffect
-            PlayJudgmentSound
+            PlayTapJudgmentSound
         )
     )
 )
@@ -474,7 +474,7 @@ StageHeight:If(
                             Set(EntityInput *Bucket NoteBucket)
                             Set(EntityInput *BucketValue Multiply(1000 Accuracy))
                             PlayTapEffect
-                            PlayJudgmentSound
+                            PlayTapJudgmentSound
                             true
                         )
                     )
@@ -592,7 +592,7 @@ StageHeight:If(
             Set(EntityInput *Bucket NoteBucket)
             Set(EntityInput *BucketValue Multiply(1000 Accuracy))
             PlayTapEffect
-            PlayJudgmentSound
+            PlayTapJudgmentSound
         )
     )
 )
@@ -675,8 +675,13 @@ EffectMiss:0
 EffectPerfect:1
 EffectGreat:2
 EffectGood:3
-EffectFlick:4
-EffectEmpty:5
+
+EffectMissAlternative:1000
+EffectPerfectAlternative:1001
+EffectGreatAlternative:1002
+EffectGoodAlternative:1003
+
+EffectStage:10000
 
 
 
