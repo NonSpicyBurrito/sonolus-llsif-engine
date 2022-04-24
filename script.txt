@@ -320,27 +320,31 @@ StageHeight:If(
 )
 
 #1.touch:Execute(
+    Set(LevelMemory *TouchOccupied false)
     Set(
-        TemporaryMemory
-        *TempTouchRadius
+        LevelMemory
+        *TouchRadius
         Power(Add(Multiply(TempTouchX TempTouchX) Multiply(Subtract(TempTouchY StageYCenter) Subtract(TempTouchY StageYCenter))) 0.5)
     )
-    And(
-        GreaterOr(TempTouchRadius MinTouchRadius)
-        LessOr(TempTouchRadius MaxTouchRadius)
-        Set(TemporaryMemory *TempTouchInLane true)
-    )
-    Set(TemporaryMemory *TempTouchLane Round(Divide(Degree(Arctan2(TempTouchX Subtract(StageYCenter TempTouchY))) 22.5)))
-    Set(TemporaryMemory *TempTouchCrossLane Round(Divide(Degree(Arctan2(Subtract(TempTouchX TempTouchDX) Subtract(StageYCenter Subtract(TempTouchY TempTouchDY)))) 22.5)))
     Set(
-        TemporaryMemory
-        *TempTouchCrossLane
+        LevelMemory
+        *TouchInLane
+        And(
+            GreaterOr(TouchRadius MinTouchRadius)
+            LessOr(TouchRadius MaxTouchRadius)
+        )
+    )
+    Set(LevelMemory *TouchLane Round(Divide(Degree(Arctan2(TempTouchX Subtract(StageYCenter TempTouchY))) 22.5)))
+    Set(LevelMemory *TouchCrossLane Round(Divide(Degree(Arctan2(Subtract(TempTouchX TempTouchDX) Subtract(StageYCenter Subtract(TempTouchY TempTouchDY)))) 22.5)))
+    Set(
+        LevelMemory
+        *TouchCrossLane
         If(
             Or(
                 TempTouchStarted
-                NotEqual(TempTouchLane TempTouchCrossLane)
+                NotEqual(TouchLane TouchCrossLane)
             )
-            TempTouchLane
+            TouchLane
             100
         )
     )
@@ -387,11 +391,11 @@ StageHeight:If(
         Not(InputState)
         IsNoteTailInGoodWindow
         TempTouchStarted
-        Not(TempTouchOccupied)
-        TempTouchInLane
-        Equal(TempTouchLane NoteTailLane)
+        Not(TouchOccupied)
+        TouchInLane
+        Equal(TouchLane NoteTailLane)
         Execute(
-            Set(TemporaryMemory *TempTouchOccupied true)
+            Set(LevelMemory *TouchOccupied true)
             Set(EntityMemory *InputState Terminated)
             Set(EntitySharedMemory *InputSuccess true)
             Set(EntitySharedMemory *InputTouchID TempTouchID)
@@ -451,7 +455,7 @@ StageHeight:If(
             Equal(TempTouchID NoteHeadInputTouchID)
             Not(TempTouchEnded)
             Execute(
-                Set(TemporaryMemory *TempTouchOccupied true)
+                Set(LevelMemory *TouchOccupied true)
                 Set(EntityMemory *InputState Activated)
                 Set(EntitySharedMemory *InputTouchID TempTouchID)
             )
@@ -461,7 +465,7 @@ StageHeight:If(
             NotEqual(InputState Terminated)
             Equal(TempTouchID InputTouchID)
             Execute(
-                Set(TemporaryMemory *TempTouchOccupied true)
+                Set(LevelMemory *TouchOccupied true)
                 Execute(
                     And(
                         IsNoteTailInGoodWindow
@@ -580,9 +584,9 @@ StageHeight:If(
     And(
         Not(InputState)
         IsNoteTailInGoodWindow
-        Not(TempTouchOccupied)
-        TempTouchInLane
-        Equal(TempTouchCrossLane NoteTailLane)
+        Not(TouchOccupied)
+        TouchInLane
+        Equal(TouchCrossLane NoteTailLane)
         Execute(
             Set(EntityMemory *InputState Terminated)
             Set(EntitySharedMemory *InputSuccess true)
@@ -721,6 +725,11 @@ TemporaryData:101
 *NoteRadius:3
 *NoteScreenTime:4
 *MirrorMultiplier:5
+*TouchOccupied:6
+*TouchRadius:7
+*TouchInLane:8
+*TouchLane:9
+*TouchCrossLane:10
 *NoteMultiplierX:110
 *NoteMultiplierY:120
 
@@ -729,6 +738,11 @@ StageYCenter:Get(LevelMemory *StageYCenter)
 NoteRadius:Get(LevelMemory *NoteRadius)
 NoteScreenTime:Get(LevelMemory *NoteScreenTime)
 MirrorMultiplier:Get(LevelMemory *MirrorMultiplier)
+TouchOccupied:Get(LevelMemory *TouchOccupied)
+TouchRadius:Get(LevelMemory *TouchRadius)
+TouchInLane:Get(LevelMemory *TouchInLane)
+TouchLane:Get(LevelMemory *TouchLane)
+TouchCrossLane:Get(LevelMemory *TouchCrossLane)
 
 
 
@@ -862,21 +876,6 @@ Accuracy:Get(EntityInput *Accuracy)
 Bucket:Get(EntityInput *Bucket)
 BucketValue:Get(EntityInput *BucketValue)
 
-
-
-// Touch Temporary Memory Layout
-
-*TempTouchOccupied:0
-*TempTouchRadius:1
-*TempTouchInLane:2
-*TempTouchLane:3
-*TempTouchCrossLane:4
-
-TempTouchOccupied:Get(TemporaryMemory *TempTouchOccupied)
-TempTouchRadius:Get(TemporaryMemory *TempTouchRadius)
-TempTouchInLane:Get(TemporaryMemory *TempTouchInLane)
-TempTouchLane:Get(TemporaryMemory *TempTouchLane)
-TempTouchCrossLane:Get(TemporaryMemory *TempTouchCrossLane)
 
 
 // Touch Temporary Data Layout
