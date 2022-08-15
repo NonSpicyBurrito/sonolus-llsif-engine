@@ -237,11 +237,11 @@ StageHeight:If(
     SetShifted(LevelUI *UIScoreBar *UIBackground true)
 
     SetShifted(LevelUI *UIScoreValue *UIAnchorX 0)
-    SetShifted(LevelUI *UIScoreValue *UIAnchorY 0.925)
+    SetShifted(LevelUI *UIScoreValue *UIAnchorY 0.915)
     SetShifted(LevelUI *UIScoreValue *UIPivotX 0.5)
     SetShifted(LevelUI *UIScoreValue *UIPivotY 1)
-    SetShifted(LevelUI *UIScoreValue *UIWidth 0.4)
-    SetShifted(LevelUI *UIScoreValue *UIHeight 0.1)
+    SetShifted(LevelUI *UIScoreValue *UIWidth 0)
+    SetShifted(LevelUI *UIScoreValue *UIHeight 0.08)
     SetShifted(LevelUI *UIScoreValue *UIAlpha 1)
 
     Set(LevelBucket 0 -32)
