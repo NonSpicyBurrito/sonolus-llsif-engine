@@ -4,7 +4,7 @@ import { SwingDirection } from './SwingDirection.mjs'
 
 export const noteLayout = (lane: number) => layout(lane, options.noteSize)
 
-export const hitEffectLayout = (lane: number) => layout(lane, options.noteEffectSize)
+export const hitEffectLayout = (lane: number) => layout(lane, 2 * options.noteEffectSize)
 
 const layout = (lane: number, size: number) =>
     new Rect({
