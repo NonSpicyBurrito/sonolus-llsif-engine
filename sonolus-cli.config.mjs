@@ -1,16 +1,23 @@
-import { copyFileSync } from 'node:fs'
+import { error, log } from 'node:console'
+import { copyFileSync, readFileSync } from 'node:fs'
+import { hash } from 'sonolus-core'
 
 /** @type import('sonolus.js').SonolusCLIConfig */
 export default {
     entry: './src/index.mts',
     devServer(sonolus) {
-        copyFileSync('./src/level/bgm.mp3', './.dev/bgm.mp3')
+        try {
+            copyFileSync('./src/level/bgm.mp3', './.dev/bgm.mp3')
 
-        const level = sonolus.db.levels[0]
-        level.bgm = {
-            type: 'LevelBgm',
-            hash: '29d6f9620c6dbd2fdc0175f1a8cf07de022d0575',
-            url: '/bgm.mp3',
+            const level = sonolus.db.levels[0]
+            level.bgm = {
+                type: 'LevelBgm',
+                hash: hash(readFileSync('./.dev/bgm.mp3')),
+                url: '/bgm.mp3',
+            }
+        } catch (_) {
+            error('Error: failed to setup bgm, using fallback')
+            log()
         }
     },
 }
