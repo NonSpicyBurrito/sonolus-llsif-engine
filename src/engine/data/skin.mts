@@ -24,7 +24,5 @@ export const skin = defineSkin({
         smileSim: SkinSpriteName.SimultaneousMarkerRed,
         pureSim: SkinSpriteName.SimultaneousMarkerGreen,
         coolSim: SkinSpriteName.SimultaneousMarkerBlue,
-
-        test: SkinSpriteName.StageCover,
     },
 })
