@@ -16,7 +16,7 @@ type Append = (intermediate: Intermediate) => void
 
 type Handler<T extends ChartObject> = (object: T, append: Append) => void
 
-export function sifcToLevelData(chart: SIFChart): LevelData {
+export function sifcToLevelData(chart: SIFChart, offset = 0): LevelData {
     const entities: LevelDataEntity[] = []
 
     const beatToIntermediates = new Map<number, Intermediate[]>()
@@ -114,7 +114,7 @@ export function sifcToLevelData(chart: SIFChart): LevelData {
     }
 
     return {
-        bgmOffset: chart.offset,
+        bgmOffset: offset,
         entities,
     }
 }

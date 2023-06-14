@@ -1,5 +1,4 @@
 export type SIFChart = {
-    offset: number
     attribute: number
     objects: ChartObject[]
 }

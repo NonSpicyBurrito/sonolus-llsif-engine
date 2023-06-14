@@ -89,7 +89,6 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
 
     return {
         attribute: nss[0].notes_attribute - 1,
-        offset: 0,
         objects,
     }
 }
