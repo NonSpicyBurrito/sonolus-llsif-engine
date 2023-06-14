@@ -191,7 +191,7 @@ const hold = (head: Intermediate, beat: number, append: Append) => {
 const handlers: {
     [K in ChartObject['type']]: Handler<Extract<ChartObject, { type: K }>>
 } = {
-    BPM: bpm,
-    Tap: tap,
-    Swing: swing,
+    bpm,
+    tap,
+    swing,
 }

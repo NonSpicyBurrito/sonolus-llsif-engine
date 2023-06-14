@@ -4,7 +4,7 @@ import { NSS, Note, NoteEffect } from './index.cjs'
 export const nssToSIFC = (nss: NSS): SIFChart => {
     const objects: ChartObject[] = [
         {
-            type: 'BPM',
+            type: 'bpm',
             beat: 0,
             bpm: 60,
         },
@@ -21,14 +21,14 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
             case NoteEffect.Tap2:
             case NoteEffect.Tap4:
                 objects.push({
-                    type: 'Tap',
+                    type: 'tap',
                     beat,
                     lane,
                 })
                 break
             case NoteEffect.TapHold:
                 objects.push({
-                    type: 'Tap',
+                    type: 'tap',
                     beat,
                     lane,
                     hold: {
@@ -68,14 +68,14 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
 
             if (note.effect === NoteEffect.Swing) {
                 objects.push({
-                    type: 'Swing',
+                    type: 'swing',
                     beat,
                     lane,
                     direction,
                 })
             } else {
                 objects.push({
-                    type: 'Swing',
+                    type: 'swing',
                     beat,
                     lane,
                     direction,

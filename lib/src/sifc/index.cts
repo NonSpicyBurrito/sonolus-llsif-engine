@@ -10,7 +10,7 @@ type ObjectBase = {
 }
 
 export type BPMObject = ObjectBase & {
-    type: 'BPM'
+    type: 'bpm'
     bpm: number
 }
 
@@ -20,10 +20,10 @@ type NoteBase = ObjectBase & {
 }
 
 export type TapNote = NoteBase & {
-    type: 'Tap'
+    type: 'tap'
 }
 
 export type SwingNote = NoteBase & {
-    type: 'Swing'
+    type: 'swing'
     direction: 'Left' | 'Right'
 }
