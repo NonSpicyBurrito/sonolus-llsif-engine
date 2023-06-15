@@ -2,7 +2,9 @@ import { EngineInfo } from 'sonolus-core'
 import { Resource } from './Resource.cjs'
 
 export { nssToSIFC } from './nss/convert.cjs'
+export * from './nss/index.cjs'
 export { sifcToLevelData } from './sifc/convert.cjs'
+export * from './sifc/index.cjs'
 
 export const version = '1.0.0'
 
