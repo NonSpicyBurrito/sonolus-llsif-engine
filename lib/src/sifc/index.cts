@@ -1,29 +1,29 @@
-export type SIFChart = {
+export type SIFC = {
     attribute: number
-    objects: ChartObject[]
+    objects: SIFCObject[]
 }
 
-export type ChartObject = BPMObject | TapNote | SwingNote
+export type SIFCObject = SIFCBPMChangeObject | SIFCTapNote | SIFCSwingNote
 
-type ObjectBase = {
+type BaseSIFCObject = {
     beat: number
 }
 
-export type BPMObject = ObjectBase & {
+export type SIFCBPMChangeObject = BaseSIFCObject & {
     type: 'bpm'
     bpm: number
 }
 
-type NoteBase = ObjectBase & {
+type BaseSIFCNote = BaseSIFCObject & {
     lane: number
-    hold?: ObjectBase
+    hold?: BaseSIFCObject
 }
 
-export type TapNote = NoteBase & {
+export type SIFCTapNote = BaseSIFCNote & {
     type: 'tap'
 }
 
-export type SwingNote = NoteBase & {
+export type SIFCSwingNote = BaseSIFCNote & {
     type: 'swing'
     direction: 'Left' | 'Right'
 }

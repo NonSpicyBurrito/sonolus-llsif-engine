@@ -1,8 +1,8 @@
-import { ChartObject, SIFChart } from '../sifc/index.cjs'
-import { NSS, Note, NoteEffect } from './index.cjs'
+import { SIFC, SIFCObject } from '../sifc/index.cjs'
+import { NSS, NSSNote, NSSNoteEffect } from './index.cjs'
 
-export const nssToSIFC = (nss: NSS): SIFChart => {
-    const objects: ChartObject[] = [
+export const nssToSIFC = (nss: NSS): SIFC => {
+    const objects: SIFCObject[] = [
         {
             type: 'bpm',
             beat: 0,
@@ -10,23 +10,23 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
         },
     ]
 
-    const swings = new Map<number, Note[]>()
+    const swings = new Map<number, NSSNote[]>()
 
     for (const note of nss) {
         const beat = note.timing_sec
         const lane = 5 - note.position
 
         switch (note.effect) {
-            case NoteEffect.Tap1:
-            case NoteEffect.Tap2:
-            case NoteEffect.Tap4:
+            case NSSNoteEffect.Tap1:
+            case NSSNoteEffect.Tap2:
+            case NSSNoteEffect.Tap4:
                 objects.push({
                     type: 'tap',
                     beat,
                     lane,
                 })
                 break
-            case NoteEffect.TapHold:
+            case NSSNoteEffect.TapHold:
                 objects.push({
                     type: 'tap',
                     beat,
@@ -36,8 +36,8 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
                     },
                 })
                 break
-            case NoteEffect.Swing:
-            case NoteEffect.SwingHold: {
+            case NSSNoteEffect.Swing:
+            case NSSNoteEffect.SwingHold: {
                 const notes = swings.get(note.notes_level)
                 if (notes) {
                     notes.push(note)
@@ -66,7 +66,7 @@ export const nssToSIFC = (nss: NSS): SIFChart => {
                     : 'Left'
                 : 'Left'
 
-            if (note.effect === NoteEffect.Swing) {
+            if (note.effect === NSSNoteEffect.Swing) {
                 objects.push({
                     type: 'swing',
                     beat,

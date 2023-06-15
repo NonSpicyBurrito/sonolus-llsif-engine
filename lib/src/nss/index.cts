@@ -1,6 +1,6 @@
-export type NSS = Note[]
+export type NSS = NSSNote[]
 
-export const NoteEffect = {
+export const NSSNoteEffect = {
     Tap1: 1,
     Tap2: 2,
     Tap4: 4,
@@ -9,13 +9,13 @@ export const NoteEffect = {
     SwingHold: 13,
 } as const
 
-export type NoteEffect = (typeof NoteEffect)[keyof typeof NoteEffect]
+export type NSSNoteEffect = (typeof NSSNoteEffect)[keyof typeof NSSNoteEffect]
 
-export type Note = {
+export type NSSNote = {
     timing_sec: number
     position: number
     notes_attribute: number
     notes_level: number
-    effect: NoteEffect
+    effect: NSSNoteEffect
     effect_value: number
 }

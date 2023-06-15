@@ -4,7 +4,7 @@ import {
     LevelData,
     LevelDataEntity,
 } from 'sonolus-core'
-import { BPMObject, ChartObject, SIFChart, SwingNote, TapNote } from './index.cjs'
+import { SIFC, SIFCBPMChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.cjs'
 
 type Intermediate = {
     archetype: string
@@ -14,9 +14,9 @@ type Intermediate = {
 
 type Append = (intermediate: Intermediate) => void
 
-type Handler<T extends ChartObject> = (object: T, append: Append) => void
+type Handler<T extends SIFCObject> = (object: T, append: Append) => void
 
-export function sifcToLevelData(chart: SIFChart, offset = 0): LevelData {
+export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
     const entities: LevelDataEntity[] = []
 
     const beatToIntermediates = new Map<number, Intermediate[]>()
@@ -119,7 +119,7 @@ export function sifcToLevelData(chart: SIFChart, offset = 0): LevelData {
     }
 }
 
-const bpm: Handler<BPMObject> = (object, append) =>
+const bpm: Handler<SIFCBPMChangeObject> = (object, append) =>
     append({
         archetype: EngineArchetypeName.BpmChange,
         data: {
@@ -129,7 +129,7 @@ const bpm: Handler<BPMObject> = (object, append) =>
         sim: false,
     })
 
-const tap: Handler<TapNote> = (object, append) => {
+const tap: Handler<SIFCTapNote> = (object, append) => {
     const note = {
         archetype: 'TapNote',
         data: {
@@ -146,7 +146,7 @@ const tap: Handler<TapNote> = (object, append) => {
     }
 }
 
-const swing: Handler<SwingNote> = (object, append) => {
+const swing: Handler<SIFCSwingNote> = (object, append) => {
     const note = {
         archetype: 'SwingNote',
         data: {
@@ -189,7 +189,7 @@ const hold = (head: Intermediate, beat: number, append: Append) => {
 }
 
 const handlers: {
-    [K in ChartObject['type']]: Handler<Extract<ChartObject, { type: K }>>
+    [K in SIFCObject['type']]: Handler<Extract<SIFCObject, { type: K }>>
 } = {
     bpm,
     tap,
