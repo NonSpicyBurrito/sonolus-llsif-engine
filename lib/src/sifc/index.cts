@@ -3,13 +3,13 @@ export type SIFC = {
     objects: SIFCObject[]
 }
 
-export type SIFCObject = SIFCBPMChangeObject | SIFCTapNote | SIFCSwingNote
+export type SIFCObject = SIFCBpmChangeObject | SIFCTapNote | SIFCSwingNote
 
 type BaseSIFCObject = {
     beat: number
 }
 
-export type SIFCBPMChangeObject = BaseSIFCObject & {
+export type SIFCBpmChangeObject = BaseSIFCObject & {
     type: 'bpm'
     bpm: number
 }
