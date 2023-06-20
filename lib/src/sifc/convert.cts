@@ -4,7 +4,7 @@ import {
     LevelData,
     LevelDataEntity,
 } from 'sonolus-core'
-import { SIFC, SIFCBPMChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.cjs'
+import { SIFC, SIFCBpmChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.cjs'
 
 type Intermediate = {
     archetype: string
@@ -119,7 +119,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
     }
 }
 
-const bpm: Handler<SIFCBPMChangeObject> = (object, append) =>
+const bpm: Handler<SIFCBpmChangeObject> = (object, append) =>
     append({
         archetype: EngineArchetypeName.BpmChange,
         data: {
