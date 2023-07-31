@@ -56,11 +56,13 @@ export const nssToSIFC = (nss: NSS): SIFC => {
 
             const next = notes[i + 1]
             const prev = notes[i - 1]
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             const direction = next
                 ? next.position > note.position
                     ? 'Left'
                     : 'Right'
-                : prev
+                : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                prev
                 ? prev.position > note.position
                     ? 'Right'
                     : 'Left'

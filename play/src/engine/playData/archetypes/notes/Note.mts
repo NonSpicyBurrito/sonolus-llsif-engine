@@ -137,6 +137,7 @@ export abstract class Note extends Archetype {
         effect.clips.perfect.schedule(this.targetTime, minSFXDistance)
     }
 
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
     get shouldRender() {
         return true
     }
