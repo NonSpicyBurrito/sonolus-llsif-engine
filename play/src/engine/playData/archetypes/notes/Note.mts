@@ -64,7 +64,7 @@ export abstract class Note extends Archetype {
         this.targetTime = bpmChanges.at(this.data.beat).time
 
         this.visualTime.max = this.targetTime
-        this.visualTime.min = this.visualTime.max - Note.duration
+        this.visualTime.min = this.visualTime.max - this.duration
 
         this.scheduleSFXTime = getScheduleSFXTime(this.targetTime)
 
@@ -86,7 +86,7 @@ export abstract class Note extends Archetype {
         this.inputTime.max = this.targetTime + this.windows.good.max + input.offset
 
         if (options.hidden > 0)
-            this.visualTime.hidden = this.visualTime.max - Note.duration * options.hidden
+            this.visualTime.hidden = this.visualTime.max - this.duration * options.hidden
 
         noteLayout(this.data.lane).copyTo(this.note.layout)
         this.note.z = getZ(layer.note.body, this.targetTime, this.data.lane)
@@ -166,7 +166,7 @@ export abstract class Note extends Archetype {
         particle.effects.spawn(effects.hit, layout, 0.35, false)
     }
 
-    static get duration() {
+    get duration() {
         return options.noteSpeed >= 6
             ? 1.6 - options.noteSpeed * 0.1
             : 1.9 - options.noteSpeed * 0.15

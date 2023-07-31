@@ -5,7 +5,6 @@ import { SwingDirection } from './SwingDirection.mjs'
 import { lanes, note } from './constants.mjs'
 import { archetypes } from './index.mjs'
 import { layer } from './layer.mjs'
-import { Note } from './notes/Note.mjs'
 import { effects, sprites } from './shared.mjs'
 import { arrowLayout, getZ, holdEffectLayout, noteLayout } from './utils.mjs'
 
@@ -61,7 +60,7 @@ export class HoldConnector extends Archetype {
     preprocess() {
         this.head.time = bpmChanges.at(this.headData.beat).time
 
-        this.visualTime.min = this.head.time - Note.duration
+        this.visualTime.min = this.head.time - this.duration
 
         this.spawnTime = this.visualTime.min
     }
@@ -87,7 +86,7 @@ export class HoldConnector extends Archetype {
         this.visualTime.max = this.tail.time
 
         if (options.hidden > 0)
-            this.visualTime.hidden = this.tail.time - Note.duration * options.hidden
+            this.visualTime.hidden = this.tail.time - this.duration * options.hidden
 
         const a = -this.head.lane * lanes.angle
         const w = note.radius * options.noteSize
@@ -192,16 +191,16 @@ export class HoldConnector extends Archetype {
     renderConnector() {
         if (options.hidden > 0 && time.now > this.visualTime.hidden) return
 
-        const hiddenDuration = options.hidden > 0 ? Note.duration * options.hidden : 0
+        const hiddenDuration = options.hidden > 0 ? this.duration * options.hidden : 0
 
         const visibleTime = {
             min: Math.max(this.head.time, time.now + hiddenDuration),
-            max: Math.min(this.tail.time, time.now + Note.duration),
+            max: Math.min(this.tail.time, time.now + this.duration),
         }
 
         const s = {
-            min: Math.unlerp(visibleTime.min - Note.duration, visibleTime.min, time.now),
-            max: Math.unlerp(visibleTime.max - Note.duration, visibleTime.max, time.now),
+            min: Math.unlerp(visibleTime.min - this.duration, visibleTime.min, time.now),
+            max: Math.unlerp(visibleTime.max - this.duration, visibleTime.max, time.now),
         }
 
         const l = {
@@ -236,5 +235,11 @@ export class HoldConnector extends Archetype {
         if (this.head.sim) skin.sprites.draw(sprites.sim, this.slide.layout, this.sim.z, 1)
 
         if (this.head.arrow) skin.sprites.draw(sprites.arrow, this.arrow.layout, this.arrow.z, 1)
+    }
+
+    get duration() {
+        return options.noteSpeed >= 6
+            ? 1.6 - options.noteSpeed * 0.1
+            : 1.9 - options.noteSpeed * 0.15
     }
 }
