@@ -1,5 +1,4 @@
-import { layer } from '../../../layer.mjs'
-import { skin, sprites } from '../../../skin.mjs'
+import { layer, skin, sprites } from '../../../skin.mjs'
 import { getZ } from '../../../utils.mjs'
 import { Note } from '../Note.mjs'
 

@@ -1,7 +1,6 @@
 import { options } from '../../../../configuration/options.mjs'
 import { buckets } from '../../../buckets.mjs'
-import { layer } from '../../../layer.mjs'
-import { skin, sprites } from '../../../skin.mjs'
+import { layer, skin, sprites } from '../../../skin.mjs'
 import { arrowLayout, getZ } from '../../../utils.mjs'
 import { windows } from '../../../windows.mjs'
 import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
