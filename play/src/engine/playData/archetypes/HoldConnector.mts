@@ -1,9 +1,8 @@
 import { options } from '../../configuration/options.mjs'
 import { lanes } from '../lanes.mjs'
-import { note } from '../note.mjs'
-import { effects, particle } from '../particle.mjs'
-import { layer, skin, sprites } from '../skin.mjs'
-import { arrowLayout, getZ, holdEffectLayout, noteLayout } from '../utils.mjs'
+import { arrowLayout, note, noteLayout } from '../note.mjs'
+import { effects, holdEffectLayout, particle } from '../particle.mjs'
+import { getZ, layer, skin, sprites } from '../skin.mjs'
 import { SwingDirection } from './SwingDirection.mjs'
 import { archetypes } from './index.mjs'
 

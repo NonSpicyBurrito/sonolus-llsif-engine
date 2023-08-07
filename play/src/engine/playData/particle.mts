@@ -1,4 +1,8 @@
 import { ParticleEffectName } from 'sonolus-core'
+import { options } from '../configuration/options.mjs'
+import { lanes } from './lanes.mjs'
+import { note } from './note.mjs'
+import { layout } from './utils.mjs'
 
 export const particle = defineParticle({
     effects: {
@@ -16,3 +20,23 @@ export const effects = levelData({
     hit: ParticleEffectId,
     hold: ParticleEffectId,
 })
+
+export const hitEffectLayout = (lane: number) => layout(lane, 2 * options.noteEffectSize)
+
+export const holdEffectLayout = (lane: number) => {
+    const l = -note.radius * options.noteEffectSize
+    const r = note.radius * options.noteEffectSize
+    const t = 1 - note.radius * options.noteEffectSize * 2
+    const b = 1
+
+    return new Quad({
+        x1: l,
+        y1: b,
+        x2: l,
+        y2: t,
+        x3: r,
+        y3: t,
+        x4: r,
+        y4: b,
+    }).rotate(-lane * lanes.angle)
+}

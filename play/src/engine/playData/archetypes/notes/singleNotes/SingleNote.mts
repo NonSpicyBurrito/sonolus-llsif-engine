@@ -1,5 +1,4 @@
-import { layer, skin, sprites } from '../../../skin.mjs'
-import { getZ } from '../../../utils.mjs'
+import { getZ, layer, skin, sprites } from '../../../skin.mjs'
 import { Note } from '../Note.mjs'
 
 export abstract class SingleNote extends Note {
