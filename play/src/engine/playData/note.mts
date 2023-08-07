@@ -1,10 +1,11 @@
+import { lanes } from '../../../../shared/src/engine/data/lanes.mjs'
+import { note as _note } from '../../../../shared/src/engine/data/note.mjs'
+import { layout } from '../../../../shared/src/engine/data/utils.mjs'
 import { options } from '../configuration/options.mjs'
 import { SwingDirection } from './archetypes/SwingDirection.mjs'
-import { lanes } from './lanes.mjs'
-import { layout } from './utils.mjs'
 
 export const note = {
-    radius: 0.1 / 0.625,
+    ..._note,
 
     get duration() {
         return options.noteSpeed >= 6

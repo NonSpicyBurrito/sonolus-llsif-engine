@@ -1,5 +1,5 @@
+import { lanes } from '../../../../../shared/src/engine/data/lanes.mjs'
 import { options } from '../../configuration/options.mjs'
-import { lanes } from '../lanes.mjs'
 import { arrowLayout, note, noteLayout } from '../note.mjs'
 import { effects, holdEffectLayout, particle } from '../particle.mjs'
 import { getZ, layer, skin, sprites } from '../skin.mjs'

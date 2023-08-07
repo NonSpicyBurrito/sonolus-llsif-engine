@@ -1,4 +1,4 @@
-import { lanes } from '../lanes.mjs'
+import { lanes } from '../../../../../shared/src/engine/data/lanes.mjs'
 import { stage } from '../stage.mjs'
 
 const usedTouchIds = levelMemory(Collection(16, TouchId))
