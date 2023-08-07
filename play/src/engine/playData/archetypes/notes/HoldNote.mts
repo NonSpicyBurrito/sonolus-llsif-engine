@@ -1,9 +1,9 @@
 import { options } from '../../../configuration/options.mjs'
 import { buckets } from '../../buckets.mjs'
 import { skin, sprites } from '../../skin.mjs'
+import { windows } from '../../windows.mjs'
 import { transform } from '../InputManager.mjs'
 import { archetypes } from '../index.mjs'
-import { windows } from '../windows.mjs'
 import { Note } from './Note.mjs'
 
 export class HoldNote extends Note {

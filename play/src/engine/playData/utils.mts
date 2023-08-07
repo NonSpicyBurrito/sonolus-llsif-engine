@@ -1,7 +1,7 @@
-import { options } from '../../configuration/options.mjs'
+import { options } from '../configuration/options.mjs'
+import { SwingDirection } from './archetypes/SwingDirection.mjs'
 import { lanes } from './lanes.mjs'
 import { note } from './note.mjs'
-import { SwingDirection } from './SwingDirection.mjs'
 
 export const noteLayout = (lane: number) => layout(lane, options.noteSize)
 

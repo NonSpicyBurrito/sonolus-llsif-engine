@@ -1,9 +1,9 @@
 import { EngineArchetypeDataName } from 'sonolus-core'
 import { options } from '../../../configuration/options.mjs'
 import { effect, sfxDistance } from '../../effect.mjs'
+import { layer } from '../../layer.mjs'
 import { effects, particle } from '../../particle.mjs'
-import { layer } from '../layer.mjs'
-import { getScheduleSFXTime, getZ, hitEffectLayout, noteLayout } from '../utils.mjs'
+import { getScheduleSFXTime, getZ, hitEffectLayout, noteLayout } from '../../utils.mjs'
 
 export abstract class Note extends Archetype {
     hasInput = true

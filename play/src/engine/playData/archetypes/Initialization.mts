@@ -1,8 +1,8 @@
 import { options } from '../../configuration/options.mjs'
 import { effects, particle } from '../particle.mjs'
 import { skin, sprites } from '../skin.mjs'
+import { stage } from '../stage.mjs'
 import { Attribute } from './Attribute.mjs'
-import { stage } from './_stage.mjs'
 import { archetypes } from './index.mjs'
 
 export class Initialization extends Archetype {

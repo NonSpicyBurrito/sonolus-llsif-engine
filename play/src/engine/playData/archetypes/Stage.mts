@@ -1,6 +1,6 @@
+import { layer } from '../layer.mjs'
 import { skin } from '../skin.mjs'
-import { layer } from './layer.mjs'
-import { noteLayout } from './utils.mjs'
+import { noteLayout } from '../utils.mjs'
 
 export class Stage extends Archetype {
     spawnOrder() {

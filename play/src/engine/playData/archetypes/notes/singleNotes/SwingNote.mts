@@ -1,11 +1,11 @@
 import { options } from '../../../../configuration/options.mjs'
 import { buckets } from '../../../buckets.mjs'
+import { layer } from '../../../layer.mjs'
 import { skin, sprites } from '../../../skin.mjs'
+import { arrowLayout, getZ } from '../../../utils.mjs'
+import { windows } from '../../../windows.mjs'
 import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
 import { SwingDirection } from '../../SwingDirection.mjs'
-import { layer } from '../../layer.mjs'
-import { arrowLayout, getZ } from '../../utils.mjs'
-import { windows } from '../../windows.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class SwingNote extends SingleNote {
