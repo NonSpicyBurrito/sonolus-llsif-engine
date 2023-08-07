@@ -58,7 +58,7 @@ export class HoldConnector extends Archetype {
     preprocess() {
         this.head.time = bpmChanges.at(this.headData.beat).time
 
-        this.visualTime.min = this.head.time - this.duration
+        this.visualTime.min = this.head.time - note.duration
 
         this.spawnTime = this.visualTime.min
     }
@@ -84,7 +84,7 @@ export class HoldConnector extends Archetype {
         this.visualTime.max = this.tail.time
 
         if (options.hidden > 0)
-            this.visualTime.hidden = this.tail.time - this.duration * options.hidden
+            this.visualTime.hidden = this.tail.time - note.duration * options.hidden
 
         const a = -this.head.lane * lanes.angle
         const w = note.radius * options.noteSize
@@ -189,16 +189,16 @@ export class HoldConnector extends Archetype {
     renderConnector() {
         if (options.hidden > 0 && time.now > this.visualTime.hidden) return
 
-        const hiddenDuration = options.hidden > 0 ? this.duration * options.hidden : 0
+        const hiddenDuration = options.hidden > 0 ? note.duration * options.hidden : 0
 
         const visibleTime = {
             min: Math.max(this.head.time, time.now + hiddenDuration),
-            max: Math.min(this.tail.time, time.now + this.duration),
+            max: Math.min(this.tail.time, time.now + note.duration),
         }
 
         const s = {
-            min: Math.unlerp(visibleTime.min - this.duration, visibleTime.min, time.now),
-            max: Math.unlerp(visibleTime.max - this.duration, visibleTime.max, time.now),
+            min: Math.unlerp(visibleTime.min - note.duration, visibleTime.min, time.now),
+            max: Math.unlerp(visibleTime.max - note.duration, visibleTime.max, time.now),
         }
 
         const l = {
@@ -233,11 +233,5 @@ export class HoldConnector extends Archetype {
         if (this.head.sim) skin.sprites.draw(sprites.sim, this.slide.layout, this.sim.z, 1)
 
         if (this.head.arrow) skin.sprites.draw(sprites.arrow, this.arrow.layout, this.arrow.z, 1)
-    }
-
-    get duration() {
-        return options.noteSpeed >= 6
-            ? 1.6 - options.noteSpeed * 0.1
-            : 1.9 - options.noteSpeed * 0.15
     }
 }

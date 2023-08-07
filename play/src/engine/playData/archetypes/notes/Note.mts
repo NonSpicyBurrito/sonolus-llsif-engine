@@ -1,7 +1,7 @@
 import { EngineArchetypeDataName } from 'sonolus-core'
 import { options } from '../../../configuration/options.mjs'
 import { effect, getScheduleSFXTime, sfxDistance } from '../../effect.mjs'
-import { noteLayout } from '../../note.mjs'
+import { note, noteLayout } from '../../note.mjs'
 import { effects, hitEffectLayout, particle } from '../../particle.mjs'
 import { getZ, layer } from '../../skin.mjs'
 
@@ -62,7 +62,7 @@ export abstract class Note extends Archetype {
         this.targetTime = bpmChanges.at(this.data.beat).time
 
         this.visualTime.max = this.targetTime
-        this.visualTime.min = this.visualTime.max - this.duration
+        this.visualTime.min = this.visualTime.max - note.duration
 
         this.scheduleSFXTime = getScheduleSFXTime(this.targetTime)
 
@@ -84,7 +84,7 @@ export abstract class Note extends Archetype {
         this.inputTime.max = this.targetTime + this.windows.good.max + input.offset
 
         if (options.hidden > 0)
-            this.visualTime.hidden = this.visualTime.max - this.duration * options.hidden
+            this.visualTime.hidden = this.visualTime.max - note.duration * options.hidden
 
         noteLayout(this.data.lane).copyTo(this.note.layout)
         this.note.z = getZ(layer.note.body, this.targetTime, this.data.lane)
@@ -163,11 +163,5 @@ export abstract class Note extends Archetype {
         const layout = hitEffectLayout(this.data.lane)
 
         particle.effects.spawn(effects.hit, layout, 0.35, false)
-    }
-
-    get duration() {
-        return options.noteSpeed >= 6
-            ? 1.6 - options.noteSpeed * 0.1
-            : 1.9 - options.noteSpeed * 0.15
     }
 }

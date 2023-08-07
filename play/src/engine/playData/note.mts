@@ -5,6 +5,12 @@ import { layout } from './utils.mjs'
 
 export const note = {
     radius: 0.1 / 0.625,
+
+    get duration() {
+        return options.noteSpeed >= 6
+            ? 1.6 - options.noteSpeed * 0.1
+            : 1.9 - options.noteSpeed * 0.15
+    },
 }
 
 export const noteLayout = (lane: number) => layout(lane, options.noteSize)
