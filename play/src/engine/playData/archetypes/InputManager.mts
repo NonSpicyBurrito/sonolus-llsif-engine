@@ -1,5 +1,5 @@
-import { lanes } from './constants.mjs'
-import { stage } from './shared.mjs'
+import { stage } from './_stage.mjs'
+import { lanes } from './lanes.mjs'
 
 const usedTouchIds = levelMemory(Collection(16, TouchId))
 

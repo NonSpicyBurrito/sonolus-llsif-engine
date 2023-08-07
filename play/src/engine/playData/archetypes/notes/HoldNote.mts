@@ -1,9 +1,8 @@
 import { options } from '../../../configuration/options.mjs'
 import { buckets } from '../../buckets.mjs'
-import { skin } from '../../skin.mjs'
+import { skin, sprites } from '../../skin.mjs'
 import { transform } from '../InputManager.mjs'
 import { archetypes } from '../index.mjs'
-import { sprites } from '../shared.mjs'
 import { windows } from '../windows.mjs'
 import { Note } from './Note.mjs'
 

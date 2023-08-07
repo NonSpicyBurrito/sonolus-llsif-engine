@@ -26,3 +26,11 @@ export const skin = defineSkin({
         coolSim: SkinSpriteName.SimultaneousMarkerBlue,
     },
 })
+
+export const sprites = levelData({
+    head: SkinSpriteId,
+    connector: SkinSpriteId,
+    tail: SkinSpriteId,
+    arrow: SkinSpriteId,
+    sim: SkinSpriteId,
+})

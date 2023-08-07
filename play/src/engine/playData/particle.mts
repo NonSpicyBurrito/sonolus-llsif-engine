@@ -11,3 +11,8 @@ export const particle = defineParticle({
         coolHold: ParticleEffectName.NoteLinearHoldBlue,
     },
 })
+
+export const effects = levelData({
+    hit: ParticleEffectId,
+    hold: ParticleEffectId,
+})

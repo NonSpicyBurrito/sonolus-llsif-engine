@@ -1,11 +1,11 @@
 import { options } from '../../configuration/options.mjs'
-import { particle } from '../particle.mjs'
-import { skin } from '../skin.mjs'
+import { effects, particle } from '../particle.mjs'
+import { skin, sprites } from '../skin.mjs'
 import { SwingDirection } from './SwingDirection.mjs'
-import { lanes, note } from './constants.mjs'
 import { archetypes } from './index.mjs'
+import { lanes } from './lanes.mjs'
 import { layer } from './layer.mjs'
-import { effects, sprites } from './shared.mjs'
+import { note } from './note.mjs'
 import { arrowLayout, getZ, holdEffectLayout, noteLayout } from './utils.mjs'
 
 export class HoldConnector extends Archetype {

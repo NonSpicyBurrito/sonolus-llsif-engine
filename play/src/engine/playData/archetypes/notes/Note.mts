@@ -1,10 +1,8 @@
 import { EngineArchetypeDataName } from 'sonolus-core'
 import { options } from '../../../configuration/options.mjs'
-import { effect } from '../../effect.mjs'
-import { particle } from '../../particle.mjs'
-import { minSFXDistance } from '../constants.mjs'
+import { effect, sfxDistance } from '../../effect.mjs'
+import { effects, particle } from '../../particle.mjs'
 import { layer } from '../layer.mjs'
-import { effects } from '../shared.mjs'
 import { getScheduleSFXTime, getZ, hitEffectLayout, noteLayout } from '../utils.mjs'
 
 export abstract class Note extends Archetype {
@@ -134,7 +132,7 @@ export abstract class Note extends Archetype {
     scheduleSFX() {
         this.hasSFXScheduled = true
 
-        effect.clips.perfect.schedule(this.targetTime, minSFXDistance)
+        effect.clips.perfect.schedule(this.targetTime, sfxDistance)
     }
 
     // eslint-disable-next-line @typescript-eslint/class-literal-property-style
@@ -148,11 +146,11 @@ export abstract class Note extends Archetype {
 
     playSFX() {
         if (this.result.judgment === Judgment.Perfect) {
-            effect.clips.perfect.play(minSFXDistance)
+            effect.clips.perfect.play(sfxDistance)
         } else if (this.result.judgment === Judgment.Great) {
-            effect.clips.great.play(minSFXDistance)
+            effect.clips.great.play(sfxDistance)
         } else if (this.result.judgment === Judgment.Good) {
-            effect.clips.good.play(minSFXDistance)
+            effect.clips.good.play(sfxDistance)
         }
     }
 

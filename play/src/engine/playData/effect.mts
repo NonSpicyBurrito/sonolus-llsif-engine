@@ -7,3 +7,5 @@ export const effect = defineEffect({
         good: EffectClipName.Good,
     },
 })
+
+export const sfxDistance = 0.02

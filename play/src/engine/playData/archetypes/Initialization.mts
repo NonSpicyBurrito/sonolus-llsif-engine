@@ -1,9 +1,9 @@
 import { options } from '../../configuration/options.mjs'
-import { particle } from '../particle.mjs'
-import { skin } from '../skin.mjs'
+import { effects, particle } from '../particle.mjs'
+import { skin, sprites } from '../skin.mjs'
 import { Attribute } from './Attribute.mjs'
+import { stage } from './_stage.mjs'
 import { archetypes } from './index.mjs'
-import { effects, sprites, stage } from './shared.mjs'
 
 export class Initialization extends Archetype {
     data = this.defineData({
