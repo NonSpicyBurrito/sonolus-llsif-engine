@@ -1,8 +1,8 @@
 import { connector } from '../../components/connector.mjs'
 import { noteDisplay } from '../../components/noteDisplay.mjs'
 import { slide } from '../../components/slide.mjs'
-import { particle } from '../../particle.mjs'
-import { drawHand, spawnHoldEffect } from '../../utils.mjs'
+import { drawHand } from '../../instruction.mjs'
+import { particle, spawnHoldEffect } from '../../particle.mjs'
 
 let effectInstanceId = tutorialMemory(ParticleEffectInstanceId)
 

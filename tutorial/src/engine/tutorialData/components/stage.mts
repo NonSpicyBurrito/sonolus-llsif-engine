@@ -1,6 +1,5 @@
-import { layer } from '../layer.mjs'
-import { skin } from '../skin.mjs'
-import { noteLayout } from '../utils.mjs'
+import { noteLayout } from '../note.mjs'
+import { layer, skin } from '../skin.mjs'
 
 const sprites = {
     slot: skin.sprites.slot,

@@ -1,8 +1,6 @@
-import { note } from '../constants.mjs'
-import { layer } from '../layer.mjs'
-import { segment } from '../shared.mjs'
-import { skin } from '../skin.mjs'
-import { approach } from '../utils.mjs'
+import { note } from '../../../../../shared/src/engine/data/note.mjs'
+import { segment } from '../segment.mjs'
+import { layer, skin } from '../skin.mjs'
 
 const sprites = {
     normal: skin.sprites.hold,
@@ -48,15 +46,15 @@ export const connector = {
                 sprites.active.draw(layout, layer.connector, a)
             }
         } else if (mode === 3 || mode === 5) {
-            const t = approach(0)
-            const b = approach(mode === 3 ? segment.time : 2)
+            const t = Math.unlerp(0, 2, 0)
+            const b = Math.unlerp(0, 2, mode === 3 ? segment.time : 2)
 
             const layout = connectorLayout(t, b)
 
             sprites.normal.draw(layout, layer.connector, 0.5)
         } else {
-            const t = approach(mode === 4 ? segment.time : 0)
-            const b = approach(2)
+            const t = Math.unlerp(0, 2, mode === 4 ? segment.time : 0)
+            const b = Math.unlerp(0, 2, 2)
 
             const layout = connectorLayout(t, b)
 

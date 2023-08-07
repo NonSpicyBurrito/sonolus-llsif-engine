@@ -1,8 +1,7 @@
-import { note } from '../constants.mjs'
-import { layer } from '../layer.mjs'
-import { segment } from '../shared.mjs'
-import { skin } from '../skin.mjs'
-import { approach, noteLayout } from '../utils.mjs'
+import { note } from '../../../../../shared/src/engine/data/note.mjs'
+import { noteLayout } from '../note.mjs'
+import { segment } from '../segment.mjs'
+import { layer, skin } from '../skin.mjs'
 
 const sprites = {
     head: skin.sprites.head,
@@ -28,7 +27,7 @@ export const noteDisplay = {
 
             skin.sprites.draw(id, new Rect({ l, r, t, b }), layer.note, a)
         } else {
-            const y = mode === 2 ? approach(segment.time) : 1
+            const y = mode === 2 ? Math.unlerp(0, 2, segment.time) : 1
 
             skin.sprites.draw(id, noteLayout(0).mul(y), layer.note, 1)
         }

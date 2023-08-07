@@ -1,5 +1,5 @@
 import { effect } from '../../effect.mjs'
-import { playHitEffect } from '../../utils.mjs'
+import { playHitEffect } from '../../particle.mjs'
 
 export const tapNoteHit = {
     enter() {

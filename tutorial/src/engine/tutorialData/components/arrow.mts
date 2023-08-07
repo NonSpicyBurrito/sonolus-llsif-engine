@@ -1,8 +1,6 @@
-import { note } from '../constants.mjs'
-import { layer } from '../layer.mjs'
-import { segment } from '../shared.mjs'
-import { skin } from '../skin.mjs'
-import { approach } from '../utils.mjs'
+import { note } from '../../../../../shared/src/engine/data/note.mjs'
+import { segment } from '../segment.mjs'
+import { layer, skin } from '../skin.mjs'
 
 const sprites = {
     arrow: skin.sprites.arrow,
@@ -30,7 +28,7 @@ export const arrow = {
 
             sprites.arrow.draw(layout.mul(note.radius * 1.5).translate(0, 0.25), layer.arrow, a)
         } else {
-            const y = mode === 2 ? approach(segment.time) : 1
+            const y = mode === 2 ? Math.unlerp(0, 2, segment.time) : 1
 
             sprites.arrow.draw(layout.mul(note.radius).translate(0, 1).mul(y), layer.arrow, 1)
         }

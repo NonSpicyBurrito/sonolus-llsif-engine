@@ -1,5 +1,5 @@
+import { hand } from '../hand.mjs'
 import { particle } from '../particle.mjs'
-import { hand, stage } from '../shared.mjs'
 import { skin } from '../skin.mjs'
 
 export const initialization = {
@@ -13,9 +13,6 @@ export const initialization = {
 
         const t = h * 0.25
         const b = t - h * 0.625
-
-        stage.center = t
-        stage.radius = t - b
 
         new Vec(0, -1)
             .rotate(Math.PI / 3)
