@@ -8,7 +8,14 @@ const sprites = {
     tail: skin.sprites.tail,
 }
 
-let mode = tutorialMemory(DataType<0 | 1 | 2 | 3>)
+enum Mode {
+    None,
+    Overlay,
+    Fall,
+    Frozen,
+}
+
+let mode = tutorialMemory(DataType<Mode>)
 
 let id = tutorialMemory(SkinSpriteId)
 
@@ -16,7 +23,7 @@ export const noteDisplay = {
     update() {
         if (!mode) return
 
-        if (mode === 1) {
+        if (mode === Mode.Overlay) {
             const a = Math.unlerpClamped(1, 0.75, segment.time)
 
             const l = -note.radius * 1.5
@@ -27,29 +34,29 @@ export const noteDisplay = {
 
             skin.sprites.draw(id, new Rect({ l, r, t, b }), layer.note, a)
         } else {
-            const y = mode === 2 ? Math.unlerp(0, 2, segment.time) : 1
+            const y = mode === Mode.Fall ? Math.unlerp(0, 2, segment.time) : 1
 
             skin.sprites.draw(id, noteLayout(0).mul(y), layer.note, 1)
         }
     },
 
     showOverlay(type: keyof typeof sprites) {
-        mode = 1
+        mode = Mode.Overlay
         this.setType(type)
     },
 
     showFall(type: keyof typeof sprites) {
-        mode = 2
+        mode = Mode.Fall
         this.setType(type)
     },
 
     showFrozen(type: keyof typeof sprites) {
-        mode = 3
+        mode = Mode.Frozen
         this.setType(type)
     },
 
     clear() {
-        mode = 0
+        mode = Mode.None
     },
 
     setType(type: keyof typeof sprites) {

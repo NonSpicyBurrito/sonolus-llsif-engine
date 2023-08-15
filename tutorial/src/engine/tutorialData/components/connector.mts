@@ -11,7 +11,17 @@ const sprites = {
     },
 }
 
-let mode = tutorialMemory(DataType<0 | 1 | 2 | 3 | 4 | 5 | 6>)
+enum Mode {
+    None,
+    OverlayIn,
+    OverlayOut,
+    FallIn,
+    FallOut,
+    Frozen,
+    Active,
+}
+
+let mode = tutorialMemory(DataType<Mode>)
 
 const connectorLayout = (t: number, b: number) =>
     new Quad({
@@ -29,31 +39,31 @@ export const connector = {
     update() {
         if (!mode) return
 
-        if (mode === 1 || mode === 2) {
+        if (mode === Mode.OverlayIn || mode === Mode.OverlayOut) {
             const a = 0.5 * Math.unlerpClamped(1, 0.75, segment.time)
 
             const l = -note.radius * 1.5
             const r = note.radius * 1.5
 
-            const t = 0.25 - (mode === 1 ? note.radius * 3 : 0)
-            const b = 0.25 + (mode === 2 ? note.radius * 3 : 0)
+            const t = 0.25 - (mode === Mode.OverlayIn ? note.radius * 3 : 0)
+            const b = 0.25 + (mode === Mode.OverlayOut ? note.radius * 3 : 0)
 
             const layout = new Rect({ l, r, t, b })
 
-            if (mode === 1 || sprites.useFallback) {
+            if (mode === Mode.OverlayIn || sprites.useFallback) {
                 sprites.normal.draw(layout, layer.connector, a)
             } else {
                 sprites.active.draw(layout, layer.connector, a)
             }
-        } else if (mode === 3 || mode === 5) {
+        } else if (mode === Mode.FallIn || mode === Mode.Frozen) {
             const t = Math.unlerp(0, 2, 0)
-            const b = Math.unlerp(0, 2, mode === 3 ? segment.time : 2)
+            const b = Math.unlerp(0, 2, mode === Mode.FallIn ? segment.time : 2)
 
             const layout = connectorLayout(t, b)
 
             sprites.normal.draw(layout, layer.connector, 0.5)
         } else {
-            const t = Math.unlerp(0, 2, mode === 4 ? segment.time : 0)
+            const t = Math.unlerp(0, 2, mode === Mode.FallOut ? segment.time : 0)
             const b = Math.unlerp(0, 2, 2)
 
             const layout = connectorLayout(t, b)
@@ -69,30 +79,30 @@ export const connector = {
     },
 
     showOverlayIn() {
-        mode = 1
+        mode = Mode.OverlayIn
     },
 
     showOverlayOut() {
-        mode = 2
+        mode = Mode.OverlayOut
     },
 
     showFallIn() {
-        mode = 3
+        mode = Mode.FallIn
     },
 
     showFallOut() {
-        mode = 4
+        mode = Mode.FallOut
     },
 
     showFrozen() {
-        mode = 5
+        mode = Mode.Frozen
     },
 
     showActive() {
-        mode = 6
+        mode = Mode.Active
     },
 
     clear() {
-        mode = 0
+        mode = Mode.None
     },
 }
