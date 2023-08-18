@@ -46,7 +46,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
 
         if (intermediate.sim) {
             const beat = intermediate.data[EngineArchetypeDataName.Beat]
-            if (typeof beat !== 'number') throw 'Unexpected beat'
+            if (typeof beat !== 'number') throw new Error('Unexpected beat')
 
             const intermediates = beatToIntermediates.get(beat)
             if (intermediates) {
@@ -104,7 +104,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
 
         for (const intermediate of intermediates) {
             const entity = intermediateToEntity.get(intermediate)
-            if (!entity) throw 'Unexpected missing entity'
+            if (!entity) throw new Error('Unexpected missing entity')
 
             entity.data.push({
                 name: 'sim',
@@ -119,7 +119,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
     }
 }
 
-const bpm: Handler<SIFCBpmChangeObject> = (object, append) =>
+const bpm: Handler<SIFCBpmChangeObject> = (object, append) => {
     append({
         archetype: EngineArchetypeName.BpmChange,
         data: {
@@ -128,6 +128,7 @@ const bpm: Handler<SIFCBpmChangeObject> = (object, append) =>
         },
         sim: false,
     })
+}
 
 const tap: Handler<SIFCTapNote> = (object, append) => {
     const note = {
