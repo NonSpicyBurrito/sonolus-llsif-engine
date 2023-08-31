@@ -28,41 +28,49 @@ export class Initialization extends Archetype {
         skin.transform.set(transform)
         particle.transform.set(transform)
 
-        if (options.attribute === 1) {
-            this.data.attribute = Attribute.Smile
-        } else if (options.attribute === 2) {
-            this.data.attribute = Attribute.Pure
-        } else if (options.attribute === 3) {
-            this.data.attribute = Attribute.Cool
+        switch (options.attribute) {
+            case 1:
+                this.data.attribute = Attribute.Smile
+                break
+            case 2:
+                this.data.attribute = Attribute.Pure
+                break
+            case 3:
+                this.data.attribute = Attribute.Cool
+                break
         }
 
-        if (this.data.attribute === Attribute.Pure) {
-            sprites.head = skin.sprites.pureHead.id
-            sprites.connector = skin.sprites.pureHold.id
-            sprites.tail = skin.sprites.pureTail.id
-            sprites.arrow = skin.sprites.pureArrow.id
-            sprites.sim = skin.sprites.pureSim.id
+        switch (this.data.attribute) {
+            case Attribute.Pure:
+                sprites.head = skin.sprites.pureHead.id
+                sprites.connector = skin.sprites.pureHold.id
+                sprites.tail = skin.sprites.pureTail.id
+                sprites.arrow = skin.sprites.pureArrow.id
+                sprites.sim = skin.sprites.pureSim.id
 
-            effects.hit = particle.effects.pureHit.id
-            effects.hold = particle.effects.pureHold.id
-        } else if (this.data.attribute === Attribute.Cool) {
-            sprites.head = skin.sprites.coolHead.id
-            sprites.connector = skin.sprites.coolHold.id
-            sprites.tail = skin.sprites.coolTail.id
-            sprites.arrow = skin.sprites.coolArrow.id
-            sprites.sim = skin.sprites.coolSim.id
+                effects.hit = particle.effects.pureHit.id
+                effects.hold = particle.effects.pureHold.id
+                break
+            case Attribute.Cool:
+                sprites.head = skin.sprites.coolHead.id
+                sprites.connector = skin.sprites.coolHold.id
+                sprites.tail = skin.sprites.coolTail.id
+                sprites.arrow = skin.sprites.coolArrow.id
+                sprites.sim = skin.sprites.coolSim.id
 
-            effects.hit = particle.effects.coolHit.id
-            effects.hold = particle.effects.coolHold.id
-        } else {
-            sprites.head = skin.sprites.smileHead.id
-            sprites.connector = skin.sprites.smileHold.id
-            sprites.tail = skin.sprites.smileTail.id
-            sprites.arrow = skin.sprites.smileArrow.id
-            sprites.sim = skin.sprites.smileSim.id
+                effects.hit = particle.effects.coolHit.id
+                effects.hold = particle.effects.coolHold.id
+                break
+            default:
+                sprites.head = skin.sprites.smileHead.id
+                sprites.connector = skin.sprites.smileHold.id
+                sprites.tail = skin.sprites.smileTail.id
+                sprites.arrow = skin.sprites.smileArrow.id
+                sprites.sim = skin.sprites.smileSim.id
 
-            effects.hit = particle.effects.smileHit.id
-            effects.hold = particle.effects.smileHold.id
+                effects.hit = particle.effects.smileHit.id
+                effects.hold = particle.effects.smileHold.id
+                break
         }
 
         score.base.set({
