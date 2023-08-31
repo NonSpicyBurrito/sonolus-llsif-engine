@@ -21,6 +21,12 @@ export class SwingNote extends SingleNote {
         z: Number,
     })
 
+    preprocess() {
+        super.preprocess()
+
+        if (options.mirror) this.swingData.direction *= -1
+    }
+
     initialize() {
         super.initialize()
 
