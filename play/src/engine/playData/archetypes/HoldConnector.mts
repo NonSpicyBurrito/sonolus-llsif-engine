@@ -1,9 +1,9 @@
+import { SwingDirection } from '../../../../../shared/src/engine/data/SwingDirection.mjs'
 import { lanes } from '../../../../../shared/src/engine/data/lanes.mjs'
 import { options } from '../../configuration/options.mjs'
 import { arrowLayout, note, noteLayout } from '../note.mjs'
 import { effects, holdEffectLayout, particle } from '../particle.mjs'
 import { getZ, layer, skin, sprites } from '../skin.mjs'
-import { SwingDirection } from './SwingDirection.mjs'
 import { archetypes } from './index.mjs'
 
 export class HoldConnector extends Archetype {
