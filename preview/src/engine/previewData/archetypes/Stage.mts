@@ -45,16 +45,18 @@ export class Stage extends Archetype {
             )
 
             for (let j = 0; j < 9; j++) {
-                skin.sprites.lane.draw(
-                    new Rect({
-                        l: i * 13 + (j - 4.5),
-                        r: i * 13 + (j - 3.5),
-                        b: 0,
-                        t: 1,
-                    }),
-                    layer.stage,
-                    1,
-                )
+                const layout = new Rect({
+                    l: i * 13 + (j - 4.5),
+                    r: i * 13 + (j - 3.5),
+                    b: 0,
+                    t: 1,
+                })
+
+                if (j % 2 === 1) {
+                    skin.sprites.laneAlternative.draw(layout, layer.stage, 1)
+                } else {
+                    skin.sprites.lane.draw(layout, layer.stage, 1)
+                }
             }
         }
     }

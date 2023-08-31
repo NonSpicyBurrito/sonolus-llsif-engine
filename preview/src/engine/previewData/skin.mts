@@ -5,6 +5,7 @@ import { scaledScreen } from './scaledScreen.mjs'
 export const skin = defineSkin({
     sprites: {
         lane: SkinSpriteName.Lane,
+        laneAlternative: SkinSpriteName.LaneAlternative,
         stageLeftBorder: SkinSpriteName.StageLeftBorder,
         stageRightBorder: SkinSpriteName.StageRightBorder,
 
