@@ -57,7 +57,7 @@ export const layer = {
 }
 
 export const line = (sprite: SkinSprite, beat: number, a: number) => {
-    const position = panel.positionFromTime(bpmChanges.at(beat).time)
+    const pos = panel.getPos(bpmChanges.at(beat).time)
 
     sprite.draw(
         new Rect({
@@ -65,7 +65,7 @@ export const line = (sprite: SkinSprite, beat: number, a: number) => {
             r: 4.5,
             b: -0.0625 * scaledScreen.wToH,
             t: 0.0625 * scaledScreen.wToH,
-        }).add(position),
+        }).add(pos),
         layer.line,
         a,
     )

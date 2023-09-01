@@ -16,8 +16,8 @@ export class HoldConnector extends Archetype {
         }
 
         const index = {
-            min: Math.floor(t.min / panel.duration),
-            max: Math.floor(t.max / panel.duration),
+            min: Math.floor(t.min / panel.h),
+            max: Math.floor(t.max / panel.h),
         }
 
         const lane = this.headData.lane
@@ -28,26 +28,18 @@ export class HoldConnector extends Archetype {
 
         for (let i = index.min; i <= index.max; i++) {
             const pt = {
-                min: Math.max(t.min, i * panel.duration),
-                max: Math.min(t.max, (i + 1) * panel.duration),
+                min: Math.max(t.min, i * panel.h),
+                max: Math.min(t.max, (i + 1) * panel.h),
             }
-
-            const y = {
-                min: panel.positionFromLocation(i, pt.min - i * panel.duration),
-                max: panel.positionFromLocation(i, pt.max - i * panel.duration),
-            }
-
-            const lb = y.min.translate(l, 0)
-            const rt = y.max.translate(r, 0)
 
             skin.sprites.draw(
                 sprites.connector,
                 new Rect({
-                    l: lb.x,
-                    r: rt.x,
-                    b: lb.y,
-                    t: rt.y,
-                }),
+                    l,
+                    r,
+                    b: pt.min - i * panel.h,
+                    t: pt.max - i * panel.h,
+                }).translate(i * panel.w, 0),
                 z,
                 options.connectorAlpha,
             )

@@ -20,8 +20,8 @@ export abstract class Note extends Archetype {
 
     renderSprite(spriteId: SkinSpriteId, layer: number, rotate: 'up' | 'left' | 'right' = 'up') {
         const time = bpmChanges.at(this.data.beat).time
+        const pos = panel.getPos(time)
 
-        const position = panel.positionFromTime(time)
         const z = getZ(layer, time, this.data.lane)
 
         const layout = new Rect({
@@ -29,7 +29,7 @@ export abstract class Note extends Archetype {
             r: this.data.lane + 0.5 * options.noteSize,
             b: -0.5 * options.noteSize * scaledScreen.wToH,
             t: 0.5 * options.noteSize * scaledScreen.wToH,
-        }).add(position)
+        }).add(pos)
 
         switch (rotate) {
             case 'up':

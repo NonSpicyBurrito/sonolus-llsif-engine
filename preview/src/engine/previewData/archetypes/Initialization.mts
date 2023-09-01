@@ -1,5 +1,6 @@
 import { Attribute } from '../../../../../shared/src/engine/data/Attribute.mjs'
 import { options } from '../../configuration/options.mjs'
+import { panel } from '../panel.mjs'
 import { skin, sprites } from '../skin.mjs'
 
 export class Initialization extends Archetype {
@@ -9,8 +10,8 @@ export class Initialization extends Archetype {
 
     preprocess() {
         const transform = Mat.identity
-            .translate(6.5, 0)
-            .scale(screen.h / 20, screen.h)
+            .translate(panel.w / 2, 0)
+            .scale(screen.h / 20, screen.h / panel.h)
             .translate(screen.l, screen.b)
         skin.transform.set(transform)
 
