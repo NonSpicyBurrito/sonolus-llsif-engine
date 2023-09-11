@@ -1,6 +1,5 @@
 import { SkinSpriteName } from 'sonolus-core'
 import { panel } from './panel.mjs'
-import { scaledScreen } from './scaledScreen.mjs'
 
 export const skin = defineSkin({
     sprites: {
@@ -63,8 +62,8 @@ export const line = (sprite: SkinSprite, beat: number, a: number) => {
         new Rect({
             l: -4.5,
             r: 4.5,
-            b: -0.0625 * scaledScreen.wToH,
-            t: 0.0625 * scaledScreen.wToH,
+            b: -panel.h * 0.0025,
+            t: panel.h * 0.0025,
         }).add(pos),
         layer.line,
         a,
