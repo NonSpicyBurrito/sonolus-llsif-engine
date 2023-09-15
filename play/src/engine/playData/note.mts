@@ -1,8 +1,8 @@
+import { SwingDirection } from '../../../../shared/src/engine/data/SwingDirection.mjs'
 import { lanes } from '../../../../shared/src/engine/data/lanes.mjs'
 import { note as _note } from '../../../../shared/src/engine/data/note.mjs'
 import { layout } from '../../../../shared/src/engine/data/utils.mjs'
 import { options } from '../configuration/options.mjs'
-import { SwingDirection } from './archetypes/SwingDirection.mjs'
 
 export const note = {
     ..._note,

@@ -6,11 +6,11 @@ export * from './nss/index.cjs'
 export { sifcToLevelData } from './sifc/convert.cjs'
 export * from './sifc/index.cjs'
 
-export const version = '1.1.0'
+export const version = '1.2.1'
 
 export const engineInfo = {
     name: 'llsif',
-    version: 9,
+    version: 10,
     title: {
         en: 'Love Live!',
         ja: 'ラブライブ！',
@@ -43,5 +43,6 @@ export const engineInfo = {
 
 export const engineConfiguration = new Resource('EngineConfiguration')
 export const enginePlayData = new Resource('EnginePlayData')
+export const enginePreviewData = new Resource('EnginePreviewData')
 export const engineTutorialData = new Resource('EngineTutorialData')
 export const engineThumbnail = new Resource('thumbnail.png')

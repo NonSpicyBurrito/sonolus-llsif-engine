@@ -6,7 +6,14 @@ const sprites = {
     arrow: skin.sprites.arrow,
 }
 
-let mode = tutorialMemory(DataType<0 | 1 | 2 | 3>)
+enum Mode {
+    None,
+    Overlay,
+    Fall,
+    Frozen,
+}
+
+let mode = tutorialMemory(DataType<Mode>)
 
 const layout = new Quad({
     x1: -1,
@@ -23,30 +30,30 @@ export const arrow = {
     update() {
         if (!mode) return
 
-        if (mode === 1) {
+        if (mode === Mode.Overlay) {
             const a = Math.unlerpClamped(1, 0.75, segment.time)
 
             sprites.arrow.draw(layout.mul(note.radius * 1.5).translate(0, 0.25), layer.arrow, a)
         } else {
-            const y = mode === 2 ? Math.unlerp(0, 2, segment.time) : 1
+            const y = mode === Mode.Fall ? Math.unlerp(0, 2, segment.time) : 1
 
             sprites.arrow.draw(layout.mul(note.radius).translate(0, 1).mul(y), layer.arrow, 1)
         }
     },
 
     showOverlay() {
-        mode = 1
+        mode = Mode.Overlay
     },
 
     showFall() {
-        mode = 2
+        mode = Mode.Fall
     },
 
     showFrozen() {
-        mode = 3
+        mode = Mode.Frozen
     },
 
     clear() {
-        mode = 0
+        mode = Mode.None
     },
 }
