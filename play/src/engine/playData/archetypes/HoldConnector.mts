@@ -168,22 +168,14 @@ export class HoldConnector extends Archetype {
     }
 
     get isActive() {
-        if (options.autoplay) {
-            return time.now >= this.head.time
-        } else {
-            return (
-                this.headInfo.state === EntityState.Despawned &&
-                this.headSingleSharedMemory.activatedTouchId
-            )
-        }
+        return (
+            this.headInfo.state === EntityState.Despawned &&
+            this.headSingleSharedMemory.activatedTouchId
+        )
     }
 
     get isDead() {
-        if (options.autoplay) {
-            return time.now >= this.tail.time
-        } else {
-            return this.tailInfo.state === EntityState.Despawned
-        }
+        return this.tailInfo.state === EntityState.Despawned
     }
 
     renderConnector() {

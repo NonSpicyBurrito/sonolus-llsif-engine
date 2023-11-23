@@ -1,4 +1,3 @@
-import { options } from '../../../configuration/options.mjs'
 import { buckets } from '../../buckets.mjs'
 import { skin, sprites } from '../../skin.mjs'
 import { windows } from '../../windows.mjs'
@@ -27,8 +26,6 @@ export class HoldNote extends Note {
     }
 
     touch() {
-        if (options.autoplay) return
-
         const id = this.prevSingleSharedMemory.activatedTouchId
         if (!id) return
 
@@ -60,7 +57,6 @@ export class HoldNote extends Note {
 
     updateParallel() {
         if (
-            !options.autoplay &&
             this.prevInfo.state === EntityState.Despawned &&
             !this.prevSingleSharedMemory.activatedTouchId
         )
