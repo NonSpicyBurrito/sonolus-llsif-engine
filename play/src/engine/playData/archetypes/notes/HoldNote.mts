@@ -14,6 +14,7 @@ export class HoldNote extends Note {
 
     bucket = buckets.holdNote
 
+    preprocessOrder = 1
     preprocess() {
         super.preprocess()
 
