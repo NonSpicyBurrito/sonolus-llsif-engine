@@ -6,7 +6,7 @@ export * from './nss/index.cjs'
 export { sifcToLevelData } from './sifc/convert.cjs'
 export * from './sifc/index.cjs'
 
-export const version = '1.2.1'
+export const version = '1.3.0'
 
 export const engineInfo = {
     name: 'llsif',
