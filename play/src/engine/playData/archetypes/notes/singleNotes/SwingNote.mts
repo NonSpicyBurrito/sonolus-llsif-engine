@@ -35,8 +35,6 @@ export class SwingNote extends SingleNote {
     }
 
     touch() {
-        if (options.autoplay) return
-
         if (time.now < this.inputTime.min) return
 
         for (const touch of touches) {

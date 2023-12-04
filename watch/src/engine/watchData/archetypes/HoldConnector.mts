@@ -12,6 +12,8 @@ export class HoldConnector extends Archetype {
         tailRef: { name: 'tail', type: Number },
     })
 
+    initialized = this.entityMemory(Boolean)
+
     head = this.entityMemory({
         time: Number,
         lane: Number,
@@ -23,8 +25,6 @@ export class HoldConnector extends Archetype {
     tail = this.entityMemory({
         time: Number,
     })
-
-    spawnTime = this.entityMemory(Number)
 
     visualTime = this.entityMemory({
         min: Number,
@@ -57,31 +57,84 @@ export class HoldConnector extends Archetype {
 
     preprocess() {
         this.head.time = bpmChanges.at(this.headData.beat).time
+        this.tail.time = bpmChanges.at(this.tailData.beat).time
 
         this.visualTime.min = this.head.time - note.duration
-
-        this.spawnTime = this.visualTime.min
+        this.visualTime.max = this.tail.time
     }
 
-    spawnOrder() {
-        return 1000 + this.spawnTime
+    spawnTime() {
+        return this.visualTime.min
     }
 
-    shouldSpawn() {
-        return time.now >= this.spawnTime
+    despawnTime() {
+        return this.visualTime.max
     }
 
     initialize() {
+        if (this.initialized) return
+        this.initialized = true
+
+        this.globalInitialize()
+    }
+
+    updateParallel() {
+        this.renderConnector()
+
+        if (time.skip) {
+            if (this.shouldScheduleHoldEffect) this.holdEffectInstanceId = 0
+        }
+
+        if (time.now < this.head.time) return
+
+        if (this.shouldScheduleHoldEffect && !this.holdEffectInstanceId) this.spawnHoldEffect()
+
+        this.renderSlide()
+    }
+
+    terminate() {
+        if (this.shouldScheduleHoldEffect && this.holdEffectInstanceId) this.destroyHoldEffect()
+    }
+
+    get headInfo() {
+        return entityInfos.get(this.data.headRef)
+    }
+
+    get headData() {
+        return archetypes.TapNote.data.get(this.data.headRef)
+    }
+
+    get headSingleData() {
+        return archetypes.TapNote.singleData.get(this.data.headRef)
+    }
+
+    get headSwingData() {
+        return archetypes.SwingNote.swingData.get(this.data.headRef)
+    }
+
+    get tailData() {
+        return archetypes.HoldNote.data.get(this.data.tailRef)
+    }
+
+    get useActiveSprite() {
+        return skin.sprites.activeHold.exists
+    }
+
+    get shouldScheduleHoldEffect() {
+        return options.noteEffectEnabled && particle.effects.exists(effects.hold)
+    }
+
+    get isActive() {
+        return time.now >= this.head.time
+    }
+
+    globalInitialize() {
         this.head.lane = this.headData.lane
         this.head.sim = this.headSingleData.sim
         this.head.arrow =
             this.headInfo.archetype === archetypes.SwingNote.index
                 ? this.headSwingData.direction
                 : 0
-
-        this.tail.time = bpmChanges.at(this.tailData.beat).time
-
-        this.visualTime.max = this.tail.time
 
         if (options.hidden > 0)
             this.visualTime.hidden = this.tail.time - note.duration * options.hidden
@@ -103,79 +156,6 @@ export class HoldConnector extends Archetype {
             arrowLayout(this.head.lane, this.head.arrow).copyTo(this.arrow.layout)
             this.arrow.z = getZ(layer.slide.body, this.head.time, this.head.lane)
         }
-    }
-
-    updateParallel() {
-        if (this.isDead) {
-            this.despawn = true
-            return
-        }
-
-        if (this.shouldHoldEffect && !this.holdEffectInstanceId && this.isActive) {
-            const layout = holdEffectLayout(this.head.lane)
-
-            this.holdEffectInstanceId = particle.effects.spawn(effects.hold, layout, 0.6, true)
-        }
-
-        if (time.now < this.visualTime.min || time.now >= this.visualTime.max) return
-
-        this.renderConnector()
-
-        if (time.now < this.head.time) return
-
-        this.renderSlide()
-    }
-
-    terminate() {
-        if (this.shouldHoldEffect && this.holdEffectInstanceId)
-            particle.effects.destroy(this.holdEffectInstanceId)
-    }
-
-    get headInfo() {
-        return entityInfos.get(this.data.headRef)
-    }
-
-    get headData() {
-        return archetypes.TapNote.data.get(this.data.headRef)
-    }
-
-    get headSingleData() {
-        return archetypes.TapNote.singleData.get(this.data.headRef)
-    }
-
-    get headSwingData() {
-        return archetypes.SwingNote.swingData.get(this.data.headRef)
-    }
-
-    get headSingleSharedMemory() {
-        return archetypes.TapNote.singleSharedMemory.get(this.data.headRef)
-    }
-
-    get tailInfo() {
-        return entityInfos.get(this.data.tailRef)
-    }
-
-    get tailData() {
-        return archetypes.HoldNote.data.get(this.data.tailRef)
-    }
-
-    get useActiveSprite() {
-        return skin.sprites.activeHold.exists
-    }
-
-    get shouldHoldEffect() {
-        return options.noteEffectEnabled && particle.effects.exists(effects.hold)
-    }
-
-    get isActive() {
-        return (
-            this.headInfo.state === EntityState.Despawned &&
-            this.headSingleSharedMemory.activatedTouchId
-        )
-    }
-
-    get isDead() {
-        return this.tailInfo.state === EntityState.Despawned
     }
 
     renderConnector() {
@@ -225,5 +205,16 @@ export class HoldConnector extends Archetype {
         if (this.head.sim) skin.sprites.draw(sprites.sim, this.slide.layout, this.sim.z, 1)
 
         if (this.head.arrow) skin.sprites.draw(sprites.arrow, this.arrow.layout, this.arrow.z, 1)
+    }
+
+    spawnHoldEffect() {
+        const layout = holdEffectLayout(this.head.lane)
+
+        this.holdEffectInstanceId = particle.effects.spawn(effects.hold, layout, 0.6, true)
+    }
+
+    destroyHoldEffect() {
+        particle.effects.destroy(this.holdEffectInstanceId)
+        this.holdEffectInstanceId = 0
     }
 }

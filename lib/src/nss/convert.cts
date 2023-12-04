@@ -62,11 +62,11 @@ export const nssToSIFC = (nss: NSS): SIFC => {
                     ? 'Left'
                     : 'Right'
                 : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                prev
-                ? prev.position > note.position
-                    ? 'Right'
-                    : 'Left'
-                : 'Left'
+                  prev
+                  ? prev.position > note.position
+                      ? 'Right'
+                      : 'Left'
+                  : 'Left'
 
             if (note.effect === NSSNoteEffect.Swing) {
                 objects.push({
