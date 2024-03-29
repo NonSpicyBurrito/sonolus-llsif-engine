@@ -17,15 +17,7 @@ export const transform = (position: Vec) => {
     }
 }
 
-export class InputManager extends Archetype {
-    spawnOrder() {
-        return 1
-    }
-
-    shouldSpawn() {
-        return entityInfos.get(0).state === EntityState.Despawned
-    }
-
+export class InputManager extends SpawnableArchetype({}) {
     touch() {
         usedTouchIds.clear()
     }
