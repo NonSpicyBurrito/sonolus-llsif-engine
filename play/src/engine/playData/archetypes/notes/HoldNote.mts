@@ -6,7 +6,7 @@ import { archetypes } from '../index.mjs'
 import { Note } from './Note.mjs'
 
 export class HoldNote extends Note {
-    holdData = this.defineData({
+    holdImport = this.defineImport({
         prevRef: { name: 'prev', type: Number },
     })
 
@@ -18,10 +18,10 @@ export class HoldNote extends Note {
     preprocess() {
         super.preprocess()
 
-        this.data.lane = this.prevData.lane
+        this.import.lane = this.prevImport.lane
 
         const minPrevInputTime =
-            bpmChanges.at(this.prevData.beat).time + windows.minGood + input.offset
+            bpmChanges.at(this.prevImport.beat).time + windows.minGood + input.offset
 
         this.spawnTime = Math.min(this.spawnTime, minPrevInputTime)
     }
@@ -39,7 +39,7 @@ export class HoldNote extends Note {
             if (
                 time.now >= this.inputTime.min &&
                 Math.abs(radius - 1) <= 0.32 &&
-                Math.abs(lane - this.data.lane) <= 0.5
+                Math.abs(lane - this.import.lane) <= 0.5
             ) {
                 this.complete(touch.t)
             } else {
@@ -67,15 +67,15 @@ export class HoldNote extends Note {
     }
 
     get prevInfo() {
-        return entityInfos.get(this.holdData.prevRef)
+        return entityInfos.get(this.holdImport.prevRef)
     }
 
-    get prevData() {
-        return archetypes.TapNote.data.get(this.holdData.prevRef)
+    get prevImport() {
+        return archetypes.TapNote.import.get(this.holdImport.prevRef)
     }
 
     get prevSingleSharedMemory() {
-        return archetypes.TapNote.singleSharedMemory.get(this.holdData.prevRef)
+        return archetypes.TapNote.singleSharedMemory.get(this.holdImport.prevRef)
     }
 
     complete(hitTime: number) {

@@ -4,20 +4,20 @@ import { layer, sprites } from '../../../skin.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class SwingNote extends SingleNote {
-    swingData = this.defineData({
+    swingImport = this.defineImport({
         direction: { name: 'direction', type: DataType<SwingDirection> },
     })
 
     preprocess() {
         super.preprocess()
 
-        if (options.mirror) this.swingData.direction *= -1
+        if (options.mirror) this.swingImport.direction *= -1
     }
 
     render() {
         super.render()
 
-        switch (this.swingData.direction) {
+        switch (this.swingImport.direction) {
             case SwingDirection.Left:
                 this.renderSprite(sprites.arrow, layer.note.arrow, 'left')
                 break

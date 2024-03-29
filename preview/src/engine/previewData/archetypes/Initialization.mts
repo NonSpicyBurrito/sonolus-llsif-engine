@@ -4,7 +4,7 @@ import { panel } from '../panel.mjs'
 import { skin, sprites } from '../skin.mjs'
 
 export class Initialization extends Archetype {
-    data = this.defineData({
+    import = this.defineImport({
         attribute: { name: 'attribute', type: DataType<Attribute> },
     })
 
@@ -17,17 +17,17 @@ export class Initialization extends Archetype {
 
         switch (options.attribute) {
             case 1:
-                this.data.attribute = Attribute.Smile
+                this.import.attribute = Attribute.Smile
                 break
             case 2:
-                this.data.attribute = Attribute.Pure
+                this.import.attribute = Attribute.Pure
                 break
             case 3:
-                this.data.attribute = Attribute.Cool
+                this.import.attribute = Attribute.Cool
                 break
         }
 
-        switch (this.data.attribute) {
+        switch (this.import.attribute) {
             case Attribute.Pure:
                 sprites.head = skin.sprites.pureHead.id
                 sprites.connector = skin.sprites.pureHold.id

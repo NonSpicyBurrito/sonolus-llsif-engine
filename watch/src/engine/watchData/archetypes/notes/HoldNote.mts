@@ -3,7 +3,7 @@ import { archetypes } from '../index.mjs'
 import { Note } from './Note.mjs'
 
 export class HoldNote extends Note {
-    holdData = this.defineData({
+    holdImport = this.defineImport({
         prevRef: { name: 'prev', type: Number },
     })
 
@@ -11,11 +11,11 @@ export class HoldNote extends Note {
     preprocess() {
         super.preprocess()
 
-        this.data.lane = this.prevData.lane
+        this.import.lane = this.prevImport.lane
     }
 
-    get prevData() {
-        return archetypes.TapNote.data.get(this.holdData.prevRef)
+    get prevImport() {
+        return archetypes.TapNote.import.get(this.holdImport.prevRef)
     }
 
     render() {

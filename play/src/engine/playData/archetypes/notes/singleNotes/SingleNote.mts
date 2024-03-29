@@ -2,7 +2,7 @@ import { getZ, layer, skin, sprites } from '../../../skin.mjs'
 import { Note } from '../Note.mjs'
 
 export abstract class SingleNote extends Note {
-    singleData = this.defineData({
+    singleImport = this.defineImport({
         sim: { name: 'sim', type: Boolean },
         hold: { name: 'hold', type: Boolean },
     })
@@ -18,11 +18,12 @@ export abstract class SingleNote extends Note {
     initialize() {
         super.initialize()
 
-        if (this.singleData.sim) this.sim.z = getZ(layer.note.sim, this.targetTime, this.data.lane)
+        if (this.singleImport.sim)
+            this.sim.z = getZ(layer.note.sim, this.targetTime, this.import.lane)
     }
 
     get shouldRender() {
-        return !this.singleData.hold || time.now < this.targetTime
+        return !this.singleImport.hold || time.now < this.targetTime
     }
 
     render() {
@@ -30,7 +31,7 @@ export abstract class SingleNote extends Note {
 
         skin.sprites.draw(sprites.head, this.note.layout.mul(this.s), this.note.z, 1)
 
-        if (this.singleData.sim)
+        if (this.singleImport.sim)
             skin.sprites.draw(sprites.sim, this.note.layout.mul(this.s), this.sim.z, 1)
     }
 }
