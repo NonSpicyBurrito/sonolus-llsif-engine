@@ -10,6 +10,10 @@ export class HoldNote extends Note {
         prevRef: { name: 'prev', type: Number },
     })
 
+    export = this.defineExport({
+        accuracyDiff: { name: 'accuracyDiff', type: Number },
+    })
+
     windows = windows.holdNote
 
     bucket = buckets.holdNote
@@ -43,7 +47,7 @@ export class HoldNote extends Note {
             ) {
                 this.complete(touch.t)
             } else {
-                this.despawn = true
+                this.incomplete(touch.t)
             }
             return
         }
@@ -51,7 +55,7 @@ export class HoldNote extends Note {
         if (time.now >= this.inputTime.min) {
             this.complete(time.now)
         } else {
-            this.despawn = true
+            this.incomplete(time.now)
         }
         return
     }
@@ -86,6 +90,12 @@ export class HoldNote extends Note {
         this.result.bucket.value = this.result.accuracy * 1000
 
         this.playHitEffects()
+
+        this.despawn = true
+    }
+
+    incomplete(hitTime: number) {
+        this.export('accuracyDiff', hitTime - this.result.accuracy - this.targetTime)
 
         this.despawn = true
     }

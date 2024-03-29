@@ -22,11 +22,9 @@ export abstract class SingleNote extends Note {
             this.sim.z = getZ(layer.note.sim, this.targetTime, this.import.lane)
     }
 
-    get shouldRender() {
-        return !this.singleImport.hold || time.now < this.targetTime
-    }
-
     render() {
+        if (this.singleImport.hold && time.now >= this.targetTime) return
+
         super.render()
 
         skin.sprites.draw(sprites.head, this.note.layout.mul(this.s), this.note.z, 1)

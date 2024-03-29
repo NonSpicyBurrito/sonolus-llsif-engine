@@ -67,8 +67,10 @@ export class HoldConnector extends Archetype {
         return this.visualTime.min
     }
 
-    despawnTime() {
-        return this.visualTime.max
+    despawnTime(): number {
+        return replay.isReplay
+            ? Math.min(this.tailSharedMemory.despawnTime, this.tail.time)
+            : this.tail.time
     }
 
     initialize() {
@@ -87,9 +89,11 @@ export class HoldConnector extends Archetype {
 
         if (time.now < this.head.time) return
 
-        if (this.shouldScheduleHoldEffect && !this.holdEffectInstanceId) this.spawnHoldEffect()
-
         this.renderSlide()
+
+        if (time.now < this.headSharedMemory.despawnTime) return
+
+        if (this.shouldScheduleHoldEffect && !this.holdEffectInstanceId) this.spawnHoldEffect()
     }
 
     terminate() {
@@ -112,8 +116,16 @@ export class HoldConnector extends Archetype {
         return archetypes.SwingNote.swingImport.get(this.import.headRef)
     }
 
+    get headSharedMemory() {
+        return archetypes.TapNote.sharedMemory.get(this.import.headRef)
+    }
+
     get tailImport() {
         return archetypes.HoldNote.import.get(this.import.tailRef)
+    }
+
+    get tailSharedMemory() {
+        return archetypes.TapNote.sharedMemory.get(this.import.tailRef)
     }
 
     get useActiveSprite() {

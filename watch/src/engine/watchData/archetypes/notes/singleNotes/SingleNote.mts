@@ -4,6 +4,7 @@ import { Note } from '../Note.mjs'
 export abstract class SingleNote extends Note {
     singleImport = this.defineImport({
         sim: { name: 'sim', type: Boolean },
+        hold: { name: 'hold', type: Boolean },
     })
 
     sim = this.entityMemory({
@@ -18,6 +19,8 @@ export abstract class SingleNote extends Note {
     }
 
     render() {
+        if (this.singleImport.hold && time.now >= this.targetTime) return
+
         super.render()
 
         skin.sprites.draw(sprites.head, this.note.layout.mul(this.s), this.note.z, 1)
