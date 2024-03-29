@@ -1,5 +1,5 @@
+import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { buckets } from '../../../buckets.mjs'
-import { windows } from '../../../windows.mjs'
 import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
 import { SingleNote } from './SingleNote.mjs'
 

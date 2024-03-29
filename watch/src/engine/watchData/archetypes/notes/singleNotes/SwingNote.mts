@@ -1,5 +1,7 @@
 import { SwingDirection } from '../../../../../../../shared/src/engine/data/SwingDirection.mjs'
+import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { options } from '../../../../configuration/options.mjs'
+import { buckets } from '../../../buckets.mjs'
 import { arrowLayout } from '../../../note.mjs'
 import { getZ, layer, skin, sprites } from '../../../skin.mjs'
 import { SingleNote } from './SingleNote.mjs'
@@ -8,6 +10,10 @@ export class SwingNote extends SingleNote {
     swingImport = this.defineImport({
         direction: { name: 'direction', type: DataType<SwingDirection> },
     })
+
+    windows = windows.swingNote
+
+    bucket = buckets.swingNote
 
     arrow = this.entityMemory({
         layout: Quad,

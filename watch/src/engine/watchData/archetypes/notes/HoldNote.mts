@@ -1,3 +1,5 @@
+import { windows } from '../../../../../../shared/src/engine/data/windows.mjs'
+import { buckets } from '../../buckets.mjs'
 import { skin, sprites } from '../../skin.mjs'
 import { archetypes } from '../index.mjs'
 import { Note } from './Note.mjs'
@@ -7,6 +9,10 @@ export class HoldNote extends Note {
         prevRef: { name: 'prev', type: Number },
         accuracyDiff: { name: 'accuracyDiff', type: Number },
     })
+
+    windows = windows.holdNote
+
+    bucket = buckets.holdNote
 
     preprocessOrder = 1
     preprocess() {
