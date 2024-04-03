@@ -1,4 +1,4 @@
-import { EngineArchetypeDataName } from 'sonolus-core'
+import { EngineArchetypeDataName } from '@sonolus/core'
 import { options } from '../../../configuration/options.mjs'
 import { effect, getScheduleSFXTime, sfxDistance } from '../../effect.mjs'
 import { note, noteLayout } from '../../note.mjs'

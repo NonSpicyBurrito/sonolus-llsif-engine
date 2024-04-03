@@ -3,7 +3,7 @@ import {
     EngineArchetypeName,
     LevelData,
     LevelDataEntity,
-} from 'sonolus-core'
+} from '@sonolus/core'
 import { SIFC, SIFCBpmChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.cjs'
 
 type Intermediate = {

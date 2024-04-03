@@ -1,5 +1,5 @@
+import { DatabaseEngineItem } from '@sonolus/core'
 import { resolve } from 'node:path'
-import { DatabaseEngineItem } from 'sonolus-core'
 
 export { nssToSIFC } from './nss/convert.cjs'
 export * from './nss/index.cjs'

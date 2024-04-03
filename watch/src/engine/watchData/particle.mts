@@ -1,4 +1,4 @@
-import { ParticleEffectName } from 'sonolus-core'
+import { ParticleEffectName } from '@sonolus/core'
 import { lanes } from '../../../../shared/src/engine/data/lanes.mjs'
 import { layout } from '../../../../shared/src/engine/data/utils.mjs'
 import { options } from '../configuration/options.mjs'
