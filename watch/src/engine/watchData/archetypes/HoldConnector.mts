@@ -7,7 +7,7 @@ import { getZ, layer, skin, sprites } from '../skin.mjs'
 import { archetypes } from './index.mjs'
 
 export class HoldConnector extends Archetype {
-    data = this.defineData({
+    import = this.defineImport({
         headRef: { name: 'head', type: Number },
         tailRef: { name: 'tail', type: Number },
     })
@@ -56,8 +56,8 @@ export class HoldConnector extends Archetype {
     holdEffectInstanceId = this.entityMemory(ParticleEffectInstanceId)
 
     preprocess() {
-        this.head.time = bpmChanges.at(this.headData.beat).time
-        this.tail.time = bpmChanges.at(this.tailData.beat).time
+        this.head.time = bpmChanges.at(this.headImport.beat).time
+        this.tail.time = bpmChanges.at(this.tailImport.beat).time
 
         this.visualTime.min = this.head.time - note.duration
         this.visualTime.max = this.tail.time
@@ -67,8 +67,10 @@ export class HoldConnector extends Archetype {
         return this.visualTime.min
     }
 
-    despawnTime() {
-        return this.visualTime.max
+    despawnTime(): number {
+        return replay.isReplay
+            ? Math.min(this.tailSharedMemory.despawnTime, this.tail.time)
+            : this.tail.time
     }
 
     initialize() {
@@ -87,9 +89,11 @@ export class HoldConnector extends Archetype {
 
         if (time.now < this.head.time) return
 
-        if (this.shouldScheduleHoldEffect && !this.holdEffectInstanceId) this.spawnHoldEffect()
-
         this.renderSlide()
+
+        if (time.now < this.headSharedMemory.despawnTime) return
+
+        if (this.shouldScheduleHoldEffect && !this.holdEffectInstanceId) this.spawnHoldEffect()
     }
 
     terminate() {
@@ -97,23 +101,31 @@ export class HoldConnector extends Archetype {
     }
 
     get headInfo() {
-        return entityInfos.get(this.data.headRef)
+        return entityInfos.get(this.import.headRef)
     }
 
-    get headData() {
-        return archetypes.TapNote.data.get(this.data.headRef)
+    get headImport() {
+        return archetypes.TapNote.import.get(this.import.headRef)
     }
 
-    get headSingleData() {
-        return archetypes.TapNote.singleData.get(this.data.headRef)
+    get headSingleImport() {
+        return archetypes.TapNote.singleImport.get(this.import.headRef)
     }
 
-    get headSwingData() {
-        return archetypes.SwingNote.swingData.get(this.data.headRef)
+    get headSwingImport() {
+        return archetypes.SwingNote.swingImport.get(this.import.headRef)
     }
 
-    get tailData() {
-        return archetypes.HoldNote.data.get(this.data.tailRef)
+    get headSharedMemory() {
+        return archetypes.TapNote.sharedMemory.get(this.import.headRef)
+    }
+
+    get tailImport() {
+        return archetypes.HoldNote.import.get(this.import.tailRef)
+    }
+
+    get tailSharedMemory() {
+        return archetypes.TapNote.sharedMemory.get(this.import.tailRef)
     }
 
     get useActiveSprite() {
@@ -129,11 +141,11 @@ export class HoldConnector extends Archetype {
     }
 
     globalInitialize() {
-        this.head.lane = this.headData.lane
-        this.head.sim = this.headSingleData.sim
+        this.head.lane = this.headImport.lane
+        this.head.sim = this.headSingleImport.sim
         this.head.arrow =
             this.headInfo.archetype === archetypes.SwingNote.index
-                ? this.headSwingData.direction
+                ? this.headSwingImport.direction
                 : 0
 
         if (options.hidden > 0)

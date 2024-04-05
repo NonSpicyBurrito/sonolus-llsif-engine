@@ -1,4 +1,4 @@
-import { EngineArchetypeDataName } from 'sonolus-core'
+import { EngineArchetypeDataName } from '@sonolus/core'
 import { options } from '../../../configuration/options.mjs'
 import { effect, getScheduleSFXTime, sfxDistance } from '../../effect.mjs'
 import { note, noteLayout } from '../../note.mjs'
@@ -8,7 +8,7 @@ import { getZ, layer } from '../../skin.mjs'
 export abstract class Note extends Archetype {
     hasInput = true
 
-    data = this.defineData({
+    import = this.defineImport({
         beat: { name: EngineArchetypeDataName.Beat, type: Number },
         lane: { name: 'lane', type: Number },
     })
@@ -59,7 +59,7 @@ export abstract class Note extends Archetype {
     }
 
     preprocess() {
-        this.targetTime = bpmChanges.at(this.data.beat).time
+        this.targetTime = bpmChanges.at(this.import.beat).time
 
         this.visualTime.max = this.targetTime
         this.visualTime.min = this.visualTime.max - note.duration
@@ -68,7 +68,7 @@ export abstract class Note extends Archetype {
 
         this.spawnTime = Math.min(this.visualTime.min, this.scheduleSFXTime)
 
-        if (options.mirror) this.data.lane *= -1
+        if (options.mirror) this.import.lane *= -1
     }
 
     spawnOrder() {
@@ -86,8 +86,8 @@ export abstract class Note extends Archetype {
         if (options.hidden > 0)
             this.visualTime.hidden = this.visualTime.max - note.duration * options.hidden
 
-        noteLayout(this.data.lane).copyTo(this.note.layout)
-        this.note.z = getZ(layer.note.body, this.targetTime, this.data.lane)
+        noteLayout(this.import.lane).copyTo(this.note.layout)
+        this.note.z = getZ(layer.note.body, this.targetTime, this.import.lane)
 
         this.result.accuracy = this.windows.good.max
     }
@@ -103,7 +103,6 @@ export abstract class Note extends Archetype {
 
         if (time.now < this.visualTime.min) return
         if (options.hidden > 0 && time.now > this.visualTime.hidden) return
-        if (!this.shouldRender) return
 
         this.render()
     }
@@ -120,11 +119,6 @@ export abstract class Note extends Archetype {
         this.hasSFXScheduled = true
 
         effect.clips.perfect.schedule(this.targetTime, sfxDistance)
-    }
-
-    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
-    get shouldRender() {
-        return true
     }
 
     render() {
@@ -151,7 +145,7 @@ export abstract class Note extends Archetype {
     }
 
     playNoteEffect() {
-        const layout = hitEffectLayout(this.data.lane)
+        const layout = hitEffectLayout(this.import.lane)
 
         particle.effects.spawn(effects.hit, layout, 0.35, false)
     }

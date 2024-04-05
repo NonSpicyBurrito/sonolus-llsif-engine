@@ -11,10 +11,6 @@
             ]
         },
         {
-            "archetype": "InputManager",
-            "data": []
-        },
-        {
             "archetype": "Stage",
             "data": []
         },
@@ -280,7 +276,7 @@
                     "value": 1
                 }
             ],
-            "ref": "0"
+            "name": "0"
         },
         {
             "archetype": "HoldNote",
@@ -294,7 +290,7 @@
                     "ref": "0"
                 }
             ],
-            "ref": "1"
+            "name": "1"
         },
         {
             "archetype": "HoldConnector",
@@ -423,7 +419,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2"
+            "name": "2"
         },
         {
             "archetype": "HoldNote",
@@ -437,7 +433,7 @@
                     "ref": "2"
                 }
             ],
-            "ref": "3"
+            "name": "3"
         },
         {
             "archetype": "HoldConnector",
@@ -472,7 +468,7 @@
                     "value": 1
                 }
             ],
-            "ref": "4"
+            "name": "4"
         },
         {
             "archetype": "HoldNote",
@@ -486,7 +482,7 @@
                     "ref": "4"
                 }
             ],
-            "ref": "5"
+            "name": "5"
         },
         {
             "archetype": "HoldConnector",
@@ -611,7 +607,7 @@
                     "value": 1
                 }
             ],
-            "ref": "6"
+            "name": "6"
         },
         {
             "archetype": "HoldNote",
@@ -625,7 +621,7 @@
                     "ref": "6"
                 }
             ],
-            "ref": "7"
+            "name": "7"
         },
         {
             "archetype": "HoldConnector",
@@ -814,7 +810,7 @@
                     "value": 1
                 }
             ],
-            "ref": "8"
+            "name": "8"
         },
         {
             "archetype": "HoldNote",
@@ -828,7 +824,7 @@
                     "ref": "8"
                 }
             ],
-            "ref": "9"
+            "name": "9"
         },
         {
             "archetype": "HoldConnector",
@@ -863,7 +859,7 @@
                     "value": 1
                 }
             ],
-            "ref": "a"
+            "name": "a"
         },
         {
             "archetype": "HoldNote",
@@ -877,7 +873,7 @@
                     "ref": "a"
                 }
             ],
-            "ref": "b"
+            "name": "b"
         },
         {
             "archetype": "HoldConnector",
@@ -1002,7 +998,7 @@
                     "value": 1
                 }
             ],
-            "ref": "c"
+            "name": "c"
         },
         {
             "archetype": "HoldNote",
@@ -1016,7 +1012,7 @@
                     "ref": "c"
                 }
             ],
-            "ref": "d"
+            "name": "d"
         },
         {
             "archetype": "HoldConnector",
@@ -1192,7 +1188,7 @@
                     "value": 1
                 }
             ],
-            "ref": "e"
+            "name": "e"
         },
         {
             "archetype": "HoldNote",
@@ -1206,7 +1202,7 @@
                     "ref": "e"
                 }
             ],
-            "ref": "f"
+            "name": "f"
         },
         {
             "archetype": "HoldConnector",
@@ -1348,7 +1344,7 @@
                     "value": 1
                 }
             ],
-            "ref": "g"
+            "name": "g"
         },
         {
             "archetype": "HoldNote",
@@ -1362,7 +1358,7 @@
                     "ref": "g"
                 }
             ],
-            "ref": "h"
+            "name": "h"
         },
         {
             "archetype": "HoldConnector",
@@ -1521,7 +1517,7 @@
                     "value": 1
                 }
             ],
-            "ref": "i"
+            "name": "i"
         },
         {
             "archetype": "HoldNote",
@@ -1535,7 +1531,7 @@
                     "ref": "i"
                 }
             ],
-            "ref": "j"
+            "name": "j"
         },
         {
             "archetype": "HoldConnector",
@@ -1668,7 +1664,7 @@
                     "value": 1
                 }
             ],
-            "ref": "k"
+            "name": "k"
         },
         {
             "archetype": "HoldNote",
@@ -1682,7 +1678,7 @@
                     "ref": "k"
                 }
             ],
-            "ref": "l"
+            "name": "l"
         },
         {
             "archetype": "HoldConnector",
@@ -1798,7 +1794,7 @@
                     "value": 1
                 }
             ],
-            "ref": "m"
+            "name": "m"
         },
         {
             "archetype": "HoldNote",
@@ -1812,7 +1808,7 @@
                     "ref": "m"
                 }
             ],
-            "ref": "n"
+            "name": "n"
         },
         {
             "archetype": "HoldConnector",
@@ -2018,7 +2014,7 @@
                     "value": 1
                 }
             ],
-            "ref": "o"
+            "name": "o"
         },
         {
             "archetype": "HoldNote",
@@ -2032,7 +2028,7 @@
                     "ref": "o"
                 }
             ],
-            "ref": "p"
+            "name": "p"
         },
         {
             "archetype": "HoldConnector",
@@ -2183,7 +2179,7 @@
                     "value": 1
                 }
             ],
-            "ref": "q"
+            "name": "q"
         },
         {
             "archetype": "HoldNote",
@@ -2197,7 +2193,7 @@
                     "ref": "q"
                 }
             ],
-            "ref": "r"
+            "name": "r"
         },
         {
             "archetype": "HoldConnector",
@@ -2232,7 +2228,7 @@
                     "value": 1
                 }
             ],
-            "ref": "s"
+            "name": "s"
         },
         {
             "archetype": "HoldNote",
@@ -2246,7 +2242,7 @@
                     "ref": "s"
                 }
             ],
-            "ref": "t"
+            "name": "t"
         },
         {
             "archetype": "HoldConnector",
@@ -2315,7 +2311,7 @@
                     "value": 1
                 }
             ],
-            "ref": "u"
+            "name": "u"
         },
         {
             "archetype": "HoldNote",
@@ -2329,7 +2325,7 @@
                     "ref": "u"
                 }
             ],
-            "ref": "v"
+            "name": "v"
         },
         {
             "archetype": "HoldConnector",
@@ -2496,7 +2492,7 @@
                     "value": 1
                 }
             ],
-            "ref": "w"
+            "name": "w"
         },
         {
             "archetype": "HoldNote",
@@ -2510,7 +2506,7 @@
                     "ref": "w"
                 }
             ],
-            "ref": "x"
+            "name": "x"
         },
         {
             "archetype": "HoldConnector",
@@ -2545,7 +2541,7 @@
                     "value": 1
                 }
             ],
-            "ref": "y"
+            "name": "y"
         },
         {
             "archetype": "HoldNote",
@@ -2559,7 +2555,7 @@
                     "ref": "y"
                 }
             ],
-            "ref": "z"
+            "name": "z"
         },
         {
             "archetype": "HoldConnector",
@@ -2628,7 +2624,7 @@
                     "value": 1
                 }
             ],
-            "ref": "10"
+            "name": "10"
         },
         {
             "archetype": "HoldNote",
@@ -2642,7 +2638,7 @@
                     "ref": "10"
                 }
             ],
-            "ref": "11"
+            "name": "11"
         },
         {
             "archetype": "HoldConnector",
@@ -2874,7 +2870,7 @@
                     "value": 1
                 }
             ],
-            "ref": "12"
+            "name": "12"
         },
         {
             "archetype": "HoldNote",
@@ -2888,7 +2884,7 @@
                     "ref": "12"
                 }
             ],
-            "ref": "13"
+            "name": "13"
         },
         {
             "archetype": "HoldConnector",
@@ -3094,7 +3090,7 @@
                     "value": 1
                 }
             ],
-            "ref": "14"
+            "name": "14"
         },
         {
             "archetype": "HoldNote",
@@ -3108,7 +3104,7 @@
                     "ref": "14"
                 }
             ],
-            "ref": "15"
+            "name": "15"
         },
         {
             "archetype": "HoldConnector",
@@ -3579,7 +3575,7 @@
                     "value": 1
                 }
             ],
-            "ref": "16"
+            "name": "16"
         },
         {
             "archetype": "HoldNote",
@@ -3593,7 +3589,7 @@
                     "ref": "16"
                 }
             ],
-            "ref": "17"
+            "name": "17"
         },
         {
             "archetype": "HoldConnector",
@@ -3773,7 +3769,7 @@
                     "value": 1
                 }
             ],
-            "ref": "18"
+            "name": "18"
         },
         {
             "archetype": "HoldNote",
@@ -3787,7 +3783,7 @@
                     "ref": "18"
                 }
             ],
-            "ref": "19"
+            "name": "19"
         },
         {
             "archetype": "HoldConnector",
@@ -3852,7 +3848,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1a"
+            "name": "1a"
         },
         {
             "archetype": "HoldNote",
@@ -3866,7 +3862,7 @@
                     "ref": "1a"
                 }
             ],
-            "ref": "1b"
+            "name": "1b"
         },
         {
             "archetype": "HoldConnector",
@@ -3935,7 +3931,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1c"
+            "name": "1c"
         },
         {
             "archetype": "HoldNote",
@@ -3949,7 +3945,7 @@
                     "ref": "1c"
                 }
             ],
-            "ref": "1d"
+            "name": "1d"
         },
         {
             "archetype": "HoldConnector",
@@ -4129,7 +4125,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1e"
+            "name": "1e"
         },
         {
             "archetype": "HoldNote",
@@ -4143,7 +4139,7 @@
                     "ref": "1e"
                 }
             ],
-            "ref": "1f"
+            "name": "1f"
         },
         {
             "archetype": "HoldConnector",
@@ -4208,7 +4204,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1g"
+            "name": "1g"
         },
         {
             "archetype": "HoldNote",
@@ -4222,7 +4218,7 @@
                     "ref": "1g"
                 }
             ],
-            "ref": "1h"
+            "name": "1h"
         },
         {
             "archetype": "HoldConnector",
@@ -4325,7 +4321,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1i"
+            "name": "1i"
         },
         {
             "archetype": "HoldNote",
@@ -4339,7 +4335,7 @@
                     "ref": "1i"
                 }
             ],
-            "ref": "1j"
+            "name": "1j"
         },
         {
             "archetype": "HoldConnector",
@@ -4472,7 +4468,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1k"
+            "name": "1k"
         },
         {
             "archetype": "HoldNote",
@@ -4486,7 +4482,7 @@
                     "ref": "1k"
                 }
             ],
-            "ref": "1l"
+            "name": "1l"
         },
         {
             "archetype": "HoldConnector",
@@ -5052,7 +5048,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1m"
+            "name": "1m"
         },
         {
             "archetype": "HoldNote",
@@ -5066,7 +5062,7 @@
                     "ref": "1m"
                 }
             ],
-            "ref": "1n"
+            "name": "1n"
         },
         {
             "archetype": "HoldConnector",
@@ -5101,7 +5097,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1o"
+            "name": "1o"
         },
         {
             "archetype": "HoldNote",
@@ -5115,7 +5111,7 @@
                     "ref": "1o"
                 }
             ],
-            "ref": "1p"
+            "name": "1p"
         },
         {
             "archetype": "HoldConnector",
@@ -5223,7 +5219,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1q"
+            "name": "1q"
         },
         {
             "archetype": "HoldNote",
@@ -5237,7 +5233,7 @@
                     "ref": "1q"
                 }
             ],
-            "ref": "1r"
+            "name": "1r"
         },
         {
             "archetype": "HoldConnector",
@@ -5376,7 +5372,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1s"
+            "name": "1s"
         },
         {
             "archetype": "HoldNote",
@@ -5390,7 +5386,7 @@
                     "ref": "1s"
                 }
             ],
-            "ref": "1t"
+            "name": "1t"
         },
         {
             "archetype": "HoldConnector",
@@ -5816,7 +5812,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1u"
+            "name": "1u"
         },
         {
             "archetype": "HoldNote",
@@ -5830,7 +5826,7 @@
                     "ref": "1u"
                 }
             ],
-            "ref": "1v"
+            "name": "1v"
         },
         {
             "archetype": "HoldConnector",
@@ -5976,7 +5972,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1w"
+            "name": "1w"
         },
         {
             "archetype": "HoldNote",
@@ -5990,7 +5986,7 @@
                     "ref": "1w"
                 }
             ],
-            "ref": "1x"
+            "name": "1x"
         },
         {
             "archetype": "HoldConnector",
@@ -6025,7 +6021,7 @@
                     "value": 1
                 }
             ],
-            "ref": "1y"
+            "name": "1y"
         },
         {
             "archetype": "HoldNote",
@@ -6039,7 +6035,7 @@
                     "ref": "1y"
                 }
             ],
-            "ref": "1z"
+            "name": "1z"
         },
         {
             "archetype": "HoldConnector",
@@ -6224,7 +6220,7 @@
                     "value": 1
                 }
             ],
-            "ref": "20"
+            "name": "20"
         },
         {
             "archetype": "HoldNote",
@@ -6238,7 +6234,7 @@
                     "ref": "20"
                 }
             ],
-            "ref": "21"
+            "name": "21"
         },
         {
             "archetype": "HoldConnector",
@@ -6273,7 +6269,7 @@
                     "value": 1
                 }
             ],
-            "ref": "22"
+            "name": "22"
         },
         {
             "archetype": "HoldNote",
@@ -6287,7 +6283,7 @@
                     "ref": "22"
                 }
             ],
-            "ref": "23"
+            "name": "23"
         },
         {
             "archetype": "HoldConnector",
@@ -6498,7 +6494,7 @@
                     "value": 1
                 }
             ],
-            "ref": "24"
+            "name": "24"
         },
         {
             "archetype": "HoldNote",
@@ -6512,7 +6508,7 @@
                     "ref": "24"
                 }
             ],
-            "ref": "25"
+            "name": "25"
         },
         {
             "archetype": "HoldConnector",
@@ -6547,7 +6543,7 @@
                     "value": 1
                 }
             ],
-            "ref": "26"
+            "name": "26"
         },
         {
             "archetype": "HoldNote",
@@ -6561,7 +6557,7 @@
                     "ref": "26"
                 }
             ],
-            "ref": "27"
+            "name": "27"
         },
         {
             "archetype": "HoldConnector",
@@ -7074,7 +7070,7 @@
                     "value": 1
                 }
             ],
-            "ref": "28"
+            "name": "28"
         },
         {
             "archetype": "HoldNote",
@@ -7088,7 +7084,7 @@
                     "ref": "28"
                 }
             ],
-            "ref": "29"
+            "name": "29"
         },
         {
             "archetype": "HoldConnector",
@@ -7244,7 +7240,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2a"
+            "name": "2a"
         },
         {
             "archetype": "HoldNote",
@@ -7258,7 +7254,7 @@
                     "ref": "2a"
                 }
             ],
-            "ref": "2b"
+            "name": "2b"
         },
         {
             "archetype": "HoldConnector",
@@ -7684,7 +7680,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2c"
+            "name": "2c"
         },
         {
             "archetype": "HoldNote",
@@ -7698,7 +7694,7 @@
                     "ref": "2c"
                 }
             ],
-            "ref": "2d"
+            "name": "2d"
         },
         {
             "archetype": "HoldConnector",
@@ -7891,7 +7887,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2e"
+            "name": "2e"
         },
         {
             "archetype": "HoldNote",
@@ -7905,7 +7901,7 @@
                     "ref": "2e"
                 }
             ],
-            "ref": "2f"
+            "name": "2f"
         },
         {
             "archetype": "HoldConnector",
@@ -7953,7 +7949,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2g"
+            "name": "2g"
         },
         {
             "archetype": "HoldNote",
@@ -7967,7 +7963,7 @@
                     "ref": "2g"
                 }
             ],
-            "ref": "2h"
+            "name": "2h"
         },
         {
             "archetype": "HoldConnector",
@@ -8036,7 +8032,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2i"
+            "name": "2i"
         },
         {
             "archetype": "HoldNote",
@@ -8050,7 +8046,7 @@
                     "ref": "2i"
                 }
             ],
-            "ref": "2j"
+            "name": "2j"
         },
         {
             "archetype": "HoldConnector",
@@ -8222,7 +8218,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2k"
+            "name": "2k"
         },
         {
             "archetype": "HoldNote",
@@ -8236,7 +8232,7 @@
                     "ref": "2k"
                 }
             ],
-            "ref": "2l"
+            "name": "2l"
         },
         {
             "archetype": "HoldConnector",
@@ -8284,7 +8280,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2m"
+            "name": "2m"
         },
         {
             "archetype": "HoldNote",
@@ -8298,7 +8294,7 @@
                     "ref": "2m"
                 }
             ],
-            "ref": "2n"
+            "name": "2n"
         },
         {
             "archetype": "HoldConnector",
@@ -8367,7 +8363,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2o"
+            "name": "2o"
         },
         {
             "archetype": "HoldNote",
@@ -8381,7 +8377,7 @@
                     "ref": "2o"
                 }
             ],
-            "ref": "2p"
+            "name": "2p"
         },
         {
             "archetype": "HoldConnector",
@@ -8553,7 +8549,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2q"
+            "name": "2q"
         },
         {
             "archetype": "HoldNote",
@@ -8567,7 +8563,7 @@
                     "ref": "2q"
                 }
             ],
-            "ref": "2r"
+            "name": "2r"
         },
         {
             "archetype": "HoldConnector",
@@ -8632,7 +8628,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2s"
+            "name": "2s"
         },
         {
             "archetype": "HoldNote",
@@ -8646,7 +8642,7 @@
                     "ref": "2s"
                 }
             ],
-            "ref": "2t"
+            "name": "2t"
         },
         {
             "archetype": "HoldConnector",
@@ -8805,7 +8801,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2u"
+            "name": "2u"
         },
         {
             "archetype": "HoldNote",
@@ -8819,7 +8815,7 @@
                     "ref": "2u"
                 }
             ],
-            "ref": "2v"
+            "name": "2v"
         },
         {
             "archetype": "HoldConnector",
@@ -8854,7 +8850,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2w"
+            "name": "2w"
         },
         {
             "archetype": "HoldNote",
@@ -8868,7 +8864,7 @@
                     "ref": "2w"
                 }
             ],
-            "ref": "2x"
+            "name": "2x"
         },
         {
             "archetype": "HoldConnector",
@@ -9305,7 +9301,7 @@
                     "value": 1
                 }
             ],
-            "ref": "2y"
+            "name": "2y"
         },
         {
             "archetype": "HoldNote",
@@ -9319,7 +9315,7 @@
                     "ref": "2y"
                 }
             ],
-            "ref": "2z"
+            "name": "2z"
         },
         {
             "archetype": "HoldConnector",
@@ -9354,7 +9350,7 @@
                     "value": 1
                 }
             ],
-            "ref": "30"
+            "name": "30"
         },
         {
             "archetype": "HoldNote",
@@ -9368,7 +9364,7 @@
                     "ref": "30"
                 }
             ],
-            "ref": "31"
+            "name": "31"
         },
         {
             "archetype": "HoldConnector",
@@ -9403,7 +9399,7 @@
                     "value": 1
                 }
             ],
-            "ref": "32"
+            "name": "32"
         },
         {
             "archetype": "HoldNote",
@@ -9417,7 +9413,7 @@
                     "ref": "32"
                 }
             ],
-            "ref": "33"
+            "name": "33"
         },
         {
             "archetype": "HoldConnector",
@@ -9660,7 +9656,7 @@
                     "value": 1
                 }
             ],
-            "ref": "34"
+            "name": "34"
         },
         {
             "archetype": "HoldNote",
@@ -9674,7 +9670,7 @@
                     "ref": "34"
                 }
             ],
-            "ref": "35"
+            "name": "35"
         },
         {
             "archetype": "HoldConnector",
@@ -9980,7 +9976,7 @@
                     "value": 1
                 }
             ],
-            "ref": "36"
+            "name": "36"
         },
         {
             "archetype": "HoldNote",
@@ -9994,7 +9990,7 @@
                     "ref": "36"
                 }
             ],
-            "ref": "37"
+            "name": "37"
         },
         {
             "archetype": "HoldConnector",
@@ -10190,7 +10186,7 @@
                     "value": 1
                 }
             ],
-            "ref": "38"
+            "name": "38"
         },
         {
             "archetype": "HoldNote",
@@ -10204,7 +10200,7 @@
                     "ref": "38"
                 }
             ],
-            "ref": "39"
+            "name": "39"
         },
         {
             "archetype": "HoldConnector",
@@ -11943,7 +11939,7 @@
                     "value": 1
                 }
             ],
-            "ref": "3a"
+            "name": "3a"
         },
         {
             "archetype": "HoldNote",
@@ -11957,7 +11953,7 @@
                     "ref": "3a"
                 }
             ],
-            "ref": "3b"
+            "name": "3b"
         },
         {
             "archetype": "HoldConnector",

@@ -1,13 +1,19 @@
 import { SwingDirection } from '../../../../../../../shared/src/engine/data/SwingDirection.mjs'
+import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { options } from '../../../../configuration/options.mjs'
+import { buckets } from '../../../buckets.mjs'
 import { arrowLayout } from '../../../note.mjs'
 import { getZ, layer, skin, sprites } from '../../../skin.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class SwingNote extends SingleNote {
-    swingData = this.defineData({
+    swingImport = this.defineImport({
         direction: { name: 'direction', type: DataType<SwingDirection> },
     })
+
+    windows = windows.swingNote
+
+    bucket = buckets.swingNote
 
     arrow = this.entityMemory({
         layout: Quad,
@@ -17,14 +23,14 @@ export class SwingNote extends SingleNote {
     preprocess() {
         super.preprocess()
 
-        if (options.mirror) this.swingData.direction *= -1
+        if (options.mirror) this.swingImport.direction *= -1
     }
 
     globalInitialize() {
         super.globalInitialize()
 
-        arrowLayout(this.data.lane, this.swingData.direction).copyTo(this.arrow.layout)
-        this.arrow.z = getZ(layer.note.arrow, this.targetTime, this.data.lane)
+        arrowLayout(this.import.lane, this.swingImport.direction).copyTo(this.arrow.layout)
+        this.arrow.z = getZ(layer.note.arrow, this.targetTime, this.import.lane)
     }
 
     render() {

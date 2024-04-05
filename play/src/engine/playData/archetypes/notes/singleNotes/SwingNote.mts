@@ -1,14 +1,14 @@
 import { SwingDirection } from '../../../../../../../shared/src/engine/data/SwingDirection.mjs'
+import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { options } from '../../../../configuration/options.mjs'
 import { buckets } from '../../../buckets.mjs'
 import { arrowLayout } from '../../../note.mjs'
 import { getZ, layer, skin, sprites } from '../../../skin.mjs'
-import { windows } from '../../../windows.mjs'
 import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class SwingNote extends SingleNote {
-    swingData = this.defineData({
+    swingImport = this.defineImport({
         direction: { name: 'direction', type: DataType<SwingDirection> },
     })
 
@@ -24,14 +24,14 @@ export class SwingNote extends SingleNote {
     preprocess() {
         super.preprocess()
 
-        if (options.mirror) this.swingData.direction *= -1
+        if (options.mirror) this.swingImport.direction *= -1
     }
 
     initialize() {
         super.initialize()
 
-        arrowLayout(this.data.lane, this.swingData.direction).copyTo(this.arrow.layout)
-        this.arrow.z = getZ(layer.note.arrow, this.targetTime, this.data.lane)
+        arrowLayout(this.import.lane, this.swingImport.direction).copyTo(this.arrow.layout)
+        this.arrow.z = getZ(layer.note.arrow, this.targetTime, this.import.lane)
     }
 
     touch() {
@@ -40,7 +40,7 @@ export class SwingNote extends SingleNote {
         for (const touch of touches) {
             const { lane, radius } = transform(touch.position)
             if (Math.abs(radius - 1) > 0.32) continue
-            if (Math.abs(lane - this.data.lane) > 0.5) continue
+            if (Math.abs(lane - this.import.lane) > 0.5) continue
 
             if (touch.started) {
                 if (isUsed(touch)) continue
@@ -52,7 +52,7 @@ export class SwingNote extends SingleNote {
             } else {
                 const { lane: lastLane, radius: lastRadius } = transform(touch.lastPosition)
                 if (Math.abs(lastRadius - 1) > 0.32) continue
-                if (Math.abs(lastLane - this.data.lane) <= 0.5) continue
+                if (Math.abs(lastLane - this.import.lane) <= 0.5) continue
 
                 this.complete(touch, touch.time)
                 return

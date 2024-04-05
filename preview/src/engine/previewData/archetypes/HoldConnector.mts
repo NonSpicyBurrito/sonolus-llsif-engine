@@ -4,15 +4,15 @@ import { getZ, layer, skin, sprites } from '../skin.mjs'
 import { archetypes } from './index.mjs'
 
 export class HoldConnector extends Archetype {
-    data = this.defineData({
+    import = this.defineImport({
         headRef: { name: 'head', type: Number },
         tailRef: { name: 'tail', type: Number },
     })
 
     render() {
         const t = {
-            min: bpmChanges.at(this.headData.beat).time,
-            max: bpmChanges.at(this.tailData.beat).time,
+            min: bpmChanges.at(this.headImport.beat).time,
+            max: bpmChanges.at(this.tailImport.beat).time,
         }
 
         const index = {
@@ -20,7 +20,7 @@ export class HoldConnector extends Archetype {
             max: Math.floor(t.max / panel.h),
         }
 
-        const lane = this.headData.lane
+        const lane = this.headImport.lane
         const l = lane - 0.5 * options.noteSize
         const r = lane + 0.5 * options.noteSize
 
@@ -46,11 +46,11 @@ export class HoldConnector extends Archetype {
         }
     }
 
-    get headData() {
-        return archetypes.TapNote.data.get(this.data.headRef)
+    get headImport() {
+        return archetypes.TapNote.import.get(this.import.headRef)
     }
 
-    get tailData() {
-        return archetypes.TapNote.data.get(this.data.tailRef)
+    get tailImport() {
+        return archetypes.TapNote.import.get(this.import.tailRef)
     }
 }

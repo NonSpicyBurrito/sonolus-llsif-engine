@@ -3,7 +3,7 @@ import {
     EngineArchetypeName,
     LevelData,
     LevelDataEntity,
-} from 'sonolus-core'
+} from '@sonolus/core'
 import { SIFC, SIFCBpmChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.cjs'
 
 type Intermediate = {
@@ -33,7 +33,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
         intermediateToRef.set(intermediate, ref)
 
         const entity = intermediateToEntity.get(intermediate)
-        if (entity) entity.ref = ref
+        if (entity) entity.name = ref
 
         return ref
     }
@@ -57,7 +57,7 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
         }
 
         const ref = intermediateToRef.get(intermediate)
-        if (ref) entity.ref = ref
+        if (ref) entity.name = ref
 
         intermediateToEntity.set(intermediate, entity)
         entities.push(entity)
@@ -82,11 +82,6 @@ export function sifcToLevelData(chart: SIFC, offset = 0): LevelData {
         data: {
             attribute: chart.attribute,
         },
-        sim: false,
-    })
-    append({
-        archetype: 'InputManager',
-        data: {},
         sim: false,
     })
     append({

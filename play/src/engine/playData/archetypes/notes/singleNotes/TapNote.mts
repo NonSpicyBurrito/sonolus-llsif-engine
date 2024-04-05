@@ -1,5 +1,5 @@
+import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { buckets } from '../../../buckets.mjs'
-import { windows } from '../../../windows.mjs'
 import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
@@ -17,7 +17,7 @@ export class TapNote extends SingleNote {
 
             const { lane, radius } = transform(touch.position)
             if (Math.abs(radius - 1) > 0.32) continue
-            if (Math.abs(lane - this.data.lane) > 0.5) continue
+            if (Math.abs(lane - this.import.lane) > 0.5) continue
 
             this.complete(touch)
             return
