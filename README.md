@@ -4,8 +4,8 @@ A recreation of Love Live! School idol festival engine in [Sonolus](https://sono
 
 ## Links
 
--   [Sonolus Website](https://sonolus.com)
--   [Sonolus Wiki](https://github.com/NonSpicyBurrito/sonolus-wiki)
+- [Sonolus Website](https://sonolus.com)
+- [Sonolus Wiki](https://github.com/NonSpicyBurrito/sonolus-wiki)
 
 ## Installation
 
@@ -59,11 +59,11 @@ Path to Engine Thumbnail file.
 
 Converts NSS (note setting asset) to SIFC (SIF Chart).
 
--   `nss`: note setting asset.
+- `nss`: note setting asset.
 
 ### `sifcToLevelData(chart, offset?)`
 
 Converts SIFC (SIF Chart) to Level Data.
 
--   `chart`: SIF Chart.
--   `offset`: offset (default: `0`).
+- `chart`: SIF Chart.
+- `offset`: offset (default: `0`).
