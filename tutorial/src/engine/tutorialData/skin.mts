@@ -1,6 +1,7 @@
 import { SkinSpriteName } from '@sonolus/core'
 
 export const skin = defineSkin({
+    renderMode: 'standard',
     sprites: {
         slot: SkinSpriteName.NoteSlot,
 

@@ -2,6 +2,7 @@ import { SkinSpriteName } from '@sonolus/core'
 import { panel } from './panel.mjs'
 
 export const skin = defineSkin({
+    renderMode: 'standard',
     sprites: {
         lane: SkinSpriteName.Lane,
         laneAlternative: SkinSpriteName.LaneAlternative,
