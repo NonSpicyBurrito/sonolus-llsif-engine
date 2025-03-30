@@ -25,7 +25,7 @@ export const databaseEngineItem = {
         zht: 'Love Live! 學園偶像祭',
     },
     author: {
-        en: 'Burrito',
+        en: 'Burrito#1000',
     },
     description: {
         en: [
