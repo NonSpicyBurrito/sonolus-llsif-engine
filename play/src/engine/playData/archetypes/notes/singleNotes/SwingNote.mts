@@ -53,7 +53,9 @@ export class SwingNote extends SingleNote {
                 const { lane: lastLane, radius: lastRadius } = transform(touch.lastPosition)
                 if (Math.abs(lastRadius - 1) > 0.32) continue
                 if (Math.abs(lastLane - this.import.lane) <= 0.5) continue
+                if (isUsed(touch)) continue
 
+                markAsUsed(touch)
                 this.complete(touch, touch.time)
                 return
             }
