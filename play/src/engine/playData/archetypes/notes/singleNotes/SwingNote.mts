@@ -4,7 +4,7 @@ import { options } from '../../../../configuration/options.mjs'
 import { buckets } from '../../../buckets.mjs'
 import { arrowLayout } from '../../../note.mjs'
 import { getZ, layer, skin, sprites } from '../../../skin.mjs'
-import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
+import { isUsed, transform } from '../../InputManager.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class SwingNote extends SingleNote {
@@ -38,15 +38,13 @@ export class SwingNote extends SingleNote {
         if (time.now < this.inputTime.min) return
 
         for (const touch of touches) {
+            if (isUsed(touch)) continue
+
             const { lane, radius } = transform(touch.position)
             if (Math.abs(radius - 1) > 0.32) continue
             if (Math.abs(lane - this.import.lane) > 0.5) continue
 
             if (touch.started) {
-                if (isUsed(touch)) continue
-
-                markAsUsed(touch)
-
                 this.complete(touch, touch.startTime)
                 return
             } else {
@@ -58,20 +56,6 @@ export class SwingNote extends SingleNote {
                 return
             }
         }
-    }
-
-    complete(touch: Touch, hitTime: number) {
-        this.singleSharedMemory.activatedTouchId = touch.id
-
-        this.result.judgment = input.judge(hitTime, this.targetTime, this.windows)
-        this.result.accuracy = hitTime - this.targetTime
-
-        this.result.bucket.index = this.bucket.index
-        this.result.bucket.value = this.result.accuracy * 1000
-
-        this.playHitEffects()
-
-        this.despawn = true
     }
 
     render() {

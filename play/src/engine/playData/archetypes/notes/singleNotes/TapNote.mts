@@ -1,6 +1,6 @@
 import { windows } from '../../../../../../../shared/src/engine/data/windows.mjs'
 import { buckets } from '../../../buckets.mjs'
-import { isUsed, markAsUsed, transform } from '../../InputManager.mjs'
+import { isUsed, transform } from '../../InputManager.mjs'
 import { SingleNote } from './SingleNote.mjs'
 
 export class TapNote extends SingleNote {
@@ -19,23 +19,8 @@ export class TapNote extends SingleNote {
             if (Math.abs(radius - 1) > 0.32) continue
             if (Math.abs(lane - this.import.lane) > 0.5) continue
 
-            this.complete(touch)
+            this.complete(touch, touch.startTime)
             return
         }
-    }
-
-    complete(touch: Touch) {
-        markAsUsed(touch)
-        this.singleSharedMemory.activatedTouchId = touch.id
-
-        this.result.judgment = input.judge(touch.startTime, this.targetTime, this.windows)
-        this.result.accuracy = touch.startTime - this.targetTime
-
-        this.result.bucket.index = this.bucket.index
-        this.result.bucket.value = this.result.accuracy * 1000
-
-        this.playHitEffects()
-
-        this.despawn = true
     }
 }
