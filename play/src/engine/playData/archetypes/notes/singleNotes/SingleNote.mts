@@ -1,4 +1,5 @@
 import { getZ, layer, skin, sprites } from '../../../skin.mjs'
+import { markAsUsed } from '../../InputManager.mjs'
 import { Note } from '../Note.mjs'
 
 export abstract class SingleNote extends Note {
@@ -20,6 +21,21 @@ export abstract class SingleNote extends Note {
 
         if (this.singleImport.sim)
             this.sim.z = getZ(layer.note.sim, this.targetTime, this.import.lane)
+    }
+
+    complete(touch: Touch, hitTime: number) {
+        markAsUsed(touch)
+        this.singleSharedMemory.activatedTouchId = touch.id
+
+        this.result.judgment = input.judge(hitTime, this.targetTime, this.windows)
+        this.result.accuracy = hitTime - this.targetTime
+
+        this.result.bucket.index = this.bucket.index
+        this.result.bucket.value = this.result.accuracy * 1000
+
+        this.playHitEffects()
+
+        this.despawn = true
     }
 
     render() {
