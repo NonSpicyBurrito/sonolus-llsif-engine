@@ -5,7 +5,7 @@ export * from './nss/index.js'
 export { sifcToLevelData } from './sifc/convert.js'
 export * from './sifc/index.js'
 
-export const version = '1.5.3'
+export const version = '1.6.0'
 
 export const databaseEngineItem = {
     name: 'llsif',
