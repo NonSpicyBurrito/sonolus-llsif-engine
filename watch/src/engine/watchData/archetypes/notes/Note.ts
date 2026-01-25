@@ -41,7 +41,7 @@ export abstract class Note extends Archetype {
     globalPreprocess() {
         this.bucket.set(toBucketWindows(this.windows))
 
-        this.life.miss = -40
+        this.archetypeLife.miss = -40
     }
 
     preprocess() {
