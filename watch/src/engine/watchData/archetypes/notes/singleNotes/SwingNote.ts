@@ -3,7 +3,7 @@ import { windows } from '../../../../../../../shared/src/engine/data/windows.js'
 import { options } from '../../../../configuration/options.js'
 import { buckets } from '../../../buckets.js'
 import { arrowLayout } from '../../../note.js'
-import { getZ, layer, skin, sprites } from '../../../skin.js'
+import { layer, skin, sprites } from '../../../skin.js'
 import { SingleNote } from './SingleNote.js'
 
 export class SwingNote extends SingleNote {
@@ -17,7 +17,6 @@ export class SwingNote extends SingleNote {
 
     arrow = this.entityMemory({
         layout: Quad,
-        z: Number,
     })
 
     preprocess() {
@@ -30,12 +29,16 @@ export class SwingNote extends SingleNote {
         super.globalInitialize()
 
         arrowLayout(this.import.lane, this.swingImport.direction).copyTo(this.arrow.layout)
-        this.arrow.z = getZ(layer.note.arrow, this.targetTime, this.import.lane)
     }
 
     render() {
         super.render()
 
-        skin.sprites.draw(sprites.arrow, this.arrow.layout.mul(this.s), this.arrow.z, 1)
+        skin.sprites.draw(
+            sprites.arrow,
+            this.arrow.layout.mul(this.s),
+            [layer.note.arrow, -this.targetTime, -this.import.lane],
+            1,
+        )
     }
 }

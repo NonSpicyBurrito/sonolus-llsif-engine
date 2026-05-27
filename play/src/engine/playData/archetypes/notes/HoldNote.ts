@@ -1,6 +1,6 @@
 import { windows } from '../../../../../../shared/src/engine/data/windows.js'
 import { buckets } from '../../buckets.js'
-import { skin, sprites } from '../../skin.js'
+import { layer, skin, sprites } from '../../skin.js'
 import { transform } from '../InputManager.js'
 import { archetypes } from '../index.js'
 import { Note } from './Note.js'
@@ -103,6 +103,11 @@ export class HoldNote extends Note {
     render() {
         super.render()
 
-        skin.sprites.draw(sprites.tail, this.note.layout.mul(this.s), this.note.z, 1)
+        skin.sprites.draw(
+            sprites.tail,
+            this.note.layout.mul(this.s),
+            [layer.note.body, -this.targetTime, -this.import.lane],
+            1,
+        )
     }
 }

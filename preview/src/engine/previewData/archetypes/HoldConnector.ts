@@ -1,6 +1,6 @@
 import { options } from '../../configuration/options.js'
 import { panel } from '../panel.js'
-import { getZ, layer, skin, sprites } from '../skin.js'
+import { layer, skin, sprites } from '../skin.js'
 import { archetypes } from './index.js'
 
 export class HoldConnector extends Archetype {
@@ -24,8 +24,6 @@ export class HoldConnector extends Archetype {
         const l = lane - 0.5 * options.noteSize
         const r = lane + 0.5 * options.noteSize
 
-        const z = getZ(layer.connector, t.min, lane)
-
         for (let i = index.min; i <= index.max; i++) {
             const pt = {
                 min: Math.max(t.min, i * panel.h),
@@ -40,7 +38,7 @@ export class HoldConnector extends Archetype {
                     b: pt.min - i * panel.h,
                     t: pt.max - i * panel.h,
                 }).translate(i * panel.w, 0),
-                z,
+                [layer.connector, -t.min, -lane],
                 options.connectorAlpha,
             )
         }

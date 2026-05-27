@@ -11,7 +11,7 @@ export const slide = {
     update() {
         if (!mode) return
 
-        sprites.slide.draw(noteLayout(0), layer.slide, 1)
+        sprites.slide.draw(noteLayout(0), [layer.slide], 1)
     },
 
     show() {

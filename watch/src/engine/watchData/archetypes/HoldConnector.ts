@@ -3,7 +3,7 @@ import { lanes } from '../../../../../shared/src/engine/data/lanes.js'
 import { options } from '../../configuration/options.js'
 import { arrowLayout, note, noteLayout } from '../note.js'
 import { effects, holdEffectLayout, particle } from '../particle.js'
-import { getZ, layer, skin, sprites } from '../skin.js'
+import { layer, skin, sprites } from '../skin.js'
 import { archetypes } from './index.js'
 
 export class HoldConnector extends Archetype {
@@ -32,22 +32,14 @@ export class HoldConnector extends Archetype {
     connector = this.entityMemory({
         l: Vec,
         r: Vec,
-
-        z: Number,
     })
 
     slide = this.entityMemory({
         layout: Rect,
-        z: Number,
-    })
-
-    sim = this.entityMemory({
-        z: Number,
     })
 
     arrow = this.entityMemory({
         layout: Quad,
-        z: Number,
     })
 
     holdEffectInstanceId = this.entityMemory(ParticleEffectInstanceId)
@@ -153,16 +145,10 @@ export class HoldConnector extends Archetype {
         new Vec(-w, 1).rotate(a).copyTo(this.connector.l)
         new Vec(w, 1).rotate(a).copyTo(this.connector.r)
 
-        this.connector.z = getZ(layer.connector, this.head.time, this.head.lane)
-
         noteLayout(this.head.lane).copyTo(this.slide.layout)
-        this.slide.z = getZ(layer.slide.body, this.head.time, this.head.lane)
-
-        if (this.head.sim) this.sim.z = getZ(layer.slide.sim, this.head.time, this.head.lane)
 
         if (this.head.arrow) {
             arrowLayout(this.head.lane, this.head.arrow).copyTo(this.arrow.layout)
-            this.arrow.z = getZ(layer.slide.body, this.head.time, this.head.lane)
         }
     }
 
@@ -201,18 +187,44 @@ export class HoldConnector extends Archetype {
         if (this.useActiveSprite && this.isActive) {
             const a = Math.abs(Math.sin((time.now - this.head.time) * Math.PI * 2))
 
-            skin.sprites.activeHold.draw(layout, this.connector.z, options.connectorAlpha * a)
+            skin.sprites.activeHold.draw(
+                layout,
+                [layer.connector, -this.head.time, -this.head.lane],
+                options.connectorAlpha * a,
+            )
         } else {
-            skin.sprites.draw(sprites.connector, layout, this.connector.z, options.connectorAlpha)
+            skin.sprites.draw(
+                sprites.connector,
+                layout,
+                [layer.connector, -this.head.time, -this.head.lane],
+                options.connectorAlpha,
+            )
         }
     }
 
     renderSlide() {
-        skin.sprites.draw(sprites.head, this.slide.layout, this.slide.z, 1)
+        skin.sprites.draw(
+            sprites.head,
+            this.slide.layout,
+            [layer.slide.body, -this.head.time, -this.head.lane],
+            1,
+        )
 
-        if (this.head.sim) skin.sprites.draw(sprites.sim, this.slide.layout, this.sim.z, 1)
+        if (this.head.sim)
+            skin.sprites.draw(
+                sprites.sim,
+                this.slide.layout,
+                [layer.slide.sim, -this.head.time, -this.head.lane],
+                1,
+            )
 
-        if (this.head.arrow) skin.sprites.draw(sprites.arrow, this.arrow.layout, this.arrow.z, 1)
+        if (this.head.arrow)
+            skin.sprites.draw(
+                sprites.arrow,
+                this.arrow.layout,
+                [layer.slide.body, -this.head.time, -this.head.lane],
+                1,
+            )
     }
 
     spawnHoldEffect() {

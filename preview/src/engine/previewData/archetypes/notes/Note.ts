@@ -3,7 +3,7 @@ import { options } from '../../../configuration/options.js'
 import { chart } from '../../chart.js'
 import { panel } from '../../panel.js'
 import { scaledScreen } from '../../scaledScreen.js'
-import { getZ, skin } from '../../skin.js'
+import { skin } from '../../skin.js'
 
 export abstract class Note extends Archetype {
     import = this.defineImport({
@@ -22,8 +22,6 @@ export abstract class Note extends Archetype {
         const time = bpmChanges.at(this.import.beat).time
         const pos = panel.getPos(time)
 
-        const z = getZ(layer, time, this.import.lane)
-
         const layout = new Rect({
             l: this.import.lane - 0.5 * options.noteSize,
             r: this.import.lane + 0.5 * options.noteSize,
@@ -33,13 +31,23 @@ export abstract class Note extends Archetype {
 
         switch (rotate) {
             case 'up':
-                skin.sprites.draw(spriteId, layout, z, 1)
+                skin.sprites.draw(spriteId, layout, [layer, -time, -this.import.lane], 1)
                 break
             case 'left':
-                skin.sprites.draw(spriteId, layout.toQuad().swapRotate270(), z, 1)
+                skin.sprites.draw(
+                    spriteId,
+                    layout.toQuad().swapRotate270(),
+                    [layer, -time, -this.import.lane],
+                    1,
+                )
                 break
             case 'right':
-                skin.sprites.draw(spriteId, layout.toQuad().swapRotate90(), z, 1)
+                skin.sprites.draw(
+                    spriteId,
+                    layout.toQuad().swapRotate90(),
+                    [layer, -time, -this.import.lane],
+                    1,
+                )
                 break
         }
     }
