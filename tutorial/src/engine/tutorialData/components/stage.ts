@@ -10,7 +10,7 @@ export const stage = {
         for (let i = 0; i < 9; i++) {
             const layout = noteLayout(i - 4)
 
-            sprites.slot.draw(layout, layer.stage, 1)
+            sprites.slot.draw(layout, [layer.stage], 1)
         }
     },
 }

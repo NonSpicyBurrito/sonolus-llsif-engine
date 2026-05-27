@@ -51,9 +51,9 @@ export const connector = {
             const layout = new Rect({ l, r, t, b })
 
             if (mode === Mode.OverlayIn || sprites.useFallback) {
-                sprites.normal.draw(layout, layer.connector, a)
+                sprites.normal.draw(layout, [layer.connector], a)
             } else {
-                sprites.active.draw(layout, layer.connector, a)
+                sprites.active.draw(layout, [layer.connector], a)
             }
         } else if (mode === Mode.FallIn || mode === Mode.Frozen) {
             const t = Math.unlerp(0, 2, 0)
@@ -61,7 +61,7 @@ export const connector = {
 
             const layout = connectorLayout(t, b)
 
-            sprites.normal.draw(layout, layer.connector, 0.5)
+            sprites.normal.draw(layout, [layer.connector], 0.5)
         } else {
             const t = Math.unlerp(0, 2, mode === Mode.FallOut ? segment.time : 0)
             const b = Math.unlerp(0, 2, 2)
@@ -69,11 +69,11 @@ export const connector = {
             const layout = connectorLayout(t, b)
 
             if (sprites.useFallback) {
-                sprites.normal.draw(layout, layer.connector, 0.5)
+                sprites.normal.draw(layout, [layer.connector], 0.5)
             } else {
                 const a = 0.5 * Math.abs(Math.sin(segment.time * Math.PI * 2))
 
-                sprites.active.draw(layout, layer.connector, a)
+                sprites.active.draw(layout, [layer.connector], a)
             }
         }
     },

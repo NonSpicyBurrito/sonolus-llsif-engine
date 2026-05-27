@@ -1,4 +1,4 @@
-import { getZ, layer, skin, sprites } from '../../../skin.js'
+import { layer, skin, sprites } from '../../../skin.js'
 import { markAsUsed } from '../../InputManager.js'
 import { Note } from '../Note.js'
 
@@ -12,15 +12,8 @@ export abstract class SingleNote extends Note {
         activatedTouchId: TouchId,
     })
 
-    sim = this.entityMemory({
-        z: Number,
-    })
-
     initialize() {
         super.initialize()
-
-        if (this.singleImport.sim)
-            this.sim.z = getZ(layer.note.sim, this.targetTime, this.import.lane)
     }
 
     complete(touch: Touch, hitTime: number) {
@@ -43,9 +36,19 @@ export abstract class SingleNote extends Note {
 
         super.render()
 
-        skin.sprites.draw(sprites.head, this.note.layout.mul(this.s), this.note.z, 1)
+        skin.sprites.draw(
+            sprites.head,
+            this.note.layout.mul(this.s),
+            [layer.note.body, -this.targetTime, -this.import.lane],
+            1,
+        )
 
         if (this.singleImport.sim)
-            skin.sprites.draw(sprites.sim, this.note.layout.mul(this.s), this.sim.z, 1)
+            skin.sprites.draw(
+                sprites.sim,
+                this.note.layout.mul(this.s),
+                [layer.note.sim, -this.targetTime, -this.import.lane],
+                1,
+            )
     }
 }

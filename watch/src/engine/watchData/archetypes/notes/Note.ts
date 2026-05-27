@@ -4,7 +4,6 @@ import { options } from '../../../configuration/options.js'
 import { effect, sfxDistance } from '../../effect.js'
 import { note, noteLayout } from '../../note.js'
 import { effects, hitEffectLayout, particle } from '../../particle.js'
-import { getZ, layer } from '../../skin.js'
 
 export abstract class Note extends Archetype {
     hasInput = true
@@ -33,7 +32,6 @@ export abstract class Note extends Archetype {
 
     note = this.entityMemory({
         layout: Rect,
-        z: Number,
     })
 
     s = this.entityMemory(Number)
@@ -107,7 +105,6 @@ export abstract class Note extends Archetype {
             this.hiddenTime = this.visualTime.max - note.duration * options.hidden
 
         noteLayout(this.import.lane).copyTo(this.note.layout)
-        this.note.z = getZ(layer.note.body, this.targetTime, this.import.lane)
     }
 
     scheduleSFX() {
