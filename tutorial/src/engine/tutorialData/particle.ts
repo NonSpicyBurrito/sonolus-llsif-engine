@@ -1,4 +1,5 @@
 import { ParticleEffectName } from '@sonolus/core'
+
 import { note } from '../../../../shared/src/engine/data/note.js'
 import { layout } from '../../../../shared/src/engine/data/utils.js'
 

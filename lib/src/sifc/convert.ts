@@ -4,6 +4,7 @@ import {
     LevelData,
     LevelDataEntity,
 } from '@sonolus/core'
+
 import { SIFC, SIFCBpmChangeObject, SIFCObject, SIFCSwingNote, SIFCTapNote } from './index.js'
 
 type Intermediate = {
