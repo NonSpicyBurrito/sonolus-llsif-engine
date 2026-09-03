@@ -1,5 +1,5 @@
-import { SwingDirection } from '../../../../../shared/src/engine/data/SwingDirection.js'
 import { lanes } from '../../../../../shared/src/engine/data/lanes.js'
+import { SwingDirection } from '../../../../../shared/src/engine/data/SwingDirection.js'
 import { options } from '../../configuration/options.js'
 import { arrowLayout, note, noteLayout } from '../note.js'
 import { effects, holdEffectLayout, particle } from '../particle.js'

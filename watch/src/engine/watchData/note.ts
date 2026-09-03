@@ -1,6 +1,6 @@
-import { SwingDirection } from '../../../../shared/src/engine/data/SwingDirection.js'
 import { lanes } from '../../../../shared/src/engine/data/lanes.js'
 import { note as _note } from '../../../../shared/src/engine/data/note.js'
+import { SwingDirection } from '../../../../shared/src/engine/data/SwingDirection.js'
 import { layout } from '../../../../shared/src/engine/data/utils.js'
 import { options } from '../configuration/options.js'
 

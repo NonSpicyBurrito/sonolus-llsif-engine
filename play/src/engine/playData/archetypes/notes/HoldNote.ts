@@ -1,8 +1,8 @@
 import { windows } from '../../../../../../shared/src/engine/data/windows.js'
 import { buckets } from '../../buckets.js'
 import { layer, skin, sprites } from '../../skin.js'
-import { transform } from '../InputManager.js'
 import { archetypes } from '../index.js'
+import { transform } from '../InputManager.js'
 import { Note } from './Note.js'
 
 export class HoldNote extends Note {
