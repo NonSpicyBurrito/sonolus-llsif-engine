@@ -5,7 +5,7 @@ export * from './nss/index.js'
 export { sifcToLevelData } from './sifc/convert.js'
 export * from './sifc/index.js'
 
-export const version = '1.6.3'
+export const version = '1.6.4'
 
 export const engineFullName = {
     en: 'Love Live! School idol festival',
