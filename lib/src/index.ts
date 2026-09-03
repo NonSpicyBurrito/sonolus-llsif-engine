@@ -1,4 +1,4 @@
-import { DatabaseEngineItem } from '@sonolus/core'
+import { DatabaseEngineItem, TextFunction } from '@sonolus/core'
 
 export { nssToSIFC } from './nss/convert.js'
 export * from './nss/index.js'
@@ -7,23 +7,27 @@ export * from './sifc/index.js'
 
 export const version = '1.6.3'
 
+export const engineFullName = {
+    en: 'Love Live! School idol festival',
+    ja: 'ラブライブ！スクールアイドルフェスティバル',
+    ko: '러브라이브 스쿨 아이돌 페스티벌',
+    zhs: 'Love Live! 学园偶像祭',
+    zht: 'Love Live! 學園偶像祭',
+} as const
+
+export const engineShortName = {
+    en: 'Love Live!',
+    ja: 'ラブライブ！',
+    ko: '러브라이브',
+    zhs: 'Love Live!',
+    zht: 'Love Live!',
+} as const
+
 export const databaseEngineItem = {
     name: 'llsif',
     version: 13,
-    title: {
-        en: 'Love Live!',
-        ja: 'ラブライブ！',
-        ko: '러브라이브',
-        zhs: 'Love Live!',
-        zht: 'Love Live!',
-    },
-    subtitle: {
-        en: 'Love Live! School idol festival',
-        ja: 'ラブライブ！スクールアイドルフェスティバル',
-        ko: '러브라이브 스쿨 아이돌 페스티벌',
-        zhs: 'Love Live! 学园偶像祭',
-        zht: 'Love Live! 學園偶像祭',
-    },
+    title: { en: `${TextFunction.Localize}:${JSON.stringify(engineShortName)}` },
+    subtitle: { en: `${TextFunction.Localize}:${JSON.stringify(engineFullName)}` },
     author: {
         en: 'Burrito#1000',
     },
